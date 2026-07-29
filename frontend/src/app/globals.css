@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+/* Palette mặc định = LIGHT. Dark là override ở :root[data-theme="dark"] bên dưới.
+   Utilities của Tailwind tham chiếu var(--color-*), nên đổi biến là đổi cả theme. */
+@theme {
+  --color-ink-950: #f2f5fb;
+  --color-ink-900: #ffffff;
+  --color-ink-850: #ffffff;
+  --color-ink-800: #eaeff7;
+  --color-ink-700: #d7dfec;
+  --color-ink-600: #bcc8dc;
+  --color-mist-400: #64748b;
+  --color-mist-200: #334155;
+  --color-mist-50: #0f172a;
+  --color-spider-500: #be123c;
+  --color-spider-400: #e11d48;
+  --color-web-500: #2563eb;
+  --color-web-400: #1d4ed8;
+  --color-ok-400: #047857;
+  --color-warn-400: #b45309;
+}
+
+:root {
+  color-scheme: light;
+
+  --tool-clarify: #b45309;
+  --tool-timeline: #0369a1;
+  --tool-social_search: #0e7490;
+  --tool-lookup: #6d28d9;
+  --tool-fetch: #0f766e;
+  --tool-format: #047857;
+  --tool-send: #be123c;
+  --tool-policy: #c2410c;
+  --tool-papers: #4338ca;
+  --tool-paper_text: #a21caf;
+  --tool-default: #64748b;
+
+  --status-running: #1d4ed8;
+  --status-ok: #047857;
+  --status-wait: #b45309;
+  --status-limit: #c2410c;
+  --status-error: #be123c;
+  --status-idle: #64748b;
+
+  --page-glow-a: rgba(225, 29, 72, 0.09);
+  --page-glow-b: rgba(59, 130, 246, 0.1);
+  --page-grid: rgba(15, 23, 42, 0.045);
+  --panel-alpha: 92%;
+  --scroll-thumb: #c6d0e0;
+  --scroll-thumb-hover: #a9b6cc;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-ink-950: #060910;
+  --color-ink-900: #0a0f1a;
+  --color-ink-850: #0e1421;
+  --color-ink-800: #131a2a;
+  --color-ink-700: #1b2437;
+  --color-ink-600: #263149;
+  --color-mist-400: #8090ab;
+  --color-mist-200: #c3ccdc;
+  --color-mist-50: #eaeffa;
+  --color-spider-500: #e11d48;
+  --color-spider-400: #f43f5e;
+  --color-web-500: #3b82f6;
+  --color-web-400: #60a5fa;
+  --color-ok-400: #34d399;
+  --color-warn-400: #fbbf24;
+
+  --tool-clarify: #fbbf24;
+  --tool-timeline: #38bdf8;
+  --tool-social_search: #22d3ee;
+  --tool-lookup: #a78bfa;
+  --tool-fetch: #2dd4bf;
+  --tool-format: #34d399;
+  --tool-send: #f43f5e;
+  --tool-policy: #fb923c;
+  --tool-papers: #818cf8;
+  --tool-paper_text: #e879f9;
+  --tool-default: #8090ab;
+
+  --status-running: #60a5fa;
+  --status-ok: #34d399;
+  --status-wait: #fbbf24;
+  --status-limit: #fb923c;
+  --status-error: #f43f5e;
+  --status-idle: #8090ab;
+
+  --page-glow-a: rgba(225, 29, 72, 0.16);
+  --page-glow-b: rgba(59, 130, 246, 0.14);
+  --page-grid: rgba(255, 255, 255, 0.022);
+  --panel-alpha: 84%;
+  --scroll-thumb: #263149;
+  --scroll-thumb-hover: #33405d;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: var(--color-mist-50);
+  background-image:
+    radial-gradient(1100px 520px at 82% -8%, var(--page-glow-a), transparent 62%),
+    radial-gradient(900px 480px at 6% 4%, var(--page-glow-b), transparent 60%),
+    linear-gradient(var(--page-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--page-grid) 1px, transparent 1px);
+  background-size: auto, auto, 34px 34px, 34px 34px;
+  background-attachment: fixed;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}
+
+@utility panel {
+  background-color: color-mix(in oklab, var(--color-ink-850) var(--panel-alpha), transparent);
+  border: 1px solid var(--color-ink-700);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.1s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise-in 0.22s ease-out both;
+}
+
+@keyframes sweep {
+  from {
+    background-position: -180% 0;
+  }
+  to {
+    background-position: 180% 0;
+  }
+}
+.shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-spider-500) 22%, transparent),
+    transparent
+  );
+  background-size: 180% 100%;
+  animation: sweep 1.35s linear infinite;
+}
+
+.md-body h1,
+.md-body h2,
+.md-body h3 {
+  font-weight: 600;
+  color: var(--color-mist-50);
+  margin: 0.7rem 0 0.3rem;
+}
+.md-body h1 {
+  font-size: 1.02rem;
+}
+.md-body h2 {
+  font-size: 0.94rem;
+}
+.md-body h3 {
+  font-size: 0.88rem;
+}
+.md-body p {
+  margin: 0.35rem 0;
+}
+.md-body ul {
+  margin: 0.35rem 0;
+  padding-left: 1.05rem;
+  list-style: disc;
+}
+.md-body li {
+  margin: 0.2rem 0;
+}
+.md-body a {
+  color: var(--color-web-400);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.md-body a:hover {
+  color: var(--color-mist-50);
+}
+.md-body code {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  background: var(--color-ink-800);
+  padding: 0.08rem 0.3rem;
+  border-radius: 4px;
+}
+.md-body strong {
+  color: var(--color-mist-50);
+  font-weight: 600;
+}

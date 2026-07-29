@@ -1,0 +1,360 @@
+{
+  "transcript_id": "ui_current_20260729T145424_8f6207",
+  "surface": "nextjs_ui",
+  "version": "current",
+  "artifact_version": "current+pf0c107a9d7a1+t011c271ef0bb",
+  "prompt_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+  "tools_hash": "011c271ef0bbad1e19a5d7b660b2ed481b7d72950f1faa8a0798c3bdd8784ee1",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T14:54:24",
+  "updated_at": "2026-07-29T14:54:35",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T14:54:24",
+      "user": "Tìm giúp mình vài paper arXiv mới về LLM agent tool use",
+      "status": "answered",
+      "assistant_text": "Here are some recent papers from arXiv related to LLM agent tool use:\n\n1. **[SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents](http://arxiv.org/abs/2607.25619v1)**  \n   - **Authors**: Rui Yang, Michael Fu, Kla Tantithamthavorn, Chetan Arora, Joey Chua  \n   - **Summary**: This paper presents SkillGate, a security gateway that screens AI skill packages before installation, addressing the threat of malicious skill files that can compromise coding agents.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25619v1)**\n\n2. **[ClinFusion: A Vision-Centric Multimodal LLM System for Holistic Medical Understanding](http://arxiv.org/abs/2607.24743v2)**  \n   - **Authors**: Hangjie Yuan et al.  \n   - **Summary**: ClinFusion is introduced as a vision-centric MLLM designed for medical understanding, integrating diverse medical images and enhancing clinical workflows through agentic tool use.  \n   - **Published**: July 27, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.24743v2)**\n\n3. **[PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents](http://arxiv.org/abs/2607.25485v1)**  \n   - **Authors**: Korosh Vatanparvar et al.  \n   - **Summary**: This paper discusses a framework for evaluating patient-facing AI agents, focusing on their ability to converse and act on behalf of patients in healthcare settings.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25485v1)**\n\n4. **[CoRenew: A large language model agent-based policy simulation platform for multifamily residential redevelopment](http://arxiv.org/abs/2607.25447v1)**  \n   - **Authors**: Yudi Zhang et al.  \n   - **Summary**: CoRenew is an open-source platform that uses LLM-based agents to simulate negotiations among stakeholders in residential redevelopment, assessing policy impacts.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25447v1)**\n\n5. **[A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain](http://arxiv.org/abs/2607.25415v1)**  \n   - **Authors**: Debjyoti Paul  \n   - **Summary**: This paper presents a control system for LLM agents that allows them to learn and adapt their behavior in various domains using reinforcement learning techniques.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25415v1)**\n\nFeel free to check the links for more details on each paper!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "LLM agent tool use",
+                "max_results": 5,
+                "sort_by": "lastUpdatedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "LLM agent tool use",
+                "max_results": 5,
+                "sort_by": "lastUpdatedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "LLM agent tool use",
+                "api_query": "all:LLM AND all:agent AND all:tool AND all:use",
+                "total_results": 2329,
+                "items": [
+                  {
+                    "arxiv_id": "2607.25619v1",
+                    "title": "SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents",
+                    "summary": "Software engineering teams now deploy AI coding agents (Cursor, Claude Code, GitHub Copilot) as first-class productivity tools, installing domain-specific skill files to tailor agent behavior to project APIs, framework conventions, and organizational workflows. These complex Markdown files are easily downloaded from public registries with a single npx skills add command and no real security screening, representing a novel supply-chain attack surface: a malicious skill file can silently reprogram agent behavior, exfiltrating credentials, injecting backdoors into generated code, or redirecting agent actions to attacker-controlled endpoints. The threat is not hypothetical: recent reports document hundreds of malicious skill packages in public registries, including organized campaigns that distributed credential-stealing infostealers via fake productivity skills. No systematic toolchain defense exists for this attack surface. We present SkillGate, a deployable security gateway that screens AI skill packages before coding agent installation. SkillGate uses a hybrid regex-prefilter + LLM-judge pipeline: safe-signal files bypass the LLM entirely (skip savings); flagged files have only their matched snippet windows sent to the judge, not the full content (snippet savings). We answer four research questions covering detection effectiveness, screening cost, runtime overhead, and false positive behavior on the SkillsBench benchmark against two existing tools. On SkillsBench (n=1,650, 9.1% malicious), SkillGate achieves F1=0.817, FPR=1.13% while reducing LLM input tokens by 77% vs. full-file screening, and outperforming existing tools by 5-6x on threshold-independent AUPRC (0.830 vs. 0.144/0.162).",
+                    "authors": [
+                      "Rui Yang",
+                      "Michael Fu",
+                      "Kla Tantithamthavorn",
+                      "Chetan Arora",
+                      "Joey Chua"
+                    ],
+                    "published": "2026-07-28T11:50:19Z",
+                    "updated": "2026-07-28T11:50:19Z",
+                    "url": "http://arxiv.org/abs/2607.25619v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25619v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.SE",
+                    "categories": [
+                      "cs.SE",
+                      "cs.CR"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.24743v2",
+                    "title": "ClinFusion: A Vision-Centric Multimodal LLM System for Holistic Medical Understanding",
+                    "summary": "Multimodal large language models (MLLMs) hold immense potential to revolutionize clinical practice, yet deploying them in the medical domain is fundamentally a vision-centric challenge: models must absorb knowledge from heterogeneous 2D and 3D medical images, and evaluation protocols must align with radiologists' clinical practice and provide an accurate, fine-grained and factualness-driven assessment. In this paper, we introduce ClinFusion, a vision-centric MLLM designed for holistic medical understanding that systematically addresses these limitations. We propose a compositional and cascaded vision encoder architecture featuring a Cascade Spatial-Aware Locality Fusion operator that unifies diverse 2D and native 3D medical image understanding within a fused encoder. We further introduce a vision-grounded evaluation framework, including MedIF-Bench for instruction-following assessment and a region-of-interest-grounded method for clinically aligned and factualness-driven report generation evaluation. We show that ClinFusion sets a new state-of-the-art across a comprehensive suite of 2D and 3D multimodal medical benchmarks---spanning visual question answering, report generation, and instruction following---as well as textual medical tasks, outperforming leading open-source medical MLLMs (\\textit{e.g.}, Hulu-Med, Lingshu) on 20 out of 24 benchmarks and demonstrating multimodal capabilities better than powerful proprietary models such as GPT-5.2 and Gemini-3-Flash on 13 out of 16 benchmarks, and can be further augmented with agentic tool use for retrieval-augmented and tool-assisted clinical workflows. A blinded evaluation by board-certified radiologists confirms that ClinFusion produces the highest-ranked reports, and validates our RoI-grounded metric as achieving the strongest correlation with expert judgment among all automatic evaluation metrics examined.",
+                    "authors": [
+                      "Hangjie Yuan",
+                      "Yichen Qian",
+                      "Zhiwei Tang",
+                      "Xianzhe Xu",
+                      "Lirong Wu",
+                      "Sicheng Yang",
+                      "Jinwang Wang",
+                      "Pengju Wang",
+                      "Zhitao Zeng",
+                      "Yizeng Han",
+                      "Yan Xing",
+                      "Shengxuan Luo",
+                      "Tao Feng",
+                      "Qing Xie",
+                      "Weigen Yao",
+                      "Yi Yang",
+                      "Zuozhu Liu",
+                      "Jiasheng Tang",
+                      "Shaocheng Wang",
+                      "Jitao Wang",
+                      "Jiahong Dong",
+                      "Weihua Chen",
+                      "Feng Xu",
+                      "Fan Wang"
+                    ],
+                    "published": "2026-07-27T17:59:49Z",
+                    "updated": "2026-07-28T10:52:57Z",
+                    "url": "http://arxiv.org/abs/2607.24743v2",
+                    "pdf_url": "https://arxiv.org/pdf/2607.24743v2",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CV",
+                    "categories": [
+                      "cs.CV",
+                      "cs.AI",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25485v1",
+                    "title": "PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents",
+                    "summary": "Health AI is evolving from answering questions to agentic systems that converse with patients, reason about health records, and act on their behalf. Primary care guards against diagnostic errors and unsafe care; agents assisting in this domain warrant evaluation against the same risks. Current benchmarks focus on medical knowledge, assessed through isolated question-answering or clinician-facing tasks. PatientAgentBench benchmarks patient-facing agentic healthcare; it evaluates a foundation model, wrapped in an agent with a sandbox of healthcare tools, conversing with a simulated patient. Each conversation is scored by an LLM-as-a-Jury across six dimensions via over a hundred conversation-agnostic, clinician-grounded criteria. To validate alignment, licensed clinicians annotated shared conversations, yielding 79-93% adjacent agreement between jury and expert raters, on par with or exceeding clinician inter-rater agreement. We benchmarked 10 models across four families on the same 1,200 scenarios and found clinical gaps. Triage quality is the most discriminating dimension: pass rates rise from 32% for the weakest models to 88% for the strongest, with agents often acting on administrative requests without clinical screening. Clinical safety and workflow accuracy follow the same pattern: the weakest models fail often, fabricating unexecuted actions, while frontier models fail on only 1-3% of cases, from unverified tool outputs and omitted crisis resources in an emergency. More capable models narrow these gaps but do not close them; the strongest scores only 4.25 of 5 overall. These failures surface only in sustained, tool-using conversations against realistic patient records, confirming that static benchmarks are insufficient as healthcare agentic systems gain autonomy. We release the framework as a reproducible, clinician-validated evaluation standard to help the field close this gap.",
+                    "authors": [
+                      "Korosh Vatanparvar",
+                      "Ashutosh Joshi",
+                      "Maria Xenochristou",
+                      "Mohammad Abuzar Hashemi",
+                      "Prasad Kasu",
+                      "Deepak Bansal",
+                      "Daniel Lopez-Martinez",
+                      "Anchal Nema",
+                      "Ramya Ganesan",
+                      "Will Kimbrough",
+                      "Alex Woody",
+                      "Yadunandana Rao",
+                      "Dilek Hakkani-Tur",
+                      "Wilko Schulz-Mahlendorf"
+                    ],
+                    "published": "2026-07-28T09:24:04Z",
+                    "updated": "2026-07-28T09:24:04Z",
+                    "url": "http://arxiv.org/abs/2607.25485v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25485v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25447v1",
+                    "title": "CoRenew: A large language model agent-based policy simulation platform for multifamily residential redevelopment",
+                    "summary": "The difficulty of collective action remains a central challenge in the design of policies for multifamily residential redevelopment. Stakeholders continually adjust their decisions in response to evolving negotiation contexts and the reactions of others, meaning that when a policy intervenes and which stakeholders it targets can substantially reshape collective outcomes. Assessing these adaptive responses ex ante remains difficult because existing simulation models often rely on predefined behavioral rules. Here, we present CoRenew, an open-source platform that uses LLM-based agents to simulate negotiations among multiple stakeholders and evaluate the effects of alternative policy combinations. Integrating open source geographic and demographic data, the platform can generate synthetic residents, simulate negotiation dynamics under alternative policy settings and compares policy performance across competing objectives. It supports both numerical and semantic policy inputs and includes built-in tools for visualization and result export. We validate its behavioral realism against survey responses from 324 residents and a nine-month observed negotiation process from a real redevelopment case. With its modular and adaptable architecture, CoRenew can be used to assess policies across different institutional and cultural contexts.",
+                    "authors": [
+                      "Yudi Zhang",
+                      "Yuming Lin",
+                      "Li Tian",
+                      "Yu Wang",
+                      "Jianghao Yu"
+                    ],
+                    "published": "2026-07-28T08:35:51Z",
+                    "updated": "2026-07-28T08:35:51Z",
+                    "url": "http://arxiv.org/abs/2607.25447v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25447v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.MA",
+                    "categories": [
+                      "cs.MA"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25415v1",
+                    "title": "A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain",
+                    "summary": "Production LLM agents are increasingly assembled from a frozen model wrapped in a harness: a prompt template, a tool set, a memory/retrieval layer, a planning strategy, and a verification policy. Two 2026 systems, Meta-Harness (Lee et al., 2026) and HyperAgents (Meta AI, 2026), show that this harness can itself be optimized or even self-rewritten by an agentic proposer -- at the cost of either an expensive code-search loop or unconstrained self-modifying code, neither of which is auditable or usable with a fully black-box model API. We take a narrower, more constrained position: treat the harness as a small, fixed, human-legible action space and learn a policy over it online with classic sample-efficient reinforcement learning (an $ε$-greedy contextual bandit and REINFORCE), scored against a multi-objective reward (task success, verifier score, policy compliance, cost, latency, and an unsupported-claim penalty). We instantiate this control system with DSPy (Khattab et al., 2024) as both the context assembler and the source of the strongest non-adaptive baseline (a DSPy BootstrapFewShot static prompt), and evaluate it across three verifiable task domains -- tool-use workflows, code generation (HumanEval), and multi-hop retrieval QA (HotpotQA) -- and two model providers (a local Ollama model and AWS Bedrock). We release the harness-control-system code, the cross-domain verifiable task suite, the full trajectory/reward-decomposition logs from training, and a provider-agnostic deployment recipe for applying this to a new organization's domain and verification setup.",
+                    "authors": [
+                      "Debjyoti Paul"
+                    ],
+                    "published": "2026-07-28T08:10:25Z",
+                    "updated": "2026-07-28T08:10:25Z",
+                    "url": "http://arxiv.org/abs/2607.25415v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25415v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              },
+              "duration_ms": 850,
+              "round": 1,
+              "call_id": "r1c0"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are some recent papers from arXiv related to LLM agent tool use:\n\n1. **[SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents](http://arxiv.org/abs/2607.25619v1)**  \n   - **Authors**: Rui Yang, Michael Fu, Kla Tantithamthavorn, Chetan Arora, Joey Chua  \n   - **Summary**: This paper presents SkillGate, a security gateway that screens AI skill packages before installation, addressing the threat of malicious skill files that can compromise coding agents.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25619v1)**\n\n2. **[ClinFusion: A Vision-Centric Multimodal LLM System for Holistic Medical Understanding](http://arxiv.org/abs/2607.24743v2)**  \n   - **Authors**: Hangjie Yuan et al.  \n   - **Summary**: ClinFusion is introduced as a vision-centric MLLM designed for medical understanding, integrating diverse medical images and enhancing clinical workflows through agentic tool use.  \n   - **Published**: July 27, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.24743v2)**\n\n3. **[PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents](http://arxiv.org/abs/2607.25485v1)**  \n   - **Authors**: Korosh Vatanparvar et al.  \n   - **Summary**: This paper discusses a framework for evaluating patient-facing AI agents, focusing on their ability to converse and act on behalf of patients in healthcare settings.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25485v1)**\n\n4. **[CoRenew: A large language model agent-based policy simulation platform for multifamily residential redevelopment](http://arxiv.org/abs/2607.25447v1)**  \n   - **Authors**: Yudi Zhang et al.  \n   - **Summary**: CoRenew is an open-source platform that uses LLM-based agents to simulate negotiations among stakeholders in residential redevelopment, assessing policy impacts.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25447v1)**\n\n5. **[A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain](http://arxiv.org/abs/2607.25415v1)**  \n   - **Authors**: Debjyoti Paul  \n   - **Summary**: This paper presents a control system for LLM agents that allows them to learn and adapt their behavior in various domains using reinforcement learning techniques.  \n   - **Published**: July 28, 2026  \n   - **[PDF Link](https://arxiv.org/pdf/2607.25415v1)**\n\nFeel free to check the links for more details on each paper!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "LLM agent tool use",
+            "max_results": 5,
+            "sort_by": "lastUpdatedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "LLM agent tool use",
+            "api_query": "all:LLM AND all:agent AND all:tool AND all:use",
+            "total_results": 2329,
+            "items": [
+              {
+                "arxiv_id": "2607.25619v1",
+                "title": "SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents",
+                "summary": "Software engineering teams now deploy AI coding agents (Cursor, Claude Code, GitHub Copilot) as first-class productivity tools, installing domain-specific skill files to tailor agent behavior to project APIs, framework conventions, and organizational workflows. These complex Markdown files are easily downloaded from public registries with a single npx skills add command and no real security screening, representing a novel supply-chain attack surface: a malicious skill file can silently reprogram agent behavior, exfiltrating credentials, injecting backdoors into generated code, or redirecting agent actions to attacker-controlled endpoints. The threat is not hypothetical: recent reports document hundreds of malicious skill packages in public registries, including organized campaigns that distributed credential-stealing infostealers via fake productivity skills. No systematic toolchain defense exists for this attack surface. We present SkillGate, a deployable security gateway that screens AI skill packages before coding agent installation. SkillGate uses a hybrid regex-prefilter + LLM-judge pipeline: safe-signal files bypass the LLM entirely (skip savings); flagged files have only their matched snippet windows sent to the judge, not the full content (snippet savings). We answer four research questions covering detection effectiveness, screening cost, runtime overhead, and false positive behavior on the SkillsBench benchmark against two existing tools. On SkillsBench (n=1,650, 9.1% malicious), SkillGate achieves F1=0.817, FPR=1.13% while reducing LLM input tokens by 77% vs. full-file screening, and outperforming existing tools by 5-6x on threshold-independent AUPRC (0.830 vs. 0.144/0.162).",
+                "authors": [
+                  "Rui Yang",
+                  "Michael Fu",
+                  "Kla Tantithamthavorn",
+                  "Chetan Arora",
+                  "Joey Chua"
+                ],
+                "published": "2026-07-28T11:50:19Z",
+                "updated": "2026-07-28T11:50:19Z",
+                "url": "http://arxiv.org/abs/2607.25619v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25619v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.SE",
+                "categories": [
+                  "cs.SE",
+                  "cs.CR"
+                ]
+              },
+              {
+                "arxiv_id": "2607.24743v2",
+                "title": "ClinFusion: A Vision-Centric Multimodal LLM System for Holistic Medical Understanding",
+                "summary": "Multimodal large language models (MLLMs) hold immense potential to revolutionize clinical practice, yet deploying them in the medical domain is fundamentally a vision-centric challenge: models must absorb knowledge from heterogeneous 2D and 3D medical images, and evaluation protocols must align with radiologists' clinical practice and provide an accurate, fine-grained and factualness-driven assessment. In this paper, we introduce ClinFusion, a vision-centric MLLM designed for holistic medical understanding that systematically addresses these limitations. We propose a compositional and cascaded vision encoder architecture featuring a Cascade Spatial-Aware Locality Fusion operator that unifies diverse 2D and native 3D medical image understanding within a fused encoder. We further introduce a vision-grounded evaluation framework, including MedIF-Bench for instruction-following assessment and a region-of-interest-grounded method for clinically aligned and factualness-driven report generation evaluation. We show that ClinFusion sets a new state-of-the-art across a comprehensive suite of 2D and 3D multimodal medical benchmarks---spanning visual question answering, report generation, and instruction following---as well as textual medical tasks, outperforming leading open-source medical MLLMs (\\textit{e.g.}, Hulu-Med, Lingshu) on 20 out of 24 benchmarks and demonstrating multimodal capabilities better than powerful proprietary models such as GPT-5.2 and Gemini-3-Flash on 13 out of 16 benchmarks, and can be further augmented with agentic tool use for retrieval-augmented and tool-assisted clinical workflows. A blinded evaluation by board-certified radiologists confirms that ClinFusion produces the highest-ranked reports, and validates our RoI-grounded metric as achieving the strongest correlation with expert judgment among all automatic evaluation metrics examined.",
+                "authors": [
+                  "Hangjie Yuan",
+                  "Yichen Qian",
+                  "Zhiwei Tang",
+                  "Xianzhe Xu",
+                  "Lirong Wu",
+                  "Sicheng Yang",
+                  "Jinwang Wang",
+                  "Pengju Wang",
+                  "Zhitao Zeng",
+                  "Yizeng Han",
+                  "Yan Xing",
+                  "Shengxuan Luo",
+                  "Tao Feng",
+                  "Qing Xie",
+                  "Weigen Yao",
+                  "Yi Yang",
+                  "Zuozhu Liu",
+                  "Jiasheng Tang",
+                  "Shaocheng Wang",
+                  "Jitao Wang",
+                  "Jiahong Dong",
+                  "Weihua Chen",
+                  "Feng Xu",
+                  "Fan Wang"
+                ],
+                "published": "2026-07-27T17:59:49Z",
+                "updated": "2026-07-28T10:52:57Z",
+                "url": "http://arxiv.org/abs/2607.24743v2",
+                "pdf_url": "https://arxiv.org/pdf/2607.24743v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.AI",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25485v1",
+                "title": "PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents",
+                "summary": "Health AI is evolving from answering questions to agentic systems that converse with patients, reason about health records, and act on their behalf. Primary care guards against diagnostic errors and unsafe care; agents assisting in this domain warrant evaluation against the same risks. Current benchmarks focus on medical knowledge, assessed through isolated question-answering or clinician-facing tasks. PatientAgentBench benchmarks patient-facing agentic healthcare; it evaluates a foundation model, wrapped in an agent with a sandbox of healthcare tools, conversing with a simulated patient. Each conversation is scored by an LLM-as-a-Jury across six dimensions via over a hundred conversation-agnostic, clinician-grounded criteria. To validate alignment, licensed clinicians annotated shared conversations, yielding 79-93% adjacent agreement between jury and expert raters, on par with or exceeding clinician inter-rater agreement. We benchmarked 10 models across four families on the same 1,200 scenarios and found clinical gaps. Triage quality is the most discriminating dimension: pass rates rise from 32% for the weakest models to 88% for the strongest, with agents often acting on administrative requests without clinical screening. Clinical safety and workflow accuracy follow the same pattern: the weakest models fail often, fabricating unexecuted actions, while frontier models fail on only 1-3% of cases, from unverified tool outputs and omitted crisis resources in an emergency. More capable models narrow these gaps but do not close them; the strongest scores only 4.25 of 5 overall. These failures surface only in sustained, tool-using conversations against realistic patient records, confirming that static benchmarks are insufficient as healthcare agentic systems gain autonomy. We release the framework as a reproducible, clinician-validated evaluation standard to help the field close this gap.",
+                "authors": [
+                  "Korosh Vatanparvar",
+                  "Ashutosh Joshi",
+                  "Maria Xenochristou",
+                  "Mohammad Abuzar Hashemi",
+                  "Prasad Kasu",
+                  "Deepak Bansal",
+                  "Daniel Lopez-Martinez",
+                  "Anchal Nema",
+                  "Ramya Ganesan",
+                  "Will Kimbrough",
+                  "Alex Woody",
+                  "Yadunandana Rao",
+                  "Dilek Hakkani-Tur",
+                  "Wilko Schulz-Mahlendorf"
+                ],
+                "published": "2026-07-28T09:24:04Z",
+                "updated": "2026-07-28T09:24:04Z",
+                "url": "http://arxiv.org/abs/2607.25485v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25485v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25447v1",
+                "title": "CoRenew: A large language model agent-based policy simulation platform for multifamily residential redevelopment",
+                "summary": "The difficulty of collective action remains a central challenge in the design of policies for multifamily residential redevelopment. Stakeholders continually adjust their decisions in response to evolving negotiation contexts and the reactions of others, meaning that when a policy intervenes and which stakeholders it targets can substantially reshape collective outcomes. Assessing these adaptive responses ex ante remains difficult because existing simulation models often rely on predefined behavioral rules. Here, we present CoRenew, an open-source platform that uses LLM-based agents to simulate negotiations among multiple stakeholders and evaluate the effects of alternative policy combinations. Integrating open source geographic and demographic data, the platform can generate synthetic residents, simulate negotiation dynamics under alternative policy settings and compares policy performance across competing objectives. It supports both numerical and semantic policy inputs and includes built-in tools for visualization and result export. We validate its behavioral realism against survey responses from 324 residents and a nine-month observed negotiation process from a real redevelopment case. With its modular and adaptable architecture, CoRenew can be used to assess policies across different institutional and cultural contexts.",
+                "authors": [
+                  "Yudi Zhang",
+                  "Yuming Lin",
+                  "Li Tian",
+                  "Yu Wang",
+                  "Jianghao Yu"
+                ],
+                "published": "2026-07-28T08:35:51Z",
+                "updated": "2026-07-28T08:35:51Z",
+                "url": "http://arxiv.org/abs/2607.25447v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25447v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.MA",
+                "categories": [
+                  "cs.MA"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25415v1",
+                "title": "A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain",
+                "summary": "Production LLM agents are increasingly assembled from a frozen model wrapped in a harness: a prompt template, a tool set, a memory/retrieval layer, a planning strategy, and a verification policy. Two 2026 systems, Meta-Harness (Lee et al., 2026) and HyperAgents (Meta AI, 2026), show that this harness can itself be optimized or even self-rewritten by an agentic proposer -- at the cost of either an expensive code-search loop or unconstrained self-modifying code, neither of which is auditable or usable with a fully black-box model API. We take a narrower, more constrained position: treat the harness as a small, fixed, human-legible action space and learn a policy over it online with classic sample-efficient reinforcement learning (an $ε$-greedy contextual bandit and REINFORCE), scored against a multi-objective reward (task success, verifier score, policy compliance, cost, latency, and an unsupported-claim penalty). We instantiate this control system with DSPy (Khattab et al., 2024) as both the context assembler and the source of the strongest non-adaptive baseline (a DSPy BootstrapFewShot static prompt), and evaluate it across three verifiable task domains -- tool-use workflows, code generation (HumanEval), and multi-hop retrieval QA (HotpotQA) -- and two model providers (a local Ollama model and AWS Bedrock). We release the harness-control-system code, the cross-domain verifiable task suite, the full trajectory/reward-decomposition logs from training, and a provider-agnostic deployment recipe for applying this to a new organization's domain and verification setup.",
+                "authors": [
+                  "Debjyoti Paul"
+                ],
+                "published": "2026-07-28T08:10:25Z",
+                "updated": "2026-07-28T08:10:25Z",
+                "url": "http://arxiv.org/abs/2607.25415v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25415v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          },
+          "duration_ms": 850,
+          "round": 1,
+          "call_id": "r1c0"
+        }
+      ],
+      "artifact_version": "current+pf0c107a9d7a1+t011c271ef0bb",
+      "ended_at": "2026-07-29T14:54:35",
+      "duration_ms": 10203
+    }
+  ]
+}
