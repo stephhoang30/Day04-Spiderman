@@ -126,7 +126,8 @@ export function ChatThread({ entries, emptyState }: { entries: ChatEntry[]; empt
           <AgentTurn key={entry.id} entry={entry} />
         ),
       )}
-      <div ref={bottomRef} />
+      {/* chừa chỗ cho ô nhập dính đáy, tránh tin cuối bị che khi auto-scroll */}
+      <div ref={bottomRef} style={{ scrollMarginBottom: "140px" }} />
     </div>
   );
 }
