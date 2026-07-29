@@ -258,6 +258,8 @@ def print_table(results: list[dict[str, Any]], summary: dict[str, Any]) -> None:
     for key, value in summary.items():
         print(f"{key}: {value}")
 
+system_prompt_choices = {'default' : ARTIFACTS_DIR / "system_prompt.md", 'v1' : ARTIFACTS_DIR / "system_prompt_v1.md", 'backup' : ARTIFACTS_DIR / "system_prompt.v0.backup.md"}
+tools_choices = {'v3' : ARTIFACTS_DIR / "tools.v3.yaml", 'v2' : ARTIFACTS_DIR / "tools.v2.yaml", 'v1' : ARTIFACTS_DIR / "tools.v1.yaml", 'backup' : ARTIFACTS_DIR / "tools.v0.backup.yaml"}
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run Research Agent live evals.")
@@ -266,8 +268,8 @@ def main() -> None:
     parser.add_argument("--version", required=True)
     parser.add_argument("--provider", choices=["openai", "openrouter", "anthropic", "gemini"], required=True)
     parser.add_argument("--model", default=None)
-    parser.add_argument("--system-prompt", type=Path, default=ARTIFACTS_DIR / "system_prompt.md")
-    parser.add_argument("--tools", type=Path, default=ARTIFACTS_DIR / "tools.yaml")
+    parser.add_argument("--system-prompt", type=Path, choices=system_prompt_choices, default=ARTIFACTS_DIR / "system_prompt.md")
+    parser.add_argument("--tools", type=Path, choices=tools_choices, default=ARTIFACTS_DIR / "tools.v0.backup.yaml")
     parser.add_argument("--eval-cases", type=Path, default=DATA_DIR / "eval_base.json")
     parser.add_argument("--runs-dir", type=Path, default=ROOT / "runs")
     args = parser.parse_args()
