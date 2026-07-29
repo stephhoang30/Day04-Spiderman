@@ -49,6 +49,7 @@ export default function Home() {
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [transcripts, setTranscripts] = useState<TranscriptListItem[]>([]);
   const [bootError, setBootError] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const [config, setConfig] = useState<RunConfig>({
     provider: "openai",
@@ -66,26 +67,55 @@ export default function Home() {
   const [tab, setTab] = useState<Tab>("chat");
   const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const [metaData, scenarioData] = await Promise.all([fetchMeta(), fetchScenarios()]);
-        setMeta(metaData);
-        setScenarios(scenarioData.scenarios);
+  /** Đọc lại artifact registry từ đĩa. `initial` chỉ đúng cho lần nạp đầu:
+   *  các lần sau giữ nguyên lựa chọn của người dùng nếu version đó còn tồn tại. */
+  const loadMeta = useCallback(async (initial = false) => {
+    setRefreshing(true);
+    try {
+      const [metaData, scenarioData] = await Promise.all([fetchMeta(), fetchScenarios()]);
+      setMeta(metaData);
+      setScenarios(scenarioData.scenarios);
+      setBootError(null);
+      setConfig((current) => {
+        if (!initial) {
+          const stillThere = metaData.versions.some((item) => item.label === current.version);
+          return stillThere ? current : { ...current, version: metaData.defaults.version };
+        }
         const withKey = metaData.providers.find((item) => item.key_present) ?? metaData.providers[0];
-        setConfig((current) => ({
+        return {
           ...current,
           provider: withKey?.key ?? current.provider,
           model: withKey?.default_model ?? withKey?.models[0] ?? null,
           version: metaData.defaults.version,
           historyWindow: metaData.defaults.history_window,
           maxToolRounds: metaData.defaults.max_tool_rounds,
-        }));
-      } catch (exc) {
-        setBootError(exc instanceof Error ? exc.message : String(exc));
-      }
-    })();
+        };
+      });
+    } catch (exc) {
+      setBootError(exc instanceof Error ? exc.message : String(exc));
+    } finally {
+      setRefreshing(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void (async () => {
+      await loadMeta(true);
+    })();
+  }, [loadMeta]);
+
+  // Sửa artifacts trong IDE rồi quay lại tab trình duyệt -> tự nạp lại registry.
+  useEffect(() => {
+    const onFocus = () => {
+      if (document.visibilityState === "visible") loadMeta();
+    };
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onFocus);
+    return () => {
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onFocus);
+    };
+  }, [loadMeta]);
 
   const refreshTranscripts = useCallback(async () => {
     try {
@@ -323,6 +353,16 @@ uvicorn server:app --reload --port 8000`}
         </nav>
 
         <div className="ml-auto flex items-center gap-2 font-mono text-[10.5px]">
+          <button
+            type="button"
+            onClick={() => loadMeta()}
+            disabled={refreshing}
+            title="Đọc lại artifacts/ từ đĩa (sau khi sửa system_prompt.md hoặc tools.yaml)"
+            className="flex items-center gap-1.5 rounded-full border border-ink-600 px-2 py-1 text-mist-400 transition hover:border-web-500 hover:text-mist-50 disabled:opacity-50"
+          >
+            <span className={refreshing ? "inline-block animate-spin" : "inline-block"}>⟳</span>
+            {refreshing ? "đang nạp…" : `${meta?.tools.length ?? 0} tool`}
+          </button>
           <ThemeToggle />
           <span
             className={`flex items-center gap-1.5 rounded-full border px-2 py-1 ${

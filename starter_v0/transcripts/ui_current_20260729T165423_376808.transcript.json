@@ -1,0 +1,94 @@
+{
+  "transcript_id": "ui_current_20260729T165423_376808",
+  "surface": "nextjs_ui",
+  "version": "current",
+  "artifact_version": "current+p607b2ee63e1f+t44414c9cee70",
+  "prompt_hash": "607b2ee63e1f294904737456553923fd6eae42d10a32b45b8ee94560a4138ec2",
+  "tools_hash": "44414c9cee70457b922bc541238d753f61b5bd108044fc508b0fd733656c1d54",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T16:54:23",
+  "updated_at": "2026-07-29T16:54:32",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T16:54:23",
+      "user": "Tóm tắt bài này giúp mình: https://openai.com/blog/gpt-5",
+      "status": "answered",
+      "assistant_text": "The page you requested at OpenAI's blog for GPT-5 returns a 404 error, indicating that the content is not available. You may want to check for updates or try a different link. \n\nFor more information, you can visit the OpenAI website directly: [OpenAI Blog](https://openai.com/blog/gpt-5).",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "fetch",
+              "args": {
+                "url": "https://openai.com/blog/gpt-5"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "fetch",
+              "args": {
+                "url": "https://openai.com/blog/gpt-5"
+              },
+              "result": {
+                "tool": "read_url",
+                "url": "https://openai.com/blog/gpt-5",
+                "items": [
+                  {
+                    "title": "OpenAI",
+                    "url": "https://openai.com/blog/gpt-5",
+                    "source": "openai.com",
+                    "summary": "OpenAI\n\n# 404\n\nThe index rests now\n\nQuiet shelves hold their places\n\nChoose another book\n\nby [gpt-5.6-sol(opens in a new window)](https://chatgpt.com/?model=gpt-5.6-sol&openaicom-did=dba71ae9-3a13-449c-a57d-55ef715ec2f2&openaicom_referred=true)"
+                  }
+                ]
+              },
+              "duration_ms": 1073,
+              "round": 1,
+              "call_id": "r1c0"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "The page you requested at OpenAI's blog for GPT-5 returns a 404 error, indicating that the content is not available. You may want to check for updates or try a different link. \n\nFor more information, you can visit the OpenAI website directly: [OpenAI Blog](https://openai.com/blog/gpt-5).",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://openai.com/blog/gpt-5"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://openai.com/blog/gpt-5",
+            "items": [
+              {
+                "title": "OpenAI",
+                "url": "https://openai.com/blog/gpt-5",
+                "source": "openai.com",
+                "summary": "OpenAI\n\n# 404\n\nThe index rests now\n\nQuiet shelves hold their places\n\nChoose another book\n\nby [gpt-5.6-sol(opens in a new window)](https://chatgpt.com/?model=gpt-5.6-sol&openaicom-did=dba71ae9-3a13-449c-a57d-55ef715ec2f2&openaicom_referred=true)"
+              }
+            ]
+          },
+          "duration_ms": 1073,
+          "round": 1,
+          "call_id": "r1c0"
+        }
+      ],
+      "artifact_version": "current+p607b2ee63e1f+t44414c9cee70",
+      "ended_at": "2026-07-29T16:54:32",
+      "duration_ms": 8234
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "transcript_id": "ui_current_20260729T164112_fbe306",
+  "surface": "nextjs_ui",
+  "version": "current",
+  "artifact_version": "current+pe8ec9cd58ed0+t5cdbeb8118a7",
+  "prompt_hash": "e8ec9cd58ed023bfafccf426c4fda718ee4722876fc4c34e9b647216b34c37ba",
+  "tools_hash": "5cdbeb8118a7023907781cde9482e6b8366b6a611c9619ded02548cff0ef457e",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T16:41:12",
+  "updated_at": "2026-07-29T16:41:16",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T16:41:12",
+      "user": "Tweet mới nhất của Sam Altman là gì?",
+      "status": "answered",
+      "assistant_text": "I couldn't retrieve the latest tweet from Sam Altman due to a permission error. Please try again later or check directly on Twitter.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "timeline",
+              "args": {
+                "screenname": "sama",
+                "limit": 1
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "timeline",
+              "args": {
+                "screenname": "sama",
+                "limit": 1
+              },
+              "result": {
+                "tool": "get_user_tweets",
+                "error": "HTTPError",
+                "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=sama"
+              },
+              "duration_ms": 1181,
+              "round": 1,
+              "call_id": "r1c0"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "I couldn't retrieve the latest tweet from Sam Altman due to a permission error. Please try again later or check directly on Twitter.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=sama"
+          },
+          "duration_ms": 1181,
+          "round": 1,
+          "call_id": "r1c0"
+        }
+      ],
+      "artifact_version": "current+pe8ec9cd58ed0+t5cdbeb8118a7",
+      "ended_at": "2026-07-29T16:41:16",
+      "duration_ms": 3910
+    }
+  ]
+}
