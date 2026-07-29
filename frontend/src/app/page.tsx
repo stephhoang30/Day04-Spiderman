@@ -276,7 +276,8 @@ export default function Home() {
         <div className="panel max-w-lg space-y-3 rounded-2xl p-6">
           <h1 className="text-lg font-semibold text-spider-400">Không kết nối được backend</h1>
           <p className="text-[13px] text-mist-200">
-            UI đang gọi <code className="font-mono text-web-400">{API_BASE}</code> nhưng không nhận được phản hồi.
+            UI đang gọi <code className="font-mono text-web-400">{API_BASE || "/api (proxy sang localhost:8000)"}</code>{" "}
+            nhưng không nhận được phản hồi.
           </p>
           <pre className="overflow-auto rounded-lg border border-ink-700 bg-ink-950/70 p-3 font-mono text-[11px] text-mist-400">
             {`cd starter_v0

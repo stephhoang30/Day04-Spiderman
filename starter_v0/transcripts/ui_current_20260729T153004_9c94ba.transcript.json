@@ -1,0 +1,83 @@
+{
+  "transcript_id": "ui_current_20260729T153004_9c94ba",
+  "surface": "nextjs_ui",
+  "version": "current",
+  "artifact_version": "current+pf0c107a9d7a1+t011c271ef0bb",
+  "prompt_hash": "f0c107a9d7a14032c948d642d7c36f2a85cb6d69a099530093a874c94d472446",
+  "tools_hash": "011c271ef0bbad1e19a5d7b660b2ed481b7d72950f1faa8a0798c3bdd8784ee1",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/tools.yaml",
+  "history_window": 0,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T15:30:04",
+  "updated_at": "2026-07-29T15:30:09",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T15:30:04",
+      "user": "Tweet mới nhất của Sam Altman là gì?",
+      "status": "answered",
+      "assistant_text": "I couldn't retrieve the latest tweet from Sam Altman due to a restriction on the Twitter API. However, you can check his Twitter profile directly at [Sam Altman's Twitter](https://twitter.com/sama) for the most recent updates.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "timeline",
+              "args": {
+                "screenname": "sama",
+                "limit": 1
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "timeline",
+              "args": {
+                "screenname": "sama",
+                "limit": 1
+              },
+              "result": {
+                "tool": "get_user_tweets",
+                "error": "HTTPError",
+                "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=sama"
+              },
+              "duration_ms": 1309,
+              "round": 1,
+              "call_id": "r1c0"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "I couldn't retrieve the latest tweet from Sam Altman due to a restriction on the Twitter API. However, you can check his Twitter profile directly at [Sam Altman's Twitter](https://twitter.com/sama) for the most recent updates.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "sama",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=sama"
+          },
+          "duration_ms": 1309,
+          "round": 1,
+          "call_id": "r1c0"
+        }
+      ],
+      "artifact_version": "current+pf0c107a9d7a1+t011c271ef0bb",
+      "ended_at": "2026-07-29T15:30:09",
+      "duration_ms": 4817
+    }
+  ]
+}

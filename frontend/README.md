@@ -84,17 +84,24 @@ tắc "failures are evidence"). Muốn demo tool chạy thật thì điền:
 
 ## Deploy cho team khác test
 
-Cần tunnel **cả hai** cổng, rồi trỏ frontend sang URL public của backend:
+UI và API dùng **chung một origin**: Next rewrite `/api/*` sang FastAPI (`next.config.ts`),
+nên chỉ cần tunnel đúng cổng 3000 và không phải build lại khi URL đổi.
 
 ```bash
-cloudflared tunnel --url http://localhost:8000     # backend -> https://<a>.trycloudflare.com
-# đặt NEXT_PUBLIC_API_BASE=https://<a>.trycloudflare.com vào frontend/.env.local
-npm run build && npm run start                     # port 3000
-cloudflared tunnel --url http://localhost:3000     # frontend -> https://<b>.trycloudflare.com
+brew install cloudflared     # Windows: winget install --id Cloudflare.cloudflared
+./deploy.sh                  # từ thư mục gốc repo
 ```
 
-`NEXT_PUBLIC_*` được nhúng lúc build, nên phải sửa `.env.local` **trước** khi `npm run build`.
-Đừng để lộ key trong UI public.
+Script sẽ: bật backend → build + start frontend → mở Cloudflare Tunnel → in ra
+`https://<random>.trycloudflare.com`. Dán link đó vào `REPORT.md` phần A và test bằng
+máy/điện thoại khác. Cổng bận thì script tự nhảy sang cổng trống kế tiếp.
+
+- `./deploy.sh --local` — chạy production build ở local, không mở tunnel.
+- `SKIP_BUILD=1 ./deploy.sh` — bỏ qua `npm run build` khi đã build sẵn.
+- `./run_ui.sh` — chế độ dev (hot reload), cũng đi qua proxy y hệt.
+
+Link `trycloudflare` là tạm và đổi mỗi lần chạy lại. API **không có auth**, ai có link
+đều gọi được và tiêu credit model của nhóm — Ctrl+C tắt tunnel ngay sau khi demo xong.
 
 ## API backend
 
