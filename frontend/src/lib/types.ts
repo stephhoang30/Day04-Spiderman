@@ -163,7 +163,9 @@ export type LiveCall = {
 
 export type CompareRun = {
   version_label: string;
-  session_id: string;
-  transcript_id: string;
-  turn: TurnRecord;
-} & ArtifactVersionFields;
+  session_id?: string;
+  transcript_id?: string;
+  /** vắng mặt khi version đó chạy lỗi — khi ấy `error` có giá trị */
+  turn?: TurnRecord;
+  error?: string;
+} & Partial<ArtifactVersionFields>;

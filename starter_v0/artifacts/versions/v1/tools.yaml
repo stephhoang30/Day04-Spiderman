@@ -1,0 +1,258 @@
+# starter_v0 — tool declarations, version v1.
+#
+# Hypothesis v1:
+# Nếu mô tả tool nói rõ rằng account/handle và URL là dữ liệu bắt buộc,
+# đồng thời yêu cầu gọi clarify khi thiếu, agent sẽ không tự tạo screenname
+# hoặc URL.
+#
+# Version này chủ yếu xử lý:
+#   - R10_missing_handle
+#   - R11_missing_url
+#
+# Chưa xử lý:
+#   - out-of-scope requests
+#   - send confirmation boundary
+#   - lookup argument conventions
+#
+# If you rename a tool, keep the name in sync across:
+#   this file -> tools/__init__.py (TOOL_FUNCTIONS)
+#   -> data/eval_base.json
+#   -> data/eval_research_extension.json
+
+tools:
+  # ---------------- Core tools ----------------
+
+  - name: clarify
+    description: >
+      Hỏi người dùng để bổ sung thông tin bắt buộc đang bị thiếu hoặc chưa rõ.
+      Dùng tool này thay vì tự suy đoán, tự tạo hoặc tự chọn giá trị cho các
+      argument bắt buộc như tài khoản, screenname hoặc URL.
+    parameters:
+      type: object
+      properties:
+        question:
+          type: string
+          default: ""
+          description: >
+            Câu hỏi ngắn và cụ thể để lấy đúng thông tin còn thiếu từ người dùng.
+        response_type:
+          type: string
+          enum: [text, yes_no, choice]
+          default: "text"
+          description: >
+            Dùng text khi cần người dùng nhập handle, tên tài khoản, URL hoặc
+            thông tin dạng văn bản.
+        options:
+          type: array
+          default: []
+          items:
+            type: string
+          description: >
+            Danh sách lựa chọn khi response_type là choice. Để trống khi hỏi
+            người dùng nhập văn bản tự do.
+      required: [question]
+
+  - name: timeline
+    description: >
+      Lấy các bài đăng gần đây của một tài khoản mạng xã hội cụ thể.
+      Chỉ gọi tool này khi người dùng đã cung cấp hoặc đã xác định rõ người,
+      tài khoản hoặc screenname trong cuộc hội thoại.
+      Nếu chưa biết bài đăng cần lấy thuộc về ai, không được tự chọn tài khoản,
+      không được tự đoán screenname; phải gọi clarify với response_type=text.
+    parameters:
+      type: object
+      properties:
+        screenname:
+          type: string
+          default: ""
+          description: >
+            Handle hoặc tên tài khoản cần lấy bài đăng, không bao gồm ký tự @.
+            Giá trị phải đến từ yêu cầu của người dùng, từ thông tin rõ ràng
+            trong các lượt hội thoại trước, hoặc từ ánh xạ tên người đã được
+            xác định chắc chắn. Không tự tạo giá trị mặc định khi thiếu tài khoản.
+        limit:
+          type: integer
+          default: 5
+          description: >
+            Số bài đăng cần lấy. Dùng số lượng người dùng yêu cầu; nếu người dùng
+            không chỉ định thì dùng mặc định là 5.
+      required: [screenname]
+
+  - name: social_search
+    description: "Tìm trên mạng xã hội."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Từ khóa"
+        search_type:
+          type: string
+          enum: [Latest, Top]
+          default: "Latest"
+          description: "Cách sắp xếp"
+        limit:
+          type: integer
+          default: 5
+          description: "Số lượng"
+      required: [query]
+
+  - name: lookup
+    description: "Tra cứu thông tin trên internet."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Truy vấn"
+        topic:
+          type: string
+          enum: [general, news]
+          default: "general"
+          description: "Phân loại"
+        timeframe:
+          type: string
+          enum: [day, week, month, year]
+          default: "week"
+          description: "Khoảng thời gian"
+        max_results:
+          type: integer
+          default: 5
+          description: "Số kết quả"
+      required: [query]
+
+  - name: fetch
+    description: >
+      Lấy nội dung từ một URL cụ thể đã được người dùng cung cấp hoặc đã xuất
+      hiện rõ ràng trong cuộc hội thoại.
+      Nếu người dùng nói "bài này", "link này", "trang này" hoặc yêu cầu tóm tắt
+      một bài viết nhưng chưa cung cấp URL, không được tự tạo URL mẫu và không
+      được đoán địa chỉ; phải gọi clarify với response_type=text để xin URL.
+    parameters:
+      type: object
+      properties:
+        url:
+          type: string
+          default: ""
+          description: >
+            URL đầy đủ của tài liệu hoặc trang cần đọc. URL phải được lấy từ
+            yêu cầu hiện tại hoặc từ một lượt hội thoại trước. Không dùng
+            example.com hoặc bất kỳ URL tự tạo nào để thay thế URL còn thiếu.
+      required: [url]
+
+  - name: format
+    description: "Trình bày dữ liệu đã có thành văn bản."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item"
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              url:
+                type: string
+              source:
+                type: string
+              summary:
+                type: string
+              section:
+                type: string
+        template:
+          type: string
+          enum: [brief, sections, bullets, thread, daily_ai_vn]
+          default: "sections"
+          description: "Khuôn"
+        headline:
+          type: string
+          default: ""
+          description: "Tiêu đề"
+      required: [items, template]
+
+  # ---------------- Bonus tools ----------------
+
+  - name: send
+    description: "Gửi một đoạn văn bản đi."
+    parameters:
+      type: object
+      properties:
+        text:
+          type: string
+          default: ""
+          description: "Nội dung"
+        confirmed:
+          type: boolean
+          default: false
+          description: "Cờ xác nhận"
+      required: [text]
+
+  - name: policy
+    description: "Tìm trong tài liệu nội bộ."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Truy vấn"
+        policy_area:
+          type: string
+          enum:
+            - all
+            - ai_research
+            - source_citation
+            - data_privacy
+            - external_publishing
+            - tool_usage
+          default: "all"
+          description: "Nhóm"
+        top_k:
+          type: integer
+          default: 3
+          description: "Số mục"
+      required: [query]
+
+  - name: papers
+    description: "Tìm bài báo khoa học."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Từ khóa"
+        max_results:
+          type: integer
+          default: 5
+          description: "Số lượng"
+        sort_by:
+          type: string
+          enum: [relevance, lastUpdatedDate, submittedDate]
+          default: "relevance"
+          description: "Sắp xếp"
+      required: [query]
+
+  - name: paper_text
+    description: "Lấy nội dung text của một bài báo."
+    parameters:
+      type: object
+      properties:
+        arxiv_url:
+          type: string
+          default: ""
+          description: "ID hoặc địa chỉ"
+        max_pages:
+          type: integer
+          default: 5
+          description: "Số trang"
+        max_chars:
+          type: integer
+          default: 8000
+          description: "Số ký tự"
+      required: [arxiv_url]

@@ -1,0 +1,431 @@
+# starter_v0 — tool declarations, version v3.
+#
+# Inherited from v1:
+#   - Missing account/screenname -> call clarify instead of guessing.
+#   - Missing URL -> call clarify instead of fabricating a URL.
+#
+# Inherited from v2:
+#   - send is an external side-effect tool.
+#   - Do not use send as a normal response tool.
+#   - Require explicit confirmation before calling send.
+#
+# Hypothesis v3:
+# Nếu mô tả lookup phân biệt rõ query, topic và timeframe thì agent sẽ:
+#   - giữ query chỉ chứa chủ đề chính;
+#   - ánh xạ yêu cầu tin tức thành topic=news;
+#   - ánh xạ "hôm nay" thành timeframe=day;
+#   - không đưa từ "news" hoặc "tin tức" vào query.
+#
+# Case targeted:
+#   - R13_parallel_web_and_tweets
+#
+# If you rename a tool, keep the name in sync across:
+#   this file
+#   -> tools/__init__.py (TOOL_FUNCTIONS)
+#   -> data/eval_base.json
+#   -> data/eval_research_extension.json
+
+tools:
+  # ---------------- Core tools ----------------
+
+  - name: clarify
+    description: >
+      Hỏi người dùng để bổ sung thông tin bắt buộc còn thiếu, làm rõ yêu cầu
+      hoặc xin xác nhận trước một hành động có tác động ra bên ngoài.
+
+      Dùng response_type=text khi cần người dùng cung cấp tài khoản,
+      screenname, URL hoặc dữ liệu văn bản còn thiếu.
+
+      Dùng response_type=yes_no khi cần xác nhận trước khi gửi, đăng,
+      xuất bản, upload hoặc thực hiện một hành động bên ngoài.
+
+      Không dùng clarify nếu thông tin cần thiết đã xuất hiện rõ ràng trong
+      yêu cầu hiện tại hoặc trong các lượt hội thoại trước.
+    parameters:
+      type: object
+      properties:
+        question:
+          type: string
+          default: ""
+          description: >
+            Câu hỏi ngắn, rõ ràng và cụ thể về thông tin hoặc xác nhận
+            đang cần từ người dùng.
+
+        response_type:
+          type: string
+          enum: [text, yes_no, choice]
+          default: "text"
+          description: >
+            text: yêu cầu người dùng nhập dữ liệu như URL hoặc screenname.
+            yes_no: xin xác nhận trước hành động bên ngoài.
+            choice: yêu cầu chọn một trong các phương án cho trước.
+
+        options:
+          type: array
+          default: []
+          items:
+            type: string
+          description: >
+            Danh sách lựa chọn khi response_type=choice.
+            Để trống khi response_type là text hoặc yes_no.
+
+      required: [question]
+
+  - name: timeline
+    description: >
+      Lấy các bài đăng gần đây của một tài khoản mạng xã hội cụ thể.
+
+      Chỉ gọi tool này khi người dùng đã cung cấp hoặc đã xác định rõ người,
+      tài khoản hoặc screenname trong cuộc hội thoại.
+
+      Nếu chưa biết bài đăng cần lấy thuộc về ai, không được tự chọn tài khoản,
+      không được tự đoán screenname và phải gọi clarify với
+      response_type=text.
+    parameters:
+      type: object
+      properties:
+        screenname:
+          type: string
+          default: ""
+          description: >
+            Handle hoặc tên tài khoản cần lấy bài đăng, không bao gồm ký tự @.
+
+            Giá trị phải được lấy từ yêu cầu của người dùng, ngữ cảnh hội thoại
+            hoặc ánh xạ tên người sang handle đã được xác định chắc chắn.
+
+            Không tự tạo tài khoản mặc định khi người dùng chưa chỉ định ai.
+
+        limit:
+          type: integer
+          default: 5
+          description: >
+            Số bài đăng cần lấy. Dùng đúng số lượng người dùng yêu cầu.
+            Nếu không được chỉ định thì dùng mặc định là 5.
+
+      required: [screenname]
+
+  - name: social_search
+    description: >
+      Tìm các bài đăng trên mạng xã hội theo một chủ đề hoặc từ khóa.
+
+      Dùng tool này khi người dùng muốn tìm tweet, bài đăng mạng xã hội
+      hoặc nội dung mọi người đang thảo luận về một chủ đề.
+
+      Không dùng tool này để lấy timeline của một tài khoản cụ thể.
+      Trường hợp cần bài đăng của một người hoặc tài khoản xác định,
+      sử dụng timeline.
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: >
+            Chủ đề hoặc từ khóa cần tìm trên mạng xã hội.
+
+        search_type:
+          type: string
+          enum: [Latest, Top]
+          default: "Latest"
+          description: >
+            Latest khi người dùng muốn bài đăng mới nhất hoặc gần đây.
+            Top khi người dùng yêu cầu bài đăng phổ biến, nổi bật hoặc top.
+
+        limit:
+          type: integer
+          default: 5
+          description: >
+            Số bài đăng cần trả về. Dùng số lượng người dùng yêu cầu;
+            nếu không được chỉ định thì dùng mặc định là 5.
+
+      required: [query]
+
+  - name: lookup
+    description: >
+      Tìm kiếm thông tin trên web công khai.
+
+      Dùng lookup cho:
+      - tra cứu thông tin tổng quát trên website;
+      - tìm tin tức hoặc sự kiện hiện tại;
+      - tìm nguồn web không phải bài đăng mạng xã hội.
+
+      Không dùng lookup để tìm tweet hoặc bài đăng mạng xã hội.
+      Nếu người dùng yêu cầu cả web và mạng xã hội, gọi lookup và
+      social_search thành hai tool call riêng biệt.
+
+      Quy ước arguments:
+
+      1. query chỉ chứa chủ đề cốt lõi, tên người, tổ chức, sản phẩm
+         hoặc sự kiện cần tìm.
+
+      2. Không thêm các từ mô tả loại tìm kiếm như "news", "latest news",
+         "tin", "tin tức", "tin mới" hoặc mốc thời gian vào query.
+
+      3. Khi người dùng yêu cầu tin, tin tức, thời sự hoặc cập nhật tin tức,
+         đặt topic=news.
+
+      4. Khi người dùng chỉ yêu cầu thông tin tổng quát, đặt topic=general.
+
+      5. Ánh xạ thời gian:
+         - hôm nay, trong ngày, mới nhất hôm nay -> timeframe=day;
+         - tuần này, trong tuần -> timeframe=week;
+         - tháng này, trong tháng -> timeframe=month;
+         - năm nay, trong năm -> timeframe=year.
+
+      Ví dụ:
+      - "Tin AI hôm nay" ->
+        query="AI", topic="news", timeframe="day".
+      - "Tin công nghệ trong tuần này" ->
+        query="tin công nghệ", topic="news", timeframe="week".
+      - "Tìm trên web về OpenAI" ->
+        query="OpenAI", topic="general".
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: >
+            Chủ đề tìm kiếm cốt lõi.
+
+            Chỉ chứa đối tượng mà người dùng muốn tìm, ví dụ:
+            "AI", "OpenAI", "robotics" hoặc "cybersecurity".
+
+            Không thêm "news", "latest news", "tin", "tin tức",
+            "hôm nay", "tuần này" hoặc các từ dùng để xác định topic
+            và timeframe.
+
+        topic:
+          type: string
+          enum: [general, news]
+          default: "general"
+          description: >
+            Đặt news khi yêu cầu liên quan đến tin tức, thời sự hoặc
+            cập nhật mới.
+
+            Đặt general khi người dùng chỉ muốn tra cứu thông tin web
+            thông thường.
+
+        timeframe:
+          type: string
+          enum: [day, week, month, year]
+          default: "week"
+          description: >
+            Khoảng thời gian tìm kiếm.
+
+            day tương ứng với hôm nay hoặc trong ngày.
+            week tương ứng với tuần này hoặc trong tuần.
+            month tương ứng với tháng này hoặc trong tháng.
+            year tương ứng với năm nay hoặc trong năm.
+
+            Dùng đúng mốc thời gian mà người dùng yêu cầu.
+
+        max_results:
+          type: integer
+          default: 5
+          description: >
+            Số kết quả tối đa. Dùng số lượng người dùng yêu cầu.
+            Nếu không có yêu cầu cụ thể thì dùng mặc định là 5.
+
+      required: [query]
+
+  - name: fetch
+    description: >
+      Lấy nội dung từ một URL cụ thể đã được người dùng cung cấp hoặc đã xuất
+      hiện rõ ràng trong cuộc hội thoại.
+
+      Nếu người dùng nói "bài này", "link này", "trang này" hoặc yêu cầu tóm tắt
+      một bài viết nhưng chưa cung cấp URL, không được tự tạo URL mẫu và không
+      được đoán địa chỉ.
+
+      Trong trường hợp thiếu URL, phải gọi clarify với response_type=text.
+    parameters:
+      type: object
+      properties:
+        url:
+          type: string
+          default: ""
+          description: >
+            URL đầy đủ của tài liệu hoặc trang cần đọc.
+
+            URL phải được lấy từ yêu cầu hiện tại hoặc từ một lượt hội thoại
+            trước. Không dùng example.com hoặc URL tự tạo để thay thế URL
+            còn thiếu.
+
+      required: [url]
+
+  - name: format
+    description: >
+      Chuyển dữ liệu nghiên cứu đã có thành văn bản theo một cấu trúc cụ thể.
+
+      Tool này chỉ định dạng dữ liệu đầu vào. Nó không tìm kiếm thông tin,
+      không đọc URL và không gửi nội dung ra bên ngoài.
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần trình bày"
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+
+              url:
+                type: string
+
+              source:
+                type: string
+
+              summary:
+                type: string
+
+              section:
+                type: string
+
+        template:
+          type: string
+          enum: [brief, sections, bullets, thread, daily_ai_vn]
+          default: "sections"
+          description: "Khuôn trình bày"
+
+        headline:
+          type: string
+          default: ""
+          description: "Tiêu đề"
+
+      required: [items, template]
+
+  # ---------------- Bonus tools ----------------
+
+  - name: send
+    description: >
+      Gửi hoặc đăng một đoạn văn bản ra một hệ thống bên ngoài.
+
+      Đây là một external side-effect tool. Tool này có thể làm thay đổi trạng
+      thái bên ngoài và không thể được sử dụng như một cách trả lời thông thường
+      cho người dùng.
+
+      Không dùng send để:
+      - trả lời câu hỏi;
+      - giải toán;
+      - viết code;
+      - giải thích kiến thức;
+      - từ chối yêu cầu;
+      - hiển thị nội dung trong cuộc hội thoại;
+      - trả về kết quả nghiên cứu thông thường.
+
+      Chỉ gọi send khi tất cả điều kiện sau đều đúng:
+      1. Người dùng yêu cầu rõ ràng việc gửi, đăng, xuất bản hoặc chuyển nội dung
+         ra một hệ thống bên ngoài.
+      2. Nội dung cần gửi đã được xác định.
+      3. Người dùng đã xác nhận rõ ràng hành động gửi trong cuộc hội thoại.
+      4. Argument confirmed phải được đặt thành true.
+
+      Nếu người dùng yêu cầu gửi nhưng chưa xác nhận:
+      - không gọi send;
+      - gọi clarify với response_type=yes_no để xin xác nhận;
+      - không gọi clarify và send trong cùng một lượt.
+
+      Không được tuyên bố rằng nội dung đã được gửi nếu chưa có tool result
+      xác nhận hành động thành công.
+    parameters:
+      type: object
+      properties:
+        text:
+          type: string
+          default: ""
+          description: >
+            Nội dung chính xác cần gửi ra bên ngoài.
+
+            Không tự tạo thông báo giả như "đã gửi thành công" để làm nội dung
+            của argument này.
+
+        confirmed:
+          type: boolean
+          default: false
+          description: >
+            Chỉ đặt true khi người dùng đã xác nhận rõ ràng việc gửi trong một
+            lượt hội thoại trước hoặc trong yêu cầu hiện tại.
+
+            Nếu chưa có xác nhận rõ ràng, không được gọi send.
+
+      required: [text, confirmed]
+
+  - name: policy
+    description: "Tìm trong tài liệu nội bộ."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Truy vấn"
+
+        policy_area:
+          type: string
+          enum:
+            - all
+            - ai_research
+            - source_citation
+            - data_privacy
+            - external_publishing
+            - tool_usage
+          default: "all"
+          description: "Nhóm"
+
+        top_k:
+          type: integer
+          default: 3
+          description: "Số mục"
+
+      required: [query]
+
+  - name: papers
+    description: "Tìm bài báo khoa học."
+    parameters:
+      type: object
+      properties:
+        query:
+          type: string
+          default: ""
+          description: "Từ khóa"
+
+        max_results:
+          type: integer
+          default: 5
+          description: "Số lượng"
+
+        sort_by:
+          type: string
+          enum: [relevance, lastUpdatedDate, submittedDate]
+          default: "relevance"
+          description: "Sắp xếp"
+
+      required: [query]
+
+  - name: paper_text
+    description: >
+      Lấy nội dung văn bản của một bài báo khoa học từ arXiv ID hoặc URL
+      cụ thể.
+    parameters:
+      type: object
+      properties:
+        arxiv_url:
+          type: string
+          default: ""
+          description: "arXiv ID hoặc địa chỉ của bài báo"
+
+        max_pages:
+          type: integer
+          default: 5
+          description: "Số trang tối đa"
+
+        max_chars:
+          type: integer
+          default: 8000
+          description: "Số ký tự tối đa"
+
+      required: [arxiv_url]
