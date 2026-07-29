@@ -314,3 +314,22 @@ Kênh nộp, quy tắc đặt tên và deadline cuối theo thông báo của gi
    - **v3 + Report B — 12:15–12:35:** áp dụng feedback, chạy v3 và hoàn thiện report bằng evidence.
    - **Final gate — 12:35–12:40:** kiểm tra và chuẩn bị nộp `starter_v0/`.
 7. **Kahoot Recap — 12:40–13:00.**
+
+## UI của nhóm — Next.js console
+
+Nhóm dùng Next.js thay cho Streamlit. UI không viết lại agent loop: `starter_v0/server.py`
+(FastAPI) bọc chính `iter_model_tool_loop` trong `chat.py`, nên CLI và UI chạy cùng một agent
+và cùng ghi transcript vào `starter_v0/transcripts/`.
+
+```bash
+# terminal 1 — backend
+cd starter_v0 && uvicorn server:app --reload --port 8000
+
+# terminal 2 — frontend
+cd frontend && npm install && npm run dev     # http://localhost:3000
+```
+
+UI đáp ứng "bằng chứng tối thiểu" ở trên: request/response cuối, trace từng tool
+(tên · args · round · status · result/error · latency), `transcript_id` +
+`artifact_version` + prompt/tools hash, và tab **So sánh version** chạy cùng một prompt
+qua nhiều artifact version để thấy routing đổi. Chi tiết: [frontend/README.md](frontend/README.md).

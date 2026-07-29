@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -77,19 +78,37 @@ def assistant_tool_message(response_text: str | None, calls: list[ToolCall]) -> 
     }
 
 
-def run_model_tool_loop(
+def iter_model_tool_loop(
     *,
     provider: Any,
     messages: list[dict[str, str]],
     tools: list[dict[str, Any]],
     model: str | None,
     max_tool_rounds: int,
-) -> dict[str, Any]:
+):
+    """Run the agent loop and yield progress events.
+
+    The final event is always {"type": "final", "payload": {...}} where the payload
+    is the same dict `run_model_tool_loop` returns. The UI backend (server.py) consumes
+    the intermediate events to stream tool calls live; the CLI just drains them.
+    """
     working_messages = list(messages)
     rounds: list[dict[str, Any]] = []
     all_tool_events: list[dict[str, Any]] = []
 
+    def final(status: str, assistant_text: str) -> dict[str, Any]:
+        return {
+            "type": "final",
+            "payload": {
+                "status": status,
+                "assistant_text": assistant_text,
+                "rounds": rounds,
+                "tool_events": all_tool_events,
+            },
+        }
+
     for round_index in range(1, max_tool_rounds + 1):
+        yield {"type": "round_start", "round": round_index}
         response = provider.complete(working_messages, tools, model=model, temperature=0.0)
         calls = response.tool_calls
         round_record: dict[str, Any] = {
@@ -98,24 +117,34 @@ def run_model_tool_loop(
             "tool_calls": [{"name": call.name, "args": call.args} for call in calls],
             "tool_results": [],
         }
+        yield {"type": "assistant_text", "round": round_index, "text": response.text}
 
         if not calls:
             rounds.append(round_record)
-            return {
-                "status": "answered",
-                "assistant_text": response.text or "",
-                "rounds": rounds,
-                "tool_events": all_tool_events,
-            }
+            yield final("answered", response.text or "")
+            return
 
         working_messages.append(assistant_tool_message(response.text, calls))
         non_clarification_events: list[dict[str, Any]] = []
 
-        for call in calls:
-            print(f"🔧 {call.name}({json.dumps(call.args, ensure_ascii=False, sort_keys=True)})")
+        for call_index, call in enumerate(calls):
+            call_id = f"r{round_index}c{call_index}"
+            yield {
+                "type": "tool_call",
+                "round": round_index,
+                "call_id": call_id,
+                "name": call.name,
+                "args": call.args,
+            }
+            started = time.monotonic()
             event = execute_tool_call(call)
+            duration_ms = int((time.monotonic() - started) * 1000)
+            event["duration_ms"] = duration_ms
+            event["round"] = round_index
+            event["call_id"] = call_id
             round_record["tool_results"].append(event)
             all_tool_events.append(event)
+            yield {"type": "tool_result", "round": round_index, "call_id": call_id, "event": event}
 
             # Detect the clarification/pause tool by its output flag (rename-proof),
             # not by a hard-coded tool name.
@@ -123,24 +152,45 @@ def run_model_tool_loop(
             if isinstance(result, dict) and result.get("awaiting_user"):
                 question = result.get("question") or call.args.get("question") or "Bạn bổ sung thêm thông tin nhé."
                 rounds.append(round_record)
-                return {
-                    "status": "waiting_for_user",
-                    "assistant_text": question,
-                    "rounds": rounds,
-                    "tool_events": all_tool_events,
-                }
+                yield final("waiting_for_user", question)
+                return
 
             non_clarification_events.append(event)
 
         rounds.append(round_record)
+        yield {"type": "round_end", "round": round_index}
         working_messages.append(tool_results_message(non_clarification_events))
 
-    return {
-        "status": "max_tool_rounds",
-        "assistant_text": f"Stopped after {max_tool_rounds} tool rounds. Inspect the transcript for details.",
-        "rounds": rounds,
-        "tool_events": all_tool_events,
-    }
+    yield final(
+        "max_tool_rounds",
+        f"Stopped after {max_tool_rounds} tool rounds. Inspect the transcript for details.",
+    )
+
+
+def run_model_tool_loop(
+    *,
+    provider: Any,
+    messages: list[dict[str, str]],
+    tools: list[dict[str, Any]],
+    model: str | None,
+    max_tool_rounds: int,
+    on_event: Any | None = None,
+) -> dict[str, Any]:
+    payload: dict[str, Any] = {}
+    for event in iter_model_tool_loop(
+        provider=provider,
+        messages=messages,
+        tools=tools,
+        model=model,
+        max_tool_rounds=max_tool_rounds,
+    ):
+        if on_event is not None:
+            on_event(event)
+        if event["type"] == "tool_call":
+            print(f"🔧 {event['name']}({json.dumps(event['args'], ensure_ascii=False, sort_keys=True)})")
+        elif event["type"] == "final":
+            payload = event["payload"]
+    return payload
 
 
 def write_transcript(path: Path, transcript: dict[str, Any]) -> None:
