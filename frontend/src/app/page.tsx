@@ -358,8 +358,8 @@ uvicorn server:app --reload --port 8000`}
           scenarios={scenarios}
         />
       ) : (
-        <div className="grid flex-1 gap-4 xl:grid-cols-[300px_minmax(0,1fr)_360px]">
-          <div className="space-y-4">
+        <div className="grid flex-1 items-start gap-4 xl:grid-cols-[300px_minmax(0,1fr)_360px]">
+          <div className="space-y-4 xl:sticky xl:top-4 xl:max-h-[calc(100vh-2rem)] xl:overflow-y-auto xl:pr-1">
             <Section title="run config">
               <ConfigPanel meta={meta} config={config} onChange={setConfig} disabled={busy} />
             </Section>
@@ -378,7 +378,7 @@ uvicorn server:app --reload --port 8000`}
             </Section>
           </div>
 
-          <div className="panel flex min-h-[70vh] flex-col rounded-2xl">
+          <div className="panel flex flex-col rounded-2xl">
             <div className="flex items-center justify-between gap-2 border-b border-ink-700 px-4 py-2.5">
               <div className="flex items-center gap-2 font-mono text-[10.5px] text-mist-400">
                 <span>session</span>
@@ -393,7 +393,7 @@ uvicorn server:app --reload --port 8000`}
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 p-4">
               <ChatThread
                 entries={entries}
                 emptyState={
@@ -421,7 +421,7 @@ uvicorn server:app --reload --port 8000`}
               />
             </div>
 
-            <div className="border-t border-ink-700 p-3">
+            <div className="sticky bottom-0 z-10 rounded-b-2xl border-t border-ink-700 bg-ink-850/95 p-3 backdrop-blur">
               {activeScenario && (
                 <div className="mb-2 flex items-center gap-2 font-mono text-[10.5px] text-mist-400">
                   <span className="rounded bg-ink-800 px-1.5 py-px text-web-400">{activeScenario.id}</span>
@@ -464,7 +464,7 @@ uvicorn server:app --reload --port 8000`}
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 xl:sticky xl:top-4 xl:max-h-[calc(100vh-2rem)] xl:overflow-y-auto xl:pr-1">
             <Section title="evidence / trace">
               <TracePanel
                 entry={lastAgentEntry}

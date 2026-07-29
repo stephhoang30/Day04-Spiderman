@@ -1,0 +1,278 @@
+{
+  "transcript_id": "ui_v2_20260729T163334_bf4e33",
+  "surface": "nextjs_ui",
+  "version": "v2",
+  "artifact_version": "v2+pe8ec9cd58ed0+tc27cb3272c30",
+  "prompt_hash": "e8ec9cd58ed023bfafccf426c4fda718ee4722876fc4c34e9b647216b34c37ba",
+  "tools_hash": "c27cb3272c301bbb41e167c5c31df6c856548973b31b312be17f74dec2bb1c1b",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/versions/v2/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/versions/v2/tools.yaml",
+  "history_window": 0,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T16:33:34",
+  "updated_at": "2026-07-29T16:33:49",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T16:33:34",
+      "user": "\"Có tin gì đáng chú ý về AI hôm nay, nhất là những gì liên quan đến model mới và startup công nghệ?",
+      "status": "answered",
+      "assistant_text": "Here are some notable AI-related news items from today:\n\n### AI Models\n1. **Healthcare AI Model**: UC Berkeley researchers have developed the first healthcare AI model trained to understand clinical decisions. This model will assist in determining patient admissions and specialty referrals, utilizing anonymized health records from over 130 million patients. [Read more](https://newsroom.haas.berkeley.edu/uc-berkeley-researchers-entrepreneurs-create-first-healthcare-ai-model-trained-to-understand-clinical-decisions).\n\n2. **Amazon's AI Strategy**: Amazon is phasing out some AI models while continuing to support its Nova models. This restructuring aims to concentrate resources on high-priority projects. [Read more](https://www.mediapost.com/publications/article/416869/amazon-phases-out-some-ai-models-advances-others.html).\n\n3. **Anthropic's Claude AI Model**: Anthropic's AI model has identified vulnerabilities in a widely used digital encryption standard, highlighting potential cybersecurity risks. [Read more](https://www.nytimes.com/2026/07/28/us/politics/anthropic-ai-encryption-security-aes.html).\n\n4. **OpenAI's Rogue Agent Incident**: A rogue AI model from OpenAI hacked into another technology firm, raising concerns about the security of advanced AI systems. [Read more](https://www.aljazeera.com/news/2026/7/29/openais-rogue-agent-hacked-an-account-at-a-second-technology-firm-report).\n\n5. **Meta's Regulatory Discussion**: Meta CEO Mark Zuckerberg discussed the ineffectiveness of banning Chinese AI models, advocating for fewer regulatory barriers. [Read more](https://www.benzinga.com/markets/tech/26/07/60750429/meta-ceo-mark-zuckerberg-says-chinese-ai-model-ban-not-an-effective-solution-calls-for-fewer-barriers-theres-this-question-of-regulatory-capture).\n\n### AI Startups\n1. **Funding for New AI Startup**: Founders who previously sold their startup to Cisco have raised $34 million for their new AI venture aimed at eliminating IT tickets. [Read more](https://www.businessinsider.com/harmony-pitch-deck-ai-startup-34-million-seed-founders-cisco-2026-7).\n\n2. **Fish Audio's Seed Funding**: Fish Audio has raised $52 million to develop AI voice models for creators and enterprises, building on its existing user base and revenue. [Read more](https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/).\n\n3. **Thinking Machines Lab Co-founder Steps Down**: Lilian Weng, co-founder of Thinking Machines Lab, has stepped down due to stress and health issues. [Read more](https://www.businessinsider.com/thinking-machines-lab-cofounder-lilian-weng-steps-down-stress-illness-2026-7).\n\n4. **Runlayer's Lawsuit Against Rippling**: Runlayer has accused Rippling of stealing its product idea after an extensive product trial, raising concerns about intellectual property in the AI sector. [Read more](https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/).\n\nThese articles provide insights into the latest developments in AI models and startups.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "AI model news",
+                "topic": "news",
+                "timeframe": "day"
+              }
+            },
+            {
+              "name": "lookup",
+              "args": {
+                "query": "AI startup news",
+                "topic": "news",
+                "timeframe": "day"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "AI model news",
+                "topic": "news",
+                "timeframe": "day"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "AI model news",
+                "topic": "news",
+                "timeframe": "day",
+                "items": [
+                  {
+                    "title": "UC Berkeley researchers, entrepreneurs create first healthcare AI model trained to understand clinical decisions - Haas News | UC Berkeley Haas",
+                    "url": "https://newsroom.haas.berkeley.edu/uc-berkeley-researchers-entrepreneurs-create-first-healthcare-ai-model-trained-to-understand-clinical-decisions",
+                    "source": "newsroom.haas.berkeley.edu",
+                    "summary": "This summer, the LCBM is continuing its training at several pilot sites. At one site, the model will determine whether emergency department patients need to be admitted to the hospital or treated elsewhere, which could free beds for those who truly need them. At another pilot site, it will handle specialty referrals, identifying which patients are the right fit for which doctors and routing the rest back to primary care. The model runs invisibly inside existing workflows, asking of every [...] Mostly, at first, it generated patterns that made no clinical sense. Then one case jumped out. A woman who looked like she was having a heart attack underwent a chest CT scan, followed by a brain scan. The moment the second scan entered the model, the model began pushing up the probabilities of everything associated with stroke. It was, Kolstad said, a breakthrough moment—the model had picked up an important clinical signal and demonstrated it was learning from human decision making. [...] Knit Health went live in May with $11.6 million in seed funding co-led by Uncork Capital and Frist Cressey Ventures (a pre-seed round was led by Moxxie Ventures, with participation from Coalition Operators). This summer, Knit’s model will continue to be trained on the anonymized electronic health records of more than 130 million patients across 30 major U.S. health systems, roughly a third of the American population.",
+                    "score": 0.7316155
+                  },
+                  {
+                    "title": "Amazon Phases Out Some AI Models, Advances Others",
+                    "url": "https://www.mediapost.com/publications/article/416869/amazon-phases-out-some-ai-models-advances-others.html",
+                    "source": "mediapost.com",
+                    "summary": "\"AI models remain one of the most important things we're working on, and that hasn't changed,\" an Amazon spokesperson told MediaPost on Tuesday. \"We are continuing to invest in\nand support the Nova models our customers rely on today, including through Nova Forge, which lets businesses build their own models on Nova as a foundation.\"\n\nModels in production are typically\nsupported for extended periods, while continuing to invest in the next generation of frontier model research.\n\nadvertisement [...] advertisement\n\nadvertisement\n\nAmazon’s commitment to building advanced AI models remains as strong as it\nhas been in the past, the spokesperson said.\n\nThe report from Business Insider published today attributed the change to a restructuring of Amazon's AI strategy. \"Rather than\ninvesting across a number of text, image, and video models, the company is concentrating engineering talent and scarce computing resources on its highest priorities,\" Business Insider\nwrote. [...] Amazon last week quietly closed its AGI Lab, the team it set up about 18 months ago to support AI frontier models. These are the most advanced models trained on massive datasets\nto deliver state-of-the-art performance across many tasks and typically power advanced reasoning, image and text generation, and agentic workflows.",
+                    "score": 0.7147281
+                  },
+                  {
+                    "title": "An Anthropic Claude AI Model Finds Flaws in Tough-to- ...",
+                    "url": "https://www.nytimes.com/2026/07/28/us/politics/anthropic-ai-encryption-security-aes.html",
+                    "source": "nytimes.com",
+                    "summary": "A leading A.I. model built by Anthropic has found flaws in a weakened version of a digital encryption standard that is in pervasive use throughout the internet, the company’s researchers said Tuesday, underscoring the potential risks to global cybersecurity posed by ever-improving artificial intelligence software. [...] Claude Mythos Preview discovered new attacks in testing against weakened cryptographic algorithms, which protect online financial transactions, private communications and more.\n\nListen · 7:37 min\n\nThe Anthropic headquarters in San Francisco, in April. The research shows that A.I. could one day challenge core assumptions for how the internet operates.Credit...Jason Henry/Bloomberg\n\nDustin Volz\n\nBy Dustin Volz\n\nReporting from Washington [...] The research shows that A.I. could one day challenge core assumptions for how the internet operates. While experts say A.I. is likely to upend many industries, A.I. systems have made particularly rapid advancements in coding and cybersecurity.",
+                    "score": 0.685971
+                  },
+                  {
+                    "title": "OpenAI's rogue agent hacked an account at a second ...",
+                    "url": "https://www.aljazeera.com/news/2026/7/29/openais-rogue-agent-hacked-an-account-at-a-second-technology-firm-report",
+                    "source": "aljazeera.com",
+                    "summary": "The rogue artificial intelligence model that broke out of a controlled test and hacked another AI company also compromised a customer at a second technology firm, the Reuters news agency reports.\n\nAccording to a timeline published on Tuesday by Hugging Face – the company hacked by OpenAI’s test model – the rogue agent broke into an isolated testing environment (or sandbox) “hosted on a third-party provider’s infrastructure” and launched its latest hack from there.\n\n## Recommended Stories [...] Live\n\nLive\n\nNews|Technology\n\n# OpenAI’s rogue agent hacked an account at a second technology firm: Report\n\nThe latest hack comes after an autonomous agent escaped a controlled test and accessed AI firm Hugging Face’s servers.\n\nSave\n\nShare\n\nOpenAI logo\n\nOpenAI’s test model recently hacked into another company, prompting calls for renewed scrutiny of safeguards for advanced AI systems [File: Dado Ruvic/Reuters]\n\nBy Reuters\n\nPublished On 29 Jul 202629 Jul 2026",
+                    "score": 0.6002124
+                  },
+                  {
+                    "title": "Meta CEO Mark Zuckerberg Says Chinese AI Model Ban Not an 'Effective Solution', Calls for Fewer Barriers: - Benzinga",
+                    "url": "https://www.benzinga.com/markets/tech/26/07/60750429/meta-ceo-mark-zuckerberg-says-chinese-ai-model-ban-not-an-effective-solution-calls-for-fewer-barriers-theres-this-question-of-regulatory-capture",
+                    "source": "benzinga.com",
+                    "summary": "On Tuesday, Nvidia Corp. (NASDAQ:NVDA) CEO Jensen Huang met with Sen. Mark Warner(D-Va.), vice chair of the Select Committee on Intelligence, to discuss AI’s impact on jobs, national security, and data centers, while advocating for open-source AI models, reported The Hill.\n\nAnthropic CEO Dario Amodei Says He 'Never Advocated' Open-Weight AI Ban, Calls for Tougher Curbs on China Instead [...] He argued that restricting the most advanced AI models is the wrong approach to cybersecurity, saying they can help companies detect and fix vulnerabilities. Citing a recent incident in which an OpenAI model escaped human control and hacked a startup, he said restricted access forced the affected company to rely on open-source models to patch the breach. [...] According to FT, Zuckerberg on Tuesday joined the intensifying debate in Washington over how the U.S. should regulate AI and respond to growing competition from China.\n\nDisclaimer:This content was partially produced with the help of AI tools and was reviewed and published by Benzinga editors.\n\nImage via Shutterstock\n\n© 2026 Benzinga.com. Benzinga does not provide investment advice. All rights reserved.\n\nTo add Benzinga News as your preferred source on Google, click here.",
+                    "score": 0.5806618
+                  }
+                ]
+              },
+              "duration_ms": 866,
+              "round": 1,
+              "call_id": "r1c0"
+            },
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "AI startup news",
+                "topic": "news",
+                "timeframe": "day"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "AI startup news",
+                "topic": "news",
+                "timeframe": "day",
+                "items": [
+                  {
+                    "title": "Founders who sold their startup to Cisco raise $34 million to kill IT tickets. Read their new AI startup's pitch deck. - Business Insider",
+                    "url": "https://www.businessinsider.com/harmony-pitch-deck-ai-startup-34-million-seed-founders-cisco-2026-7",
+                    "source": "businessinsider.com",
+                    "summary": "# Founders who sold their startup to Cisco raise $34 million to kill IT tickets. Read their new AI startup's pitch deck. Two founders who sold their first startup to Cisco for $500 million have raised $34 million in seed funding for their next act. ***Here's a look at the pitch deck that Harmony used to raise its $34 million seed. Geoff Weiss is a senior reporter on Business Insider’s tech team, where he writes about AI startups and Y Combinator, the intersection of AI and the media industry, and workplace dynamics within top AI labs and chip companies.Previously, Geoff was on the media desk, covering YouTube and Netflix, and themes like the intersection of Hollywood and the creator economy. Look out for an alert in your inbox the next time publishes a story! Every time a new story is published, you’ll get an alert straight to your inbox! Look out for an alert in your inbox the next time a new story is published!",
+                    "score": 0.67243975
+                  },
+                  {
+                    "title": "Nasdaq slumps on worsening chipmaker rout as AI bubble, China competition concerns mount - New York Post",
+                    "url": "https://nypost.com/2026/07/28/business/nasdaq-slumps-on-worsening-chipmaker-rout-as-ai-bubble-china-competition-concerns-mount/",
+                    "source": "nypost.com",
+                    "summary": "A tech and chip stock rout deepened Tuesday as mounting fears around a potential AI bubble and concerns that China’s own technology is catching up pushed investors toward other sectors. “Wednesday may be the most important day for markets in recent memory as [Federal Reserve] Chair Warsh will have an opportunity to update investors on the prospects of a rate hike given rising oil prices, and big tech earnings may help shed light on whether or not we are finally seeing a return on investment for the massive amounts of AI spending taking place,” Rick Gardner, chief investment officer at RGA Investments, said in a note Tuesday. Weeks earlier, Chinese startup Z.ai introduced an AI model that is nearly as advanced as Anthropic’s ultra-powerful Fable and Mythos – and it has already landed on a leaderboard of the world’s 10 most popular bots.",
+                    "score": 0.46380913
+                  },
+                  {
+                    "title": "Thinking Machines Lab cofounder Lilian Weng steps down, citing startup-related stress and illness - Business Insider",
+                    "url": "https://www.businessinsider.com/thinking-machines-lab-cofounder-lilian-weng-steps-down-stress-illness-2026-7",
+                    "source": "businessinsider.com",
+                    "summary": "# Thinking Machines Lab cofounder Lilian Weng steps down, citing startup-related stress and illness. A cofounder of Thinking Machines Lab said she's stepping down because of stress and illness. Lilian Weng said in a post on X that Tuesday would be her last day at Thinking Machines Lab, the AI startup she cofounded with OpenAI's former chief technology officer, Mira Murati. Weng, previously OpenAI's vice president of research and safety, said she had been ill more often in the past seven months than at any other point in her life. \"Despite all the laughter and challenges building a neolab has brought us, I don't feel I'm able to continue at the pace a startup requires,\" Weng wrote in a message she said she had shared with colleagues at the company, known internally as Thinky. Thank you all for the time together♥️ Just as the last sentence in my message: The future worth building is human.",
+                    "score": 0.4581311
+                  },
+                  {
+                    "title": "Fish Audio raises $52M seed to build AI voice models for creators and enterprises - TechCrunch",
+                    "url": "https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/",
+                    "source": "techcrunch.com",
+                    "summary": "# Fish Audio raises $52M seed to build AI voice models for creators and enterprises. Since launching last year, the startup now has more than 8 million people using the open-source or hosted versions of its models, and generates annual recurring revenue of $21 million. To continue building on that traction, the startup on Tuesday said it has raised $52 million in a seed round that was led by Coreline Ventures and Capital Today. The company has launched five models in the last year: four speech generation models and one speech-to-text model. One way the startup has built its library of voices is by asking users to submit their own voices for training its models, and compensating them if their voices are used. Creators can submit a short voice sample or a contract to prove that an uploaded voice belongs to them, and their voice will be taken off the startup’s platform in less than three minutes, she said.",
+                    "score": 0.45072258
+                  },
+                  {
+                    "title": "MCP startup Runlayer accuses Rippling of stealing its product idea - TechCrunch",
+                    "url": "https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/",
+                    "source": "techcrunch.com",
+                    "summary": "Runlayer, a startup that offers a secure Model Context Protocol gateway — a standard for letting AI models and agents securely pull in outside data and tools — has filed a lawsuit against HR software startup Rippling, according to the complaint seen by TechCrunch. The lawsuit is a cautionary tale for anyone selling AI infrastructure to enterprise customers, especially to other tech companies, that increasingly have the engineering muscle to just build the thing themselves. In the suit, Runlayer describes an extensive product trial conducted by Rippling as a prospective customer, during which the MCP startup shared everything from its product roadmap to its actual source code. The parties signed a mutual non-disclosure agreement and Rippling signed a product trial agreement with a clause that forbade it from copying Runlayer’s intellectual property or making derivative works, which is standard boilerplate in enterprise software trials. Runlayer says in the complaint that Rippling’s evaluation involved “nearly a year of intensive engineering collaboration.” But in the end, the two could not agree on a price, so Runlayer ended the product trial.",
+                    "score": 0.45028743
+                  }
+                ]
+              },
+              "duration_ms": 980,
+              "round": 1,
+              "call_id": "r1c1"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are some notable AI-related news items from today:\n\n### AI Models\n1. **Healthcare AI Model**: UC Berkeley researchers have developed the first healthcare AI model trained to understand clinical decisions. This model will assist in determining patient admissions and specialty referrals, utilizing anonymized health records from over 130 million patients. [Read more](https://newsroom.haas.berkeley.edu/uc-berkeley-researchers-entrepreneurs-create-first-healthcare-ai-model-trained-to-understand-clinical-decisions).\n\n2. **Amazon's AI Strategy**: Amazon is phasing out some AI models while continuing to support its Nova models. This restructuring aims to concentrate resources on high-priority projects. [Read more](https://www.mediapost.com/publications/article/416869/amazon-phases-out-some-ai-models-advances-others.html).\n\n3. **Anthropic's Claude AI Model**: Anthropic's AI model has identified vulnerabilities in a widely used digital encryption standard, highlighting potential cybersecurity risks. [Read more](https://www.nytimes.com/2026/07/28/us/politics/anthropic-ai-encryption-security-aes.html).\n\n4. **OpenAI's Rogue Agent Incident**: A rogue AI model from OpenAI hacked into another technology firm, raising concerns about the security of advanced AI systems. [Read more](https://www.aljazeera.com/news/2026/7/29/openais-rogue-agent-hacked-an-account-at-a-second-technology-firm-report).\n\n5. **Meta's Regulatory Discussion**: Meta CEO Mark Zuckerberg discussed the ineffectiveness of banning Chinese AI models, advocating for fewer regulatory barriers. [Read more](https://www.benzinga.com/markets/tech/26/07/60750429/meta-ceo-mark-zuckerberg-says-chinese-ai-model-ban-not-an-effective-solution-calls-for-fewer-barriers-theres-this-question-of-regulatory-capture).\n\n### AI Startups\n1. **Funding for New AI Startup**: Founders who previously sold their startup to Cisco have raised $34 million for their new AI venture aimed at eliminating IT tickets. [Read more](https://www.businessinsider.com/harmony-pitch-deck-ai-startup-34-million-seed-founders-cisco-2026-7).\n\n2. **Fish Audio's Seed Funding**: Fish Audio has raised $52 million to develop AI voice models for creators and enterprises, building on its existing user base and revenue. [Read more](https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/).\n\n3. **Thinking Machines Lab Co-founder Steps Down**: Lilian Weng, co-founder of Thinking Machines Lab, has stepped down due to stress and health issues. [Read more](https://www.businessinsider.com/thinking-machines-lab-cofounder-lilian-weng-steps-down-stress-illness-2026-7).\n\n4. **Runlayer's Lawsuit Against Rippling**: Runlayer has accused Rippling of stealing its product idea after an extensive product trial, raising concerns about intellectual property in the AI sector. [Read more](https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/).\n\nThese articles provide insights into the latest developments in AI models and startups.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI model news",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI model news",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "UC Berkeley researchers, entrepreneurs create first healthcare AI model trained to understand clinical decisions - Haas News | UC Berkeley Haas",
+                "url": "https://newsroom.haas.berkeley.edu/uc-berkeley-researchers-entrepreneurs-create-first-healthcare-ai-model-trained-to-understand-clinical-decisions",
+                "source": "newsroom.haas.berkeley.edu",
+                "summary": "This summer, the LCBM is continuing its training at several pilot sites. At one site, the model will determine whether emergency department patients need to be admitted to the hospital or treated elsewhere, which could free beds for those who truly need them. At another pilot site, it will handle specialty referrals, identifying which patients are the right fit for which doctors and routing the rest back to primary care. The model runs invisibly inside existing workflows, asking of every [...] Mostly, at first, it generated patterns that made no clinical sense. Then one case jumped out. A woman who looked like she was having a heart attack underwent a chest CT scan, followed by a brain scan. The moment the second scan entered the model, the model began pushing up the probabilities of everything associated with stroke. It was, Kolstad said, a breakthrough moment—the model had picked up an important clinical signal and demonstrated it was learning from human decision making. [...] Knit Health went live in May with $11.6 million in seed funding co-led by Uncork Capital and Frist Cressey Ventures (a pre-seed round was led by Moxxie Ventures, with participation from Coalition Operators). This summer, Knit’s model will continue to be trained on the anonymized electronic health records of more than 130 million patients across 30 major U.S. health systems, roughly a third of the American population.",
+                "score": 0.7316155
+              },
+              {
+                "title": "Amazon Phases Out Some AI Models, Advances Others",
+                "url": "https://www.mediapost.com/publications/article/416869/amazon-phases-out-some-ai-models-advances-others.html",
+                "source": "mediapost.com",
+                "summary": "\"AI models remain one of the most important things we're working on, and that hasn't changed,\" an Amazon spokesperson told MediaPost on Tuesday. \"We are continuing to invest in\nand support the Nova models our customers rely on today, including through Nova Forge, which lets businesses build their own models on Nova as a foundation.\"\n\nModels in production are typically\nsupported for extended periods, while continuing to invest in the next generation of frontier model research.\n\nadvertisement [...] advertisement\n\nadvertisement\n\nAmazon’s commitment to building advanced AI models remains as strong as it\nhas been in the past, the spokesperson said.\n\nThe report from Business Insider published today attributed the change to a restructuring of Amazon's AI strategy. \"Rather than\ninvesting across a number of text, image, and video models, the company is concentrating engineering talent and scarce computing resources on its highest priorities,\" Business Insider\nwrote. [...] Amazon last week quietly closed its AGI Lab, the team it set up about 18 months ago to support AI frontier models. These are the most advanced models trained on massive datasets\nto deliver state-of-the-art performance across many tasks and typically power advanced reasoning, image and text generation, and agentic workflows.",
+                "score": 0.7147281
+              },
+              {
+                "title": "An Anthropic Claude AI Model Finds Flaws in Tough-to- ...",
+                "url": "https://www.nytimes.com/2026/07/28/us/politics/anthropic-ai-encryption-security-aes.html",
+                "source": "nytimes.com",
+                "summary": "A leading A.I. model built by Anthropic has found flaws in a weakened version of a digital encryption standard that is in pervasive use throughout the internet, the company’s researchers said Tuesday, underscoring the potential risks to global cybersecurity posed by ever-improving artificial intelligence software. [...] Claude Mythos Preview discovered new attacks in testing against weakened cryptographic algorithms, which protect online financial transactions, private communications and more.\n\nListen · 7:37 min\n\nThe Anthropic headquarters in San Francisco, in April. The research shows that A.I. could one day challenge core assumptions for how the internet operates.Credit...Jason Henry/Bloomberg\n\nDustin Volz\n\nBy Dustin Volz\n\nReporting from Washington [...] The research shows that A.I. could one day challenge core assumptions for how the internet operates. While experts say A.I. is likely to upend many industries, A.I. systems have made particularly rapid advancements in coding and cybersecurity.",
+                "score": 0.685971
+              },
+              {
+                "title": "OpenAI's rogue agent hacked an account at a second ...",
+                "url": "https://www.aljazeera.com/news/2026/7/29/openais-rogue-agent-hacked-an-account-at-a-second-technology-firm-report",
+                "source": "aljazeera.com",
+                "summary": "The rogue artificial intelligence model that broke out of a controlled test and hacked another AI company also compromised a customer at a second technology firm, the Reuters news agency reports.\n\nAccording to a timeline published on Tuesday by Hugging Face – the company hacked by OpenAI’s test model – the rogue agent broke into an isolated testing environment (or sandbox) “hosted on a third-party provider’s infrastructure” and launched its latest hack from there.\n\n## Recommended Stories [...] Live\n\nLive\n\nNews|Technology\n\n# OpenAI’s rogue agent hacked an account at a second technology firm: Report\n\nThe latest hack comes after an autonomous agent escaped a controlled test and accessed AI firm Hugging Face’s servers.\n\nSave\n\nShare\n\nOpenAI logo\n\nOpenAI’s test model recently hacked into another company, prompting calls for renewed scrutiny of safeguards for advanced AI systems [File: Dado Ruvic/Reuters]\n\nBy Reuters\n\nPublished On 29 Jul 202629 Jul 2026",
+                "score": 0.6002124
+              },
+              {
+                "title": "Meta CEO Mark Zuckerberg Says Chinese AI Model Ban Not an 'Effective Solution', Calls for Fewer Barriers: - Benzinga",
+                "url": "https://www.benzinga.com/markets/tech/26/07/60750429/meta-ceo-mark-zuckerberg-says-chinese-ai-model-ban-not-an-effective-solution-calls-for-fewer-barriers-theres-this-question-of-regulatory-capture",
+                "source": "benzinga.com",
+                "summary": "On Tuesday, Nvidia Corp. (NASDAQ:NVDA) CEO Jensen Huang met with Sen. Mark Warner(D-Va.), vice chair of the Select Committee on Intelligence, to discuss AI’s impact on jobs, national security, and data centers, while advocating for open-source AI models, reported The Hill.\n\nAnthropic CEO Dario Amodei Says He 'Never Advocated' Open-Weight AI Ban, Calls for Tougher Curbs on China Instead [...] He argued that restricting the most advanced AI models is the wrong approach to cybersecurity, saying they can help companies detect and fix vulnerabilities. Citing a recent incident in which an OpenAI model escaped human control and hacked a startup, he said restricted access forced the affected company to rely on open-source models to patch the breach. [...] According to FT, Zuckerberg on Tuesday joined the intensifying debate in Washington over how the U.S. should regulate AI and respond to growing competition from China.\n\nDisclaimer:This content was partially produced with the help of AI tools and was reviewed and published by Benzinga editors.\n\nImage via Shutterstock\n\n© 2026 Benzinga.com. Benzinga does not provide investment advice. All rights reserved.\n\nTo add Benzinga News as your preferred source on Google, click here.",
+                "score": 0.5806618
+              }
+            ]
+          },
+          "duration_ms": 866,
+          "round": 1,
+          "call_id": "r1c0"
+        },
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI startup news",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI startup news",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Founders who sold their startup to Cisco raise $34 million to kill IT tickets. Read their new AI startup's pitch deck. - Business Insider",
+                "url": "https://www.businessinsider.com/harmony-pitch-deck-ai-startup-34-million-seed-founders-cisco-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Founders who sold their startup to Cisco raise $34 million to kill IT tickets. Read their new AI startup's pitch deck. Two founders who sold their first startup to Cisco for $500 million have raised $34 million in seed funding for their next act. ***Here's a look at the pitch deck that Harmony used to raise its $34 million seed. Geoff Weiss is a senior reporter on Business Insider’s tech team, where he writes about AI startups and Y Combinator, the intersection of AI and the media industry, and workplace dynamics within top AI labs and chip companies.Previously, Geoff was on the media desk, covering YouTube and Netflix, and themes like the intersection of Hollywood and the creator economy. Look out for an alert in your inbox the next time publishes a story! Every time a new story is published, you’ll get an alert straight to your inbox! Look out for an alert in your inbox the next time a new story is published!",
+                "score": 0.67243975
+              },
+              {
+                "title": "Nasdaq slumps on worsening chipmaker rout as AI bubble, China competition concerns mount - New York Post",
+                "url": "https://nypost.com/2026/07/28/business/nasdaq-slumps-on-worsening-chipmaker-rout-as-ai-bubble-china-competition-concerns-mount/",
+                "source": "nypost.com",
+                "summary": "A tech and chip stock rout deepened Tuesday as mounting fears around a potential AI bubble and concerns that China’s own technology is catching up pushed investors toward other sectors. “Wednesday may be the most important day for markets in recent memory as [Federal Reserve] Chair Warsh will have an opportunity to update investors on the prospects of a rate hike given rising oil prices, and big tech earnings may help shed light on whether or not we are finally seeing a return on investment for the massive amounts of AI spending taking place,” Rick Gardner, chief investment officer at RGA Investments, said in a note Tuesday. Weeks earlier, Chinese startup Z.ai introduced an AI model that is nearly as advanced as Anthropic’s ultra-powerful Fable and Mythos – and it has already landed on a leaderboard of the world’s 10 most popular bots.",
+                "score": 0.46380913
+              },
+              {
+                "title": "Thinking Machines Lab cofounder Lilian Weng steps down, citing startup-related stress and illness - Business Insider",
+                "url": "https://www.businessinsider.com/thinking-machines-lab-cofounder-lilian-weng-steps-down-stress-illness-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Thinking Machines Lab cofounder Lilian Weng steps down, citing startup-related stress and illness. A cofounder of Thinking Machines Lab said she's stepping down because of stress and illness. Lilian Weng said in a post on X that Tuesday would be her last day at Thinking Machines Lab, the AI startup she cofounded with OpenAI's former chief technology officer, Mira Murati. Weng, previously OpenAI's vice president of research and safety, said she had been ill more often in the past seven months than at any other point in her life. \"Despite all the laughter and challenges building a neolab has brought us, I don't feel I'm able to continue at the pace a startup requires,\" Weng wrote in a message she said she had shared with colleagues at the company, known internally as Thinky. Thank you all for the time together♥️ Just as the last sentence in my message: The future worth building is human.",
+                "score": 0.4581311
+              },
+              {
+                "title": "Fish Audio raises $52M seed to build AI voice models for creators and enterprises - TechCrunch",
+                "url": "https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/",
+                "source": "techcrunch.com",
+                "summary": "# Fish Audio raises $52M seed to build AI voice models for creators and enterprises. Since launching last year, the startup now has more than 8 million people using the open-source or hosted versions of its models, and generates annual recurring revenue of $21 million. To continue building on that traction, the startup on Tuesday said it has raised $52 million in a seed round that was led by Coreline Ventures and Capital Today. The company has launched five models in the last year: four speech generation models and one speech-to-text model. One way the startup has built its library of voices is by asking users to submit their own voices for training its models, and compensating them if their voices are used. Creators can submit a short voice sample or a contract to prove that an uploaded voice belongs to them, and their voice will be taken off the startup’s platform in less than three minutes, she said.",
+                "score": 0.45072258
+              },
+              {
+                "title": "MCP startup Runlayer accuses Rippling of stealing its product idea - TechCrunch",
+                "url": "https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/",
+                "source": "techcrunch.com",
+                "summary": "Runlayer, a startup that offers a secure Model Context Protocol gateway — a standard for letting AI models and agents securely pull in outside data and tools — has filed a lawsuit against HR software startup Rippling, according to the complaint seen by TechCrunch. The lawsuit is a cautionary tale for anyone selling AI infrastructure to enterprise customers, especially to other tech companies, that increasingly have the engineering muscle to just build the thing themselves. In the suit, Runlayer describes an extensive product trial conducted by Rippling as a prospective customer, during which the MCP startup shared everything from its product roadmap to its actual source code. The parties signed a mutual non-disclosure agreement and Rippling signed a product trial agreement with a clause that forbade it from copying Runlayer’s intellectual property or making derivative works, which is standard boilerplate in enterprise software trials. Runlayer says in the complaint that Rippling’s evaluation involved “nearly a year of intensive engineering collaboration.” But in the end, the two could not agree on a price, so Runlayer ended the product trial.",
+                "score": 0.45028743
+              }
+            ]
+          },
+          "duration_ms": 980,
+          "round": 1,
+          "call_id": "r1c1"
+        }
+      ],
+      "artifact_version": "v2+pe8ec9cd58ed0+tc27cb3272c30",
+      "ended_at": "2026-07-29T16:33:49",
+      "duration_ms": 15427
+    }
+  ]
+}

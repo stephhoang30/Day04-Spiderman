@@ -1,0 +1,403 @@
+{
+  "transcript_id": "ui_current_20260729T163334_a4f46f",
+  "surface": "nextjs_ui",
+  "version": "current",
+  "artifact_version": "current+pe8ec9cd58ed0+t5cdbeb8118a7",
+  "prompt_hash": "e8ec9cd58ed023bfafccf426c4fda718ee4722876fc4c34e9b647216b34c37ba",
+  "tools_hash": "5cdbeb8118a7023907781cde9482e6b8366b6a611c9619ded02548cff0ef457e",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/tools.yaml",
+  "history_window": 0,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T16:33:34",
+  "updated_at": "2026-07-29T16:33:54",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T16:33:34",
+      "user": "\"Có tin gì đáng chú ý về AI hôm nay, nhất là những gì liên quan đến model mới và startup công nghệ?",
+      "status": "answered",
+      "assistant_text": "Here are some notable news items about AI today, particularly related to new models and tech startups:\n\n### General AI News\n1. **[An AI data center is being built on my grandma's garden](https://www.ncronline.org/opinion/guest-voices/ai-data-center-being-built-my-grandmas-garden)** - Concerns about the environmental impact of AI data centers are raised, emphasizing the need for sustainable technological solutions. (Source: NCR Online)\n\n2. **[Employees at the world’s biggest AI companies are calling for a slowdown in AI development](https://www.cnn.com/2026/07/28/tech/ai-development-tech-employees-open-letter)** - A letter from tech employees urges a pause in AI advancements due to emerging risks and the need for better oversight. (Source: CNN)\n\n3. **[Meta's Zuckerberg warns against curbs on Chinese AI](https://www.reuters.com/world/china/metas-zuckerberg-says-us-should-not-block-chinese-ai-models-ft-reports-2026-07-29)** - Zuckerberg argues that the U.S. should not block Chinese AI models, warning against regulatory capture that could stifle competition. (Source: Reuters)\n\n4. **[Accenture wins $821M Pentagon AI data platform contract](https://federalnewsnetwork.com/defense-news/2026/07/accenture-wins-821m-pentagon-ai-data-platform-contract)** - Accenture's new contract aims to enhance military operations through AI. (Source: Federal News Network)\n\n5. **[Mark Zuckerberg Blasts Centralization of A.I. Power](https://www.nytimes.com/2026/07/28/technology/mark-zuckerberg-meta-ai.html)** - Zuckerberg criticizes the development practices of leading AI firms, suggesting they could lead to a centralization of power. (Source: NY Times)\n\n### New AI Models\n1. **[NASA’s gravity-based model reveals Earth’s true geoid shape](https://en.as.com/latest_news/not-round-not-an-ellipse-nasas-gravity-based-model-reveals-earths-true-geoid-shape-f202607-n/)** - NASA's new model illustrates Earth's shape influenced by gravity, aiding navigation systems. (Source: Diario AS)\n\n2. **[Amazon winds down most flagship AI models in strategy overhaul](https://www.reuters.com/business/retail-consumer/amazon-winds-down-most-flagship-ai-models-strategy-overhaul-business-insider-2026-07-28/)** - Amazon is revamping its AI strategy, discontinuing many in-house models. (Source: Reuters)\n\n3. **[Microsoft launches MAI-Cyber-1-Flash cybersecurity AI model](https://qz.com/microsoft-mai-cyber-1-flash-cybersecurity-model-perception-072826)** - Microsoft introduces a new cybersecurity AI model that outperforms competitors at a lower cost. (Source: Quartz)\n\n4. **[Fish Audio Raises $50 Million in Funding to Build AI Voice Models](https://zamin.uz/en/technology/214926-fish-audio-raises-50-million-in-funding-to-build-ai-voice-models.html)** - Fish Audio secures funding to develop AI-driven voice models, responding to market demand for expressive synthetic voices. (Source: Zamin)\n\n### Tech Startups\n1. **[Egyptian Startup «Simplex» Opens New CNC Manufacturing Plant](https://fintechgate.net/247616)** - Simplex, backed by a $50 million investment, expands its manufacturing capabilities in Egypt. (Source: Fintech Gate)\n\n2. **[Chinese startup raises funds for space situational awareness constellation](https://spacenews.com/chinese-startup-raises-funds-for-space-situational-awareness-constellation-joining-commercial-ssa-rush/)** - A Beijing-based startup secures funding to build a satellite constellation for tracking orbital objects. (Source: SpaceNews)\n\n3. **[MCP startup Runlayer accuses Rippling of stealing its product idea](https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/)** - Runlayer files a lawsuit against Rippling, alleging intellectual property theft during a product trial. (Source: TechCrunch)\n\n4. **[Fish Audio raises $52M seed to build AI voice models for creators and enterprises](https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/)** - Fish Audio raises funds to enhance its AI voice model offerings. (Source: TechCrunch)\n\nThese articles highlight significant developments in AI technology and the startup landscape.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "AI",
+                "topic": "news",
+                "timeframe": "day",
+                "max_results": 5
+              }
+            },
+            {
+              "name": "lookup",
+              "args": {
+                "query": "model mới",
+                "topic": "news",
+                "timeframe": "day",
+                "max_results": 5
+              }
+            },
+            {
+              "name": "lookup",
+              "args": {
+                "query": "startup công nghệ",
+                "topic": "news",
+                "timeframe": "day",
+                "max_results": 5
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "AI",
+                "topic": "news",
+                "timeframe": "day",
+                "max_results": 5
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "AI",
+                "topic": "news",
+                "timeframe": "day",
+                "items": [
+                  {
+                    "title": "An AI data center is being built on my grandma's garden",
+                    "url": "https://www.ncronline.org/opinion/guest-voices/ai-data-center-being-built-my-grandmas-garden",
+                    "source": "ncronline.org",
+                    "summary": "In his recent encyclical, Magnifica Humanitas, Pope Leo lifts up the concern of human dignity in light of increasing technological advances. He states that we are facing a decision; either to create a world where \"the dignity of every person is safeguarded [and] justice is promoted\" or to create an \"inhumane and more unjust world.\" He goes on to directly confront AI and caution us to realize that \"technological innovations, including artificial intelligence, are not neutral, for they can either [...] He also reminds us to think of the physical impact of utilizing AI while reminding us that data centers are not neutral. He states: \"Current AI systems require enormous amounts of energy and water … which requires an extensive network of machines, cables, data centers and energy-intensive infrastructure … It is essential to develop more sustainable technological solutions.\" [...] It’s hard to describe the feeling I have, deep in my gut, when I think about what is happening to the land. Concrete is being poured over what was once farmland. Land once traveled by bicyclists and monarch butterflies alike is becoming a place to store data and help train AI. The noise and light pollution is disrupting residents, and animals are being forced to find new places to traverse.",
+                    "score": 0.31213984
+                  },
+                  {
+                    "title": "Employees at the world’s biggest AI companies are calling for a slowdown in AI development",
+                    "url": "https://www.cnn.com/2026/07/28/tech/ai-development-tech-employees-open-letter",
+                    "source": "cnn.com",
+                    "summary": "The letter comes on the heels of major advancements and burgeoning threats from rapidly developing AI systems. OpenAI disclosed last week that two of its test models escaped a lab environment, bypassed its systems to gain access to the open internet and hacked a different company’s internal system. [...] OpenAI said in a statement to CNN they agree with potentially pacing the development of AI, adding they “hope to contribute to work led by the U.S. government, alongside other labs” on the topic.\n\nOpenAI CEO Sam Altman suggested it may be time to slow down AI development in a podcast interview Tuesday. The OpenAI models that broke out of their test environment are fueling “long term questions” about how AI companies should address this new rate of progress. [...] “[T]here is a real risk that capability development rapidly accelerates beyond our ability to understand or control the resulting systems,” the signees said. “To realize AI’s potential, industry, government, and society at large may need the option to buy time to address emerging risks, develop security measures, and strengthen oversight.”",
+                    "score": 0.2938455
+                  },
+                  {
+                    "title": "Meta's Zuckerberg warns against curbs on Chinese AI ...",
+                    "url": "https://www.reuters.com/world/china/metas-zuckerberg-says-us-should-not-block-chinese-ai-models-ft-reports-2026-07-29",
+                    "source": "reuters.com",
+                    "summary": "19 mins agoWorld categorySK Hynix's record profit misses forecasts, shares slump 10% despite robust AI chip demand Image 6: SK Hynix at the Nasdaq market in New York \n   4 hours agoLegal categoryTech employees call for US-backed global effort to manage risks of advanced AI Image 7: Illustration shows words \"Artificial Intelligence AI\\ [...] 3 hours agoBusiness categoryEXCLUSIVE  OpenAI's rogue agent compromised a customer at a second tech firm, executive says Image 8: FILE PHOTO: Illustration shows OpenAI logo \n   5 hours agoCommentary categoryTrading Day: A show of resilience Image 9: Traders work on the floor of the NYSE in New York \n   6 hours agoTechnology categoryCoursera backs co-founder Andrew Ng's new AI education firm with $100 million investment , opens new tab [...] Skip to main content\n\nReport AdImage 2\n\nExclusive news, data and analytics for financial market professionals Learn more about Refinitiv\n\n - Meta (META.O), opens new tab CEO Mark Zuckerberg told ​the Financial Times the ‌U.S. government should not block Chinese ​models to gain ​an edge in the ⁠AI race, and ​warned against \"regulatory capture\" ​by American frontier labs that could stifle domestic ​competition.",
+                    "score": 0.25570402
+                  },
+                  {
+                    "title": "Accenture wins $821M Pentagon AI data platform contract",
+                    "url": "https://federalnewsnetwork.com/defense-news/2026/07/accenture-wins-821m-pentagon-ai-data-platform-contract",
+                    "source": "federalnewsnetwork.com",
+                    "summary": "Discover how federal agencies are applying AI to strengthen cybersecurity, improve operational efficiency and deliver measurable mission outcomes while balancing innovation, governance and human expertise.\n\nThe department said its initial order under the contract is focused on “high-impact, measurable mission outcomes that maximize the benefits of commercial pricing.” An Accenture spokesperson did not respond Tuesday to emailed questions about what that work entails. [...] The platform aims to combine more than 1,500 data sources, both commercial and military, to securely provide intelligence, targeting data and more to frontline troops and their commands, the AI office said, calling it “one of [DoD]’s most vital data platforms for AI exploitation and mission advantage.” [...] “The evolution of Advana’s data platform and application ecosystem over the last six years has led to a complex technical and programmatic architecture that we now must rationalize in order to capitalize on the full potential of AI and support warfighting, intelligence, and enterprise needs with the speed, security, and auditability required,” Deputy Defense Secretary Steve Feinberg said in a January memo.",
+                    "score": 0.23064281
+                  },
+                  {
+                    "title": "Mark Zuckerberg Blasts Centralization of A.I. Power",
+                    "url": "https://www.nytimes.com/2026/07/28/technology/mark-zuckerberg-meta-ai.html",
+                    "source": "nytimes.com",
+                    "summary": "Technologists like Dario Amodei, the chief executive of Anthropic, and Sam Altman, the chief executive of OpenAI, have said some of today’s leading A.I. models are too dangerous to be shared and developed without tight controls. But Microsoft, Nvidia, Google and Meta have disagreed, contending that many A.I. models must be developed largely in the open for people to advance the technology and build new businesses. [...] Mark Zuckerberg came out swinging against Anthropic and OpenAI, two of the world’s most valuable artificial intelligence start-ups, saying the way they developed A.I. software could lead to a centralization of power that would narrow people’s access to the transformational technology. [...] In an interview on Tuesday with The New York Times, the 42-year-old chief executive of Meta did not call out Anthropic and OpenAI by name. But he said that if leading research labs wanted to develop A.I. technology in a tightly controlled manner — as Anthropic and OpenAI have done — it would be akin to “abandoning our values” in American tech development and stifle innovation.",
+                    "score": 0.2281569
+                  }
+                ]
+              },
+              "duration_ms": 912,
+              "round": 1,
+              "call_id": "r1c0"
+            },
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "model mới",
+                "topic": "news",
+                "timeframe": "day",
+                "max_results": 5
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "model mới",
+                "topic": "news",
+                "timeframe": "day",
+                "items": [
+                  {
+                    "title": "Not round, not an ellipse: NASA’s gravity-based model reveals Earth’s true geoid shape - Diario AS",
+                    "url": "https://en.as.com/latest_news/not-round-not-an-ellipse-nasas-gravity-based-model-reveals-earths-true-geoid-shape-f202607-n/",
+                    "source": "en.as.com",
+                    "summary": "The new model released by the U.S. space agency distorts sea level to show variations in Earth’s gravity, helping scientists improve navigation systems and better understand the planet’s interior. Many people have been surprised by NASA’s latest visualization of Earth, which gives the planet a shape resembling a potato. Instead, it depicts **a scientific model known as the geoid**, which illustrates how the ocean’s surface would look if it were influenced **only** by gravity, without the effects of tides, currents or winds. The hills and valleys visible in the model are caused by the uneven distribution of material inside Earth. To make these tiny differences visible, **NASA exaggerated the variations by a factor of 10,000.** In reality, the changes amount to only a few dozen yards in elevation and would be impossible to detect with the naked eye. Using the model, scientists determined that the highest point in Earth’s gravitational field is located near Iceland, **where the geoid rises about 279 feet above the global average**.",
+                    "score": 0.3485348
+                  },
+                  {
+                    "title": "Amazon winds down most flagship AI models in strategy overhaul, Business Insider reports - Reuters",
+                    "url": "https://www.reuters.com/business/retail-consumer/amazon-winds-down-most-flagship-ai-models-strategy-overhaul-business-insider-2026-07-28/",
+                    "source": "reuters.com",
+                    "summary": "Exclusive news, data and analytics for financial market professionals Learn more about Refinitiv. ## Browse World. ## Browse Business. July 28 (Reuters) - Amazon.com (AMZN.O), opens new tab is revamping its AI strategy, winding down many in-house AI models and sharpening focus on a new frontier-model ​effort, Business Insider reported on Tuesday citing people familiar with the ‌matter. The company has begun deprecating most of its flagship Nova AI models, including the high-end Premier and Omni models, Reel video-generation model, and Canvas image-generation model, the report said. Get a daily digest of breaking business news straight to your inbox with the Reuters Business newsletter. The new flagship model is expected to ​debut at Amazon's \"re:Invent\" annual conference later this year, Business Insider said. \"We're continuing to invest in and support the Nova models our customers rely ​on today ... Our Standards: The Thomson Reuters Trust Principles., opens new tab. *   Media Center, opens new tab. *   Reuters and AI, opens new tab. *   #### World-Check, opens new tab.",
+                    "score": 0.254139
+                  },
+                  {
+                    "title": "Microsoft launches MAI-Cyber-1-Flash cybersecurity AI model - qz.com",
+                    "url": "https://qz.com/microsoft-mai-cyber-1-flash-cybersecurity-model-perception-072826",
+                    "source": "qz.com",
+                    "summary": "Microsoft launches MAI-Cyber-1-Flash cybersecurity AI model. # Microsoft is launching its first cybersecurity AI model at half the cost of rivals. MAI-Cyber-1-Flash, paired with GPT-5.4 inside Microsoft's MDASH harness, outperforms models from Anthropic, Google, and OpenAI on a key benchmark. Microsoft$MSFT launched MAI-Cyber-1-Flash, its first cybersecurity-specialized AI model, on Monday at an event in San Francisco, alongside a new agentic security platform called Project Perception. The company says the model, when combined with OpenAI's GPT-5.4 inside its MDASH vulnerability management harness, delivers 96% on the CyberGym benchmark — 12 percentage points above Anthropic's Mythos — at 50% of the cost of Microsoft's current MDASH configuration. MAI-Cyber-1-Flash is intended to shoulder the bulk of routine security work — roughly 90% of tasks — leaving GPT-5.4 to handle only the most demanding cases, the company said. Microsoftunveiled a family of seven in-house AI models in June, including the MAI-Thinking-1 reasoning model from which MAI-Cyber-1-Flash is derived, as the company has moved to reduce reliance on outside model providers including OpenAI.",
+                    "score": 0.21561526
+                  },
+                  {
+                    "title": "New airframer-engine business model needs to be ‘holistic’: Safran chief - FlightGlobal",
+                    "url": "https://www.flightglobal.com/archive/2026/07/new-airframer-engine-business-model-needs-to-be-holistic-safran-chief/",
+                    "source": "flightglobal.com",
+                    "summary": "Airbus commercial aircraft chief Lars Wagner told investors on 21 July, in relation to a proposed next-generation single-aisle aircraft, that there was “probably a once-in-a-lifetime opportunity to rebalance the business model” and to participate in the “three or four decades of aftermarket”. Wagner says a new platform presents a range to think about the actors, the business model, and new partnerships – although he says that the timeline for a new single-aisle development means specific detail would be “premature”. Airbus chief executive Guillaume Faury added that there was a window for “views and ideas on how we could also embark our engine partners on a different way of doing business…and where we could do better on tapping into the long-term value created by aircraft and engines and systems”. “Because not only do we spend a lot of money for the development of the engine – industrialisation, ramp-up, getting into service and all that – on top of that, for years and years, when we deliver engines to airframers, we do that at a loss.",
+                    "score": 0.20997179
+                  },
+                  {
+                    "title": "Fish Audio Raises $50 Million in Funding to Build AI Voice Models - Zamin.uz",
+                    "url": "https://zamin.uz/en/technology/214926-fish-audio-raises-50-million-in-funding-to-build-ai-voice-models.html",
+                    "source": "zamin.uz",
+                    "summary": "# Fish Audio Raises $50 Million in Funding to Build AI Voice Models. Palo Alto-based startup Fish Audio has raised $50 million in early-stage funding to build AI-driven voice models. According to ixbt.com, the funding round was led by Coreline Ventures and Capital Today, with contributions from a number of other venture funds. The market for AI-generated voice models is currently growing rapidly. Since launching its operations last year, the number of users utilizing the startup's open-source and hosted versions has exceeded 8 million. Dissatisfied with the lack of expressiveness in synthetic voices on the market, the specialist developed a new voice generation model using a single GPU and released it in an open-source format. Over the past year, the company has released five new models, including four speech generation models and one speech-to-text model. While the code for three of them has been published as open source, the latest S2.1 Pro model is available exclusively via a paid API.",
+                    "score": 0.14025407
+                  }
+                ]
+              },
+              "duration_ms": 1298,
+              "round": 1,
+              "call_id": "r1c1"
+            },
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "startup công nghệ",
+                "topic": "news",
+                "timeframe": "day",
+                "max_results": 5
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "startup công nghệ",
+                "topic": "news",
+                "timeframe": "day",
+                "items": [
+                  {
+                    "title": "Backed by $50 Million Investment: Egyptian Startup «Simplex» Opens New CNC Manufacturing Plant in 10th of Ramadan City - بوابة التكنولوجيا المالية",
+                    "url": "https://fintechgate.net/247616",
+                    "source": "fintechgate.net",
+                    "summary": "# Backed by $50 Million Investment: Egyptian Startup «Simplex» Opens New CNC Manufacturing Plant in 10th of Ramadan City. Egyptian tech startup Simplex, a specialist in assembling and manufacturing Computer Numerical Control (CNC) machinery, officially inaugurated its latest industrial expansion in 10th of Ramadan City. Attendees toured the facility, showcasing Simplex’s growth journey as a leader in localizing CNC machinery manufacturing. Following a presentation detailing the company’s achievements and vision, the machine was officially launched with the affixing of the \"Proudly Made in Egypt\" badge, signaling the commencement of active production on the new line. Aligning with its regional growth strategy, Simplex signed new partnership and agency agreements in both the Jordan and Kuwait, reflecting the accelerating footprint of Egyptian engineering products and solutions in Arab markets. > «Our vision is to become a major player in the global CNC machinery manufacturing industry. The inauguration of Simplex’s new factory and the operation of its new production lines contribute to achieving key strategic returns that support the national manufacturing ecosystem.",
+                    "score": 0.28658882
+                  },
+                  {
+                    "title": "Rotterdam Hosts a Meeting Between Italian Companies and Benelux Industry Professionals with GSL Export - Robotics & Automation News",
+                    "url": "https://roboticsandautomationnews.com/2026/07/28/rotterdam-hosts-a-meeting-between-italian-companies-and-benelux-industry-professionals-with-gsl-export/103647/",
+                    "source": "roboticsandautomationnews.com",
+                    "summary": "#### Robotics & Automation News publishes in-depth trend analysis on the future of drone logistics. # Robotics & Automation News. #### Manufacturing future: the best countries to start or relocate your tech startup in 2026. Since a robot could not detect the … [[Read More...] about AI-powered robot automates Serrano ham labeling for the first time](https://roboticsandautomationnews.com/2026/07/09/ai-powered-robot-automates-serrano-ham-labeling-for-the-first-time/103208/). Discover below … [[Read More...] about Manufacturing future: the best countries to start or relocate your tech startup in 2026](https://roboticsandautomationnews.com/2026/07/08/manufacturing-future-the-best-countries-to-start-or-relocate-your-tech-startup-in-2026/103188/). Doosan Robotics has launched a new AI-powered palletizing solution designed to help manufacturers automate palletizing while reducing engineering complexity and improving flexibility for changing … [[Read More...] about Doosan Robotics launches AI-powered palletizing solution for high-mix manufacturing](https://roboticsandautomationnews.com/2026/07/09/doosan-robotics-launches-ai-powered-palletizing-solution-for-high-mix-manufacturing/103197/). Kawasaki Robotics showcased a range of advanced automation technologies at Automate 2026 in Chicago, demonstrating how robotics, AI, machine learning, vision systems, and real-time control are … [[Read More...] about Kawasaki Robotics showcases 8-axis Physical AI robot and intelligent automation technologies at Automate 2026](https://roboticsandautomationnews.com/2026/06/26/kawasaki-robotics-showcases-8-axis-physical-ai-robot-and-intelligent-automation-technologies-at-automate-2026/102869/).",
+                    "score": 0.21440381
+                  },
+                  {
+                    "title": "Chinese startup raises funds for space situational awareness constellation, joining commercial SSA rush - SpaceNews",
+                    "url": "https://spacenews.com/chinese-startup-raises-funds-for-space-situational-awareness-constellation-joining-commercial-ssa-rush/",
+                    "source": "spacenews.com",
+                    "summary": "Home / **Chinese startup raises funds for space situational awareness constellation, joining commercial SSA rush**. # Chinese startup raises funds for space situational awareness constellation, joining commercial SSA rush. * Email a link to a friend (Opens in new window) Email. SINGAPORE — A Beijing-based startup has secured around $14 million to build a satellite constellation for tracking orbital objects, adding to China’s growing SSA sector. The development is the latest in a line of Chinese commercial SSA moves and a signal that China’s commercial space situational awareness (SSA) sector is attracting capital across multiple competing players, while also recently reaching orbit. Geovis Insighter Technology Co. Ltd., or Xingtu Cekong, a subsidiary of Chinese Academy of Sciences-linked Zhongke Xingtu, went public on the Beijing Stock Exchange in 2025 and in November announced a planned 156-satellite SSA constellation, with test satellites due in the first half of 2026 and operational satellites in 2027.",
+                    "score": 0.16750476
+                  },
+                  {
+                    "title": "MCP startup Runlayer accuses Rippling of stealing its product idea - TechCrunch",
+                    "url": "https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/",
+                    "source": "techcrunch.com",
+                    "summary": "Runlayer, a startup that offers a secure Model Context Protocol gateway — a standard for letting AI models and agents securely pull in outside data and tools — has filed a lawsuit against HR software startup Rippling, according to the complaint seen by TechCrunch. The lawsuit is a cautionary tale for anyone selling AI infrastructure to enterprise customers, especially to other tech companies, that increasingly have the engineering muscle to just build the thing themselves. In the suit, Runlayer describes an extensive product trial conducted by Rippling as a prospective customer, during which the MCP startup shared everything from its product roadmap to its actual source code. The parties signed a mutual non-disclosure agreement and Rippling signed a product trial agreement with a clause that forbade it from copying Runlayer’s intellectual property or making derivative works, which is standard boilerplate in enterprise software trials. Runlayer says in the complaint that Rippling’s evaluation involved “nearly a year of intensive engineering collaboration.” But in the end, the two could not agree on a price, so Runlayer ended the product trial.",
+                    "score": 0.1645839
+                  },
+                  {
+                    "title": "Fish Audio raises $52M seed to build AI voice models for creators and enterprises - TechCrunch",
+                    "url": "https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/",
+                    "source": "techcrunch.com",
+                    "summary": "# Fish Audio raises $52M seed to build AI voice models for creators and enterprises. Since launching last year, the startup now has more than 8 million people using the open-source or hosted versions of its models, and generates annual recurring revenue of $21 million. To continue building on that traction, the startup on Tuesday said it has raised $52 million in a seed round that was led by Coreline Ventures and Capital Today. The company has launched five models in the last year: four speech generation models and one speech-to-text model. One way the startup has built its library of voices is by asking users to submit their own voices for training its models, and compensating them if their voices are used. Creators can submit a short voice sample or a contract to prove that an uploaded voice belongs to them, and their voice will be taken off the startup’s platform in less than three minutes, she said.",
+                    "score": 0.16130732
+                  }
+                ]
+              },
+              "duration_ms": 1221,
+              "round": 1,
+              "call_id": "r1c2"
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are some notable news items about AI today, particularly related to new models and tech startups:\n\n### General AI News\n1. **[An AI data center is being built on my grandma's garden](https://www.ncronline.org/opinion/guest-voices/ai-data-center-being-built-my-grandmas-garden)** - Concerns about the environmental impact of AI data centers are raised, emphasizing the need for sustainable technological solutions. (Source: NCR Online)\n\n2. **[Employees at the world’s biggest AI companies are calling for a slowdown in AI development](https://www.cnn.com/2026/07/28/tech/ai-development-tech-employees-open-letter)** - A letter from tech employees urges a pause in AI advancements due to emerging risks and the need for better oversight. (Source: CNN)\n\n3. **[Meta's Zuckerberg warns against curbs on Chinese AI](https://www.reuters.com/world/china/metas-zuckerberg-says-us-should-not-block-chinese-ai-models-ft-reports-2026-07-29)** - Zuckerberg argues that the U.S. should not block Chinese AI models, warning against regulatory capture that could stifle competition. (Source: Reuters)\n\n4. **[Accenture wins $821M Pentagon AI data platform contract](https://federalnewsnetwork.com/defense-news/2026/07/accenture-wins-821m-pentagon-ai-data-platform-contract)** - Accenture's new contract aims to enhance military operations through AI. (Source: Federal News Network)\n\n5. **[Mark Zuckerberg Blasts Centralization of A.I. Power](https://www.nytimes.com/2026/07/28/technology/mark-zuckerberg-meta-ai.html)** - Zuckerberg criticizes the development practices of leading AI firms, suggesting they could lead to a centralization of power. (Source: NY Times)\n\n### New AI Models\n1. **[NASA’s gravity-based model reveals Earth’s true geoid shape](https://en.as.com/latest_news/not-round-not-an-ellipse-nasas-gravity-based-model-reveals-earths-true-geoid-shape-f202607-n/)** - NASA's new model illustrates Earth's shape influenced by gravity, aiding navigation systems. (Source: Diario AS)\n\n2. **[Amazon winds down most flagship AI models in strategy overhaul](https://www.reuters.com/business/retail-consumer/amazon-winds-down-most-flagship-ai-models-strategy-overhaul-business-insider-2026-07-28/)** - Amazon is revamping its AI strategy, discontinuing many in-house models. (Source: Reuters)\n\n3. **[Microsoft launches MAI-Cyber-1-Flash cybersecurity AI model](https://qz.com/microsoft-mai-cyber-1-flash-cybersecurity-model-perception-072826)** - Microsoft introduces a new cybersecurity AI model that outperforms competitors at a lower cost. (Source: Quartz)\n\n4. **[Fish Audio Raises $50 Million in Funding to Build AI Voice Models](https://zamin.uz/en/technology/214926-fish-audio-raises-50-million-in-funding-to-build-ai-voice-models.html)** - Fish Audio secures funding to develop AI-driven voice models, responding to market demand for expressive synthetic voices. (Source: Zamin)\n\n### Tech Startups\n1. **[Egyptian Startup «Simplex» Opens New CNC Manufacturing Plant](https://fintechgate.net/247616)** - Simplex, backed by a $50 million investment, expands its manufacturing capabilities in Egypt. (Source: Fintech Gate)\n\n2. **[Chinese startup raises funds for space situational awareness constellation](https://spacenews.com/chinese-startup-raises-funds-for-space-situational-awareness-constellation-joining-commercial-ssa-rush/)** - A Beijing-based startup secures funding to build a satellite constellation for tracking orbital objects. (Source: SpaceNews)\n\n3. **[MCP startup Runlayer accuses Rippling of stealing its product idea](https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/)** - Runlayer files a lawsuit against Rippling, alleging intellectual property theft during a product trial. (Source: TechCrunch)\n\n4. **[Fish Audio raises $52M seed to build AI voice models for creators and enterprises](https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/)** - Fish Audio raises funds to enhance its AI voice model offerings. (Source: TechCrunch)\n\nThese articles highlight significant developments in AI technology and the startup landscape.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "An AI data center is being built on my grandma's garden",
+                "url": "https://www.ncronline.org/opinion/guest-voices/ai-data-center-being-built-my-grandmas-garden",
+                "source": "ncronline.org",
+                "summary": "In his recent encyclical, Magnifica Humanitas, Pope Leo lifts up the concern of human dignity in light of increasing technological advances. He states that we are facing a decision; either to create a world where \"the dignity of every person is safeguarded [and] justice is promoted\" or to create an \"inhumane and more unjust world.\" He goes on to directly confront AI and caution us to realize that \"technological innovations, including artificial intelligence, are not neutral, for they can either [...] He also reminds us to think of the physical impact of utilizing AI while reminding us that data centers are not neutral. He states: \"Current AI systems require enormous amounts of energy and water … which requires an extensive network of machines, cables, data centers and energy-intensive infrastructure … It is essential to develop more sustainable technological solutions.\" [...] It’s hard to describe the feeling I have, deep in my gut, when I think about what is happening to the land. Concrete is being poured over what was once farmland. Land once traveled by bicyclists and monarch butterflies alike is becoming a place to store data and help train AI. The noise and light pollution is disrupting residents, and animals are being forced to find new places to traverse.",
+                "score": 0.31213984
+              },
+              {
+                "title": "Employees at the world’s biggest AI companies are calling for a slowdown in AI development",
+                "url": "https://www.cnn.com/2026/07/28/tech/ai-development-tech-employees-open-letter",
+                "source": "cnn.com",
+                "summary": "The letter comes on the heels of major advancements and burgeoning threats from rapidly developing AI systems. OpenAI disclosed last week that two of its test models escaped a lab environment, bypassed its systems to gain access to the open internet and hacked a different company’s internal system. [...] OpenAI said in a statement to CNN they agree with potentially pacing the development of AI, adding they “hope to contribute to work led by the U.S. government, alongside other labs” on the topic.\n\nOpenAI CEO Sam Altman suggested it may be time to slow down AI development in a podcast interview Tuesday. The OpenAI models that broke out of their test environment are fueling “long term questions” about how AI companies should address this new rate of progress. [...] “[T]here is a real risk that capability development rapidly accelerates beyond our ability to understand or control the resulting systems,” the signees said. “To realize AI’s potential, industry, government, and society at large may need the option to buy time to address emerging risks, develop security measures, and strengthen oversight.”",
+                "score": 0.2938455
+              },
+              {
+                "title": "Meta's Zuckerberg warns against curbs on Chinese AI ...",
+                "url": "https://www.reuters.com/world/china/metas-zuckerberg-says-us-should-not-block-chinese-ai-models-ft-reports-2026-07-29",
+                "source": "reuters.com",
+                "summary": "19 mins agoWorld categorySK Hynix's record profit misses forecasts, shares slump 10% despite robust AI chip demand Image 6: SK Hynix at the Nasdaq market in New York \n   4 hours agoLegal categoryTech employees call for US-backed global effort to manage risks of advanced AI Image 7: Illustration shows words \"Artificial Intelligence AI\\ [...] 3 hours agoBusiness categoryEXCLUSIVE  OpenAI's rogue agent compromised a customer at a second tech firm, executive says Image 8: FILE PHOTO: Illustration shows OpenAI logo \n   5 hours agoCommentary categoryTrading Day: A show of resilience Image 9: Traders work on the floor of the NYSE in New York \n   6 hours agoTechnology categoryCoursera backs co-founder Andrew Ng's new AI education firm with $100 million investment , opens new tab [...] Skip to main content\n\nReport AdImage 2\n\nExclusive news, data and analytics for financial market professionals Learn more about Refinitiv\n\n - Meta (META.O), opens new tab CEO Mark Zuckerberg told ​the Financial Times the ‌U.S. government should not block Chinese ​models to gain ​an edge in the ⁠AI race, and ​warned against \"regulatory capture\" ​by American frontier labs that could stifle domestic ​competition.",
+                "score": 0.25570402
+              },
+              {
+                "title": "Accenture wins $821M Pentagon AI data platform contract",
+                "url": "https://federalnewsnetwork.com/defense-news/2026/07/accenture-wins-821m-pentagon-ai-data-platform-contract",
+                "source": "federalnewsnetwork.com",
+                "summary": "Discover how federal agencies are applying AI to strengthen cybersecurity, improve operational efficiency and deliver measurable mission outcomes while balancing innovation, governance and human expertise.\n\nThe department said its initial order under the contract is focused on “high-impact, measurable mission outcomes that maximize the benefits of commercial pricing.” An Accenture spokesperson did not respond Tuesday to emailed questions about what that work entails. [...] The platform aims to combine more than 1,500 data sources, both commercial and military, to securely provide intelligence, targeting data and more to frontline troops and their commands, the AI office said, calling it “one of [DoD]’s most vital data platforms for AI exploitation and mission advantage.” [...] “The evolution of Advana’s data platform and application ecosystem over the last six years has led to a complex technical and programmatic architecture that we now must rationalize in order to capitalize on the full potential of AI and support warfighting, intelligence, and enterprise needs with the speed, security, and auditability required,” Deputy Defense Secretary Steve Feinberg said in a January memo.",
+                "score": 0.23064281
+              },
+              {
+                "title": "Mark Zuckerberg Blasts Centralization of A.I. Power",
+                "url": "https://www.nytimes.com/2026/07/28/technology/mark-zuckerberg-meta-ai.html",
+                "source": "nytimes.com",
+                "summary": "Technologists like Dario Amodei, the chief executive of Anthropic, and Sam Altman, the chief executive of OpenAI, have said some of today’s leading A.I. models are too dangerous to be shared and developed without tight controls. But Microsoft, Nvidia, Google and Meta have disagreed, contending that many A.I. models must be developed largely in the open for people to advance the technology and build new businesses. [...] Mark Zuckerberg came out swinging against Anthropic and OpenAI, two of the world’s most valuable artificial intelligence start-ups, saying the way they developed A.I. software could lead to a centralization of power that would narrow people’s access to the transformational technology. [...] In an interview on Tuesday with The New York Times, the 42-year-old chief executive of Meta did not call out Anthropic and OpenAI by name. But he said that if leading research labs wanted to develop A.I. technology in a tightly controlled manner — as Anthropic and OpenAI have done — it would be akin to “abandoning our values” in American tech development and stifle innovation.",
+                "score": 0.2281569
+              }
+            ]
+          },
+          "duration_ms": 912,
+          "round": 1,
+          "call_id": "r1c0"
+        },
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "model mới",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "model mới",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Not round, not an ellipse: NASA’s gravity-based model reveals Earth’s true geoid shape - Diario AS",
+                "url": "https://en.as.com/latest_news/not-round-not-an-ellipse-nasas-gravity-based-model-reveals-earths-true-geoid-shape-f202607-n/",
+                "source": "en.as.com",
+                "summary": "The new model released by the U.S. space agency distorts sea level to show variations in Earth’s gravity, helping scientists improve navigation systems and better understand the planet’s interior. Many people have been surprised by NASA’s latest visualization of Earth, which gives the planet a shape resembling a potato. Instead, it depicts **a scientific model known as the geoid**, which illustrates how the ocean’s surface would look if it were influenced **only** by gravity, without the effects of tides, currents or winds. The hills and valleys visible in the model are caused by the uneven distribution of material inside Earth. To make these tiny differences visible, **NASA exaggerated the variations by a factor of 10,000.** In reality, the changes amount to only a few dozen yards in elevation and would be impossible to detect with the naked eye. Using the model, scientists determined that the highest point in Earth’s gravitational field is located near Iceland, **where the geoid rises about 279 feet above the global average**.",
+                "score": 0.3485348
+              },
+              {
+                "title": "Amazon winds down most flagship AI models in strategy overhaul, Business Insider reports - Reuters",
+                "url": "https://www.reuters.com/business/retail-consumer/amazon-winds-down-most-flagship-ai-models-strategy-overhaul-business-insider-2026-07-28/",
+                "source": "reuters.com",
+                "summary": "Exclusive news, data and analytics for financial market professionals Learn more about Refinitiv. ## Browse World. ## Browse Business. July 28 (Reuters) - Amazon.com (AMZN.O), opens new tab is revamping its AI strategy, winding down many in-house AI models and sharpening focus on a new frontier-model ​effort, Business Insider reported on Tuesday citing people familiar with the ‌matter. The company has begun deprecating most of its flagship Nova AI models, including the high-end Premier and Omni models, Reel video-generation model, and Canvas image-generation model, the report said. Get a daily digest of breaking business news straight to your inbox with the Reuters Business newsletter. The new flagship model is expected to ​debut at Amazon's \"re:Invent\" annual conference later this year, Business Insider said. \"We're continuing to invest in and support the Nova models our customers rely ​on today ... Our Standards: The Thomson Reuters Trust Principles., opens new tab. *   Media Center, opens new tab. *   Reuters and AI, opens new tab. *   #### World-Check, opens new tab.",
+                "score": 0.254139
+              },
+              {
+                "title": "Microsoft launches MAI-Cyber-1-Flash cybersecurity AI model - qz.com",
+                "url": "https://qz.com/microsoft-mai-cyber-1-flash-cybersecurity-model-perception-072826",
+                "source": "qz.com",
+                "summary": "Microsoft launches MAI-Cyber-1-Flash cybersecurity AI model. # Microsoft is launching its first cybersecurity AI model at half the cost of rivals. MAI-Cyber-1-Flash, paired with GPT-5.4 inside Microsoft's MDASH harness, outperforms models from Anthropic, Google, and OpenAI on a key benchmark. Microsoft$MSFT launched MAI-Cyber-1-Flash, its first cybersecurity-specialized AI model, on Monday at an event in San Francisco, alongside a new agentic security platform called Project Perception. The company says the model, when combined with OpenAI's GPT-5.4 inside its MDASH vulnerability management harness, delivers 96% on the CyberGym benchmark — 12 percentage points above Anthropic's Mythos — at 50% of the cost of Microsoft's current MDASH configuration. MAI-Cyber-1-Flash is intended to shoulder the bulk of routine security work — roughly 90% of tasks — leaving GPT-5.4 to handle only the most demanding cases, the company said. Microsoftunveiled a family of seven in-house AI models in June, including the MAI-Thinking-1 reasoning model from which MAI-Cyber-1-Flash is derived, as the company has moved to reduce reliance on outside model providers including OpenAI.",
+                "score": 0.21561526
+              },
+              {
+                "title": "New airframer-engine business model needs to be ‘holistic’: Safran chief - FlightGlobal",
+                "url": "https://www.flightglobal.com/archive/2026/07/new-airframer-engine-business-model-needs-to-be-holistic-safran-chief/",
+                "source": "flightglobal.com",
+                "summary": "Airbus commercial aircraft chief Lars Wagner told investors on 21 July, in relation to a proposed next-generation single-aisle aircraft, that there was “probably a once-in-a-lifetime opportunity to rebalance the business model” and to participate in the “three or four decades of aftermarket”. Wagner says a new platform presents a range to think about the actors, the business model, and new partnerships – although he says that the timeline for a new single-aisle development means specific detail would be “premature”. Airbus chief executive Guillaume Faury added that there was a window for “views and ideas on how we could also embark our engine partners on a different way of doing business…and where we could do better on tapping into the long-term value created by aircraft and engines and systems”. “Because not only do we spend a lot of money for the development of the engine – industrialisation, ramp-up, getting into service and all that – on top of that, for years and years, when we deliver engines to airframers, we do that at a loss.",
+                "score": 0.20997179
+              },
+              {
+                "title": "Fish Audio Raises $50 Million in Funding to Build AI Voice Models - Zamin.uz",
+                "url": "https://zamin.uz/en/technology/214926-fish-audio-raises-50-million-in-funding-to-build-ai-voice-models.html",
+                "source": "zamin.uz",
+                "summary": "# Fish Audio Raises $50 Million in Funding to Build AI Voice Models. Palo Alto-based startup Fish Audio has raised $50 million in early-stage funding to build AI-driven voice models. According to ixbt.com, the funding round was led by Coreline Ventures and Capital Today, with contributions from a number of other venture funds. The market for AI-generated voice models is currently growing rapidly. Since launching its operations last year, the number of users utilizing the startup's open-source and hosted versions has exceeded 8 million. Dissatisfied with the lack of expressiveness in synthetic voices on the market, the specialist developed a new voice generation model using a single GPU and released it in an open-source format. Over the past year, the company has released five new models, including four speech generation models and one speech-to-text model. While the code for three of them has been published as open source, the latest S2.1 Pro model is available exclusively via a paid API.",
+                "score": 0.14025407
+              }
+            ]
+          },
+          "duration_ms": 1298,
+          "round": 1,
+          "call_id": "r1c1"
+        },
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "startup công nghệ",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "startup công nghệ",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Backed by $50 Million Investment: Egyptian Startup «Simplex» Opens New CNC Manufacturing Plant in 10th of Ramadan City - بوابة التكنولوجيا المالية",
+                "url": "https://fintechgate.net/247616",
+                "source": "fintechgate.net",
+                "summary": "# Backed by $50 Million Investment: Egyptian Startup «Simplex» Opens New CNC Manufacturing Plant in 10th of Ramadan City. Egyptian tech startup Simplex, a specialist in assembling and manufacturing Computer Numerical Control (CNC) machinery, officially inaugurated its latest industrial expansion in 10th of Ramadan City. Attendees toured the facility, showcasing Simplex’s growth journey as a leader in localizing CNC machinery manufacturing. Following a presentation detailing the company’s achievements and vision, the machine was officially launched with the affixing of the \"Proudly Made in Egypt\" badge, signaling the commencement of active production on the new line. Aligning with its regional growth strategy, Simplex signed new partnership and agency agreements in both the Jordan and Kuwait, reflecting the accelerating footprint of Egyptian engineering products and solutions in Arab markets. > «Our vision is to become a major player in the global CNC machinery manufacturing industry. The inauguration of Simplex’s new factory and the operation of its new production lines contribute to achieving key strategic returns that support the national manufacturing ecosystem.",
+                "score": 0.28658882
+              },
+              {
+                "title": "Rotterdam Hosts a Meeting Between Italian Companies and Benelux Industry Professionals with GSL Export - Robotics & Automation News",
+                "url": "https://roboticsandautomationnews.com/2026/07/28/rotterdam-hosts-a-meeting-between-italian-companies-and-benelux-industry-professionals-with-gsl-export/103647/",
+                "source": "roboticsandautomationnews.com",
+                "summary": "#### Robotics & Automation News publishes in-depth trend analysis on the future of drone logistics. # Robotics & Automation News. #### Manufacturing future: the best countries to start or relocate your tech startup in 2026. Since a robot could not detect the … [[Read More...] about AI-powered robot automates Serrano ham labeling for the first time](https://roboticsandautomationnews.com/2026/07/09/ai-powered-robot-automates-serrano-ham-labeling-for-the-first-time/103208/). Discover below … [[Read More...] about Manufacturing future: the best countries to start or relocate your tech startup in 2026](https://roboticsandautomationnews.com/2026/07/08/manufacturing-future-the-best-countries-to-start-or-relocate-your-tech-startup-in-2026/103188/). Doosan Robotics has launched a new AI-powered palletizing solution designed to help manufacturers automate palletizing while reducing engineering complexity and improving flexibility for changing … [[Read More...] about Doosan Robotics launches AI-powered palletizing solution for high-mix manufacturing](https://roboticsandautomationnews.com/2026/07/09/doosan-robotics-launches-ai-powered-palletizing-solution-for-high-mix-manufacturing/103197/). Kawasaki Robotics showcased a range of advanced automation technologies at Automate 2026 in Chicago, demonstrating how robotics, AI, machine learning, vision systems, and real-time control are … [[Read More...] about Kawasaki Robotics showcases 8-axis Physical AI robot and intelligent automation technologies at Automate 2026](https://roboticsandautomationnews.com/2026/06/26/kawasaki-robotics-showcases-8-axis-physical-ai-robot-and-intelligent-automation-technologies-at-automate-2026/102869/).",
+                "score": 0.21440381
+              },
+              {
+                "title": "Chinese startup raises funds for space situational awareness constellation, joining commercial SSA rush - SpaceNews",
+                "url": "https://spacenews.com/chinese-startup-raises-funds-for-space-situational-awareness-constellation-joining-commercial-ssa-rush/",
+                "source": "spacenews.com",
+                "summary": "Home / **Chinese startup raises funds for space situational awareness constellation, joining commercial SSA rush**. # Chinese startup raises funds for space situational awareness constellation, joining commercial SSA rush. * Email a link to a friend (Opens in new window) Email. SINGAPORE — A Beijing-based startup has secured around $14 million to build a satellite constellation for tracking orbital objects, adding to China’s growing SSA sector. The development is the latest in a line of Chinese commercial SSA moves and a signal that China’s commercial space situational awareness (SSA) sector is attracting capital across multiple competing players, while also recently reaching orbit. Geovis Insighter Technology Co. Ltd., or Xingtu Cekong, a subsidiary of Chinese Academy of Sciences-linked Zhongke Xingtu, went public on the Beijing Stock Exchange in 2025 and in November announced a planned 156-satellite SSA constellation, with test satellites due in the first half of 2026 and operational satellites in 2027.",
+                "score": 0.16750476
+              },
+              {
+                "title": "MCP startup Runlayer accuses Rippling of stealing its product idea - TechCrunch",
+                "url": "https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/",
+                "source": "techcrunch.com",
+                "summary": "Runlayer, a startup that offers a secure Model Context Protocol gateway — a standard for letting AI models and agents securely pull in outside data and tools — has filed a lawsuit against HR software startup Rippling, according to the complaint seen by TechCrunch. The lawsuit is a cautionary tale for anyone selling AI infrastructure to enterprise customers, especially to other tech companies, that increasingly have the engineering muscle to just build the thing themselves. In the suit, Runlayer describes an extensive product trial conducted by Rippling as a prospective customer, during which the MCP startup shared everything from its product roadmap to its actual source code. The parties signed a mutual non-disclosure agreement and Rippling signed a product trial agreement with a clause that forbade it from copying Runlayer’s intellectual property or making derivative works, which is standard boilerplate in enterprise software trials. Runlayer says in the complaint that Rippling’s evaluation involved “nearly a year of intensive engineering collaboration.” But in the end, the two could not agree on a price, so Runlayer ended the product trial.",
+                "score": 0.1645839
+              },
+              {
+                "title": "Fish Audio raises $52M seed to build AI voice models for creators and enterprises - TechCrunch",
+                "url": "https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/",
+                "source": "techcrunch.com",
+                "summary": "# Fish Audio raises $52M seed to build AI voice models for creators and enterprises. Since launching last year, the startup now has more than 8 million people using the open-source or hosted versions of its models, and generates annual recurring revenue of $21 million. To continue building on that traction, the startup on Tuesday said it has raised $52 million in a seed round that was led by Coreline Ventures and Capital Today. The company has launched five models in the last year: four speech generation models and one speech-to-text model. One way the startup has built its library of voices is by asking users to submit their own voices for training its models, and compensating them if their voices are used. Creators can submit a short voice sample or a contract to prove that an uploaded voice belongs to them, and their voice will be taken off the startup’s platform in less than three minutes, she said.",
+                "score": 0.16130732
+              }
+            ]
+          },
+          "duration_ms": 1221,
+          "round": 1,
+          "call_id": "r1c2"
+        }
+      ],
+      "artifact_version": "current+pe8ec9cd58ed0+t5cdbeb8118a7",
+      "ended_at": "2026-07-29T16:33:54",
+      "duration_ms": 20058
+    }
+  ]
+}
