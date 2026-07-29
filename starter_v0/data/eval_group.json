@@ -1,7 +1,271 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "10 case do nhóm tự viết",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_news_lookup",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tin AI hôm nay có gì nổi bật?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_news_lookup",
+        "difficulty": "medium",
+        "what_it_tests": "Agent phải chọn lookup cho yêu cầu tin tức web"
+      }
+    },
+    {
+      "id": "G02_timeline_limit",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy 3 tweet mới nhất của Elon Musk",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "arg_limit_timeline",
+        "difficulty": "easy",
+        "what_it_tests": "Agent phải map tên Elon Musk thành handle elonmusk và giữ limit=3"
+      }
+    },
+    {
+      "id": "G03_clarify_missing_url",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tóm tắt bài viết này giúp mình",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "medium",
+        "what_it_tests": "Agent phải hỏi lại khi thiếu URL để đọc bài"
+      }
+    },
+    {
+      "id": "G04_no_tool_meta",
+      "phase": "B",
+      "suite": "group",
+      "query": "Bạn là gì và làm được gì?",
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true
+      },
+      "metadata": {
+        "skill": "no_tool_meta",
+        "difficulty": "easy",
+        "what_it_tests": "Agent không nên gọi tool cho câu hỏi meta"
+      }
+    },
+    {
+      "id": "G05_confirm_before_send",
+      "phase": "B",
+      "suite": "group",
+      "query": "Đăng bản tin này lên Telegram cho mình",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "confirm_before_send",
+        "difficulty": "medium",
+        "what_it_tests": "Agent phải xác nhận trước hành động gửi nội dung"
+      }
+    },
+    {
+      "id": "G06_multiturn_news_shift",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Còn về robotics thì sao?"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_news_shift",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải hiểu lượt cuối là chuyển sang robotics và vẫn dùng lookup news"
+      }
+    },
+    {
+      "id": "G07_multiturn_timeline_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Andrej Karpathy"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải sửa tên người ở lượt sau và dùng handle karpathy"
+      }
+    },
+    {
+      "id": "G08_multiturn_clarify_then_url",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này hộ mình"
+        },
+        {
+          "role": "user",
+          "content": "Link là https://anthropic.com/news/claude"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_clarify_url",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải dùng link được cung cấp ở lượt sau để đọc bài"
+      }
+    },
+    {
+      "id": "G09_multiturn_no_tool",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Bạn có thể giúp mình không?"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ trả lời ngắn thôi"
+        }
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true
+      },
+      "metadata": {
+        "skill": "multiturn_no_tool",
+        "difficulty": "medium",
+        "what_it_tests": "Agent không nên gọi tool cho câu hỏi đơn giản và ngắn"
+      }
+    },
+    {
+      "id": "G10_multiturn_boundary",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng một thông báo lên Telegram"
+        },
+        {
+          "role": "user",
+          "content": "Đúng rồi, cho mình xác nhận trước"
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_boundary",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải giữ boundary xác nhận trước hành động gửi"
+      }
+    }
+  ]
 }
