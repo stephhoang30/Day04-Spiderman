@@ -1,0 +1,853 @@
+{
+  "run_id": "v0_B_base_openai_20260729T161533435031",
+  "version": "v0",
+  "artifact_version": "v0+pb6a23ebd2a39+t5d530c8b007f",
+  "prompt_hash": "b6a23ebd2a3979278196125728ada2ae910b0c28ae465542dc418e62019e4fd1",
+  "tools_hash": "5d530c8b007f02f28113a7df3546f158452a4f3a9afd1f9bea2015665bdea1d7",
+  "phase": "B",
+  "suite": "base",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "D:\\Vin\\Day04-Spiderman\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\Vin\\Day04-Spiderman\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "10 case do nhóm tự viết",
+  "generated_at": "2026-07-29T16:15:33",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 6,
+    "case_accuracy": 0.6,
+    "tool_routing_accuracy": 0.6,
+    "argument_accuracy": 0.6,
+    "multiturn_accuracy": 0.6,
+    "failure_counts": {
+      "wrong_tool": 2,
+      "wrong_arg_value": 1,
+      "wrong_boundary": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 2,
+      "extra_tool_call": 1,
+      "missing_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "G01_news_lookup",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_news_lookup",
+        "difficulty": "medium",
+        "what_it_tests": "Agent phải chọn lookup cho yêu cầu tin tức web"
+      },
+      "input": "Có tin gì đáng chú ý về AI hôm nay, nhất là những gì liên quan đến model mới và startup công nghệ?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI model news",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI startup news",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "query: expected 'AI', got 'AI model news'",
+          "extra tool call lookup"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI model news",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI model news",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "UC Berkeley researchers, entrepreneurs create first healthcare AI model trained to understand clinical decisions - Haas News | UC Berkeley Haas",
+                "url": "https://newsroom.haas.berkeley.edu/uc-berkeley-researchers-entrepreneurs-create-first-healthcare-ai-model-trained-to-understand-clinical-decisions",
+                "source": "newsroom.haas.berkeley.edu",
+                "summary": "This summer, the LCBM is continuing its training at several pilot sites. At one site, the model will determine whether emergency department patients need to be admitted to the hospital or treated elsewhere, which could free beds for those who truly need them. At another pilot site, it will handle specialty referrals, identifying which patients are the right fit for which doctors and routing the rest back to primary care. The model runs invisibly inside existing workflows, asking of every [...] Mostly, at first, it generated patterns that made no clinical sense. Then one case jumped out. A woman who looked like she was having a heart attack underwent a chest CT scan, followed by a brain scan. The moment the second scan entered the model, the model began pushing up the probabilities of everything associated with stroke. It was, Kolstad said, a breakthrough moment—the model had picked up an important clinical signal and demonstrated it was learning from human decision making. [...] Knit Health went live in May with $11.6 million in seed funding co-led by Uncork Capital and Frist Cressey Ventures (a pre-seed round was led by Moxxie Ventures, with participation from Coalition Operators). This summer, Knit’s model will continue to be trained on the anonymized electronic health records of more than 130 million patients across 30 major U.S. health systems, roughly a third of the American population.",
+                "score": 0.7316155
+              },
+              {
+                "title": "Amazon Phases Out Some AI Models, Advances Others",
+                "url": "https://www.mediapost.com/publications/article/416869/amazon-phases-out-some-ai-models-advances-others.html",
+                "source": "mediapost.com",
+                "summary": "\"AI models remain one of the most important things we're working on, and that hasn't changed,\" an Amazon spokesperson told MediaPost on Tuesday. \"We are continuing to invest in\nand support the Nova models our customers rely on today, including through Nova Forge, which lets businesses build their own models on Nova as a foundation.\"\n\nModels in production are typically\nsupported for extended periods, while continuing to invest in the next generation of frontier model research.\n\nadvertisement [...] advertisement\n\nadvertisement\n\nAmazon’s commitment to building advanced AI models remains as strong as it\nhas been in the past, the spokesperson said.\n\nThe report from Business Insider published today attributed the change to a restructuring of Amazon's AI strategy. \"Rather than\ninvesting across a number of text, image, and video models, the company is concentrating engineering talent and scarce computing resources on its highest priorities,\" Business Insider\nwrote. [...] Amazon last week quietly closed its AGI Lab, the team it set up about 18 months ago to support AI frontier models. These are the most advanced models trained on massive datasets\nto deliver state-of-the-art performance across many tasks and typically power advanced reasoning, image and text generation, and agentic workflows.",
+                "score": 0.7147281
+              },
+              {
+                "title": "An Anthropic Claude AI Model Finds Flaws in Tough-to- ...",
+                "url": "https://www.nytimes.com/2026/07/28/us/politics/anthropic-ai-encryption-security-aes.html",
+                "source": "nytimes.com",
+                "summary": "A leading A.I. model built by Anthropic has found flaws in a weakened version of a digital encryption standard that is in pervasive use throughout the internet, the company’s researchers said Tuesday, underscoring the potential risks to global cybersecurity posed by ever-improving artificial intelligence software. [...] Claude Mythos Preview discovered new attacks in testing against weakened cryptographic algorithms, which protect online financial transactions, private communications and more.\n\nListen · 7:37 min\n\nThe Anthropic headquarters in San Francisco, in April. The research shows that A.I. could one day challenge core assumptions for how the internet operates.Credit...Jason Henry/Bloomberg\n\nDustin Volz\n\nBy Dustin Volz\n\nReporting from Washington [...] The research shows that A.I. could one day challenge core assumptions for how the internet operates. While experts say A.I. is likely to upend many industries, A.I. systems have made particularly rapid advancements in coding and cybersecurity.",
+                "score": 0.685971
+              },
+              {
+                "title": "OpenAI's rogue agent hacked an account at a second ...",
+                "url": "https://www.aljazeera.com/news/2026/7/29/openais-rogue-agent-hacked-an-account-at-a-second-technology-firm-report",
+                "source": "aljazeera.com",
+                "summary": "The rogue artificial intelligence model that broke out of a controlled test and hacked another AI company also compromised a customer at a second technology firm, the Reuters news agency reports.\n\nAccording to a timeline published on Tuesday by Hugging Face – the company hacked by OpenAI’s test model – the rogue agent broke into an isolated testing environment (or sandbox) “hosted on a third-party provider’s infrastructure” and launched its latest hack from there.\n\n## Recommended Stories [...] Live\n\nLive\n\nNews|Technology\n\n# OpenAI’s rogue agent hacked an account at a second technology firm: Report\n\nThe latest hack comes after an autonomous agent escaped a controlled test and accessed AI firm Hugging Face’s servers.\n\nSave\n\nShare\n\nOpenAI logo\n\nOpenAI’s test model recently hacked into another company, prompting calls for renewed scrutiny of safeguards for advanced AI systems [File: Dado Ruvic/Reuters]\n\nBy Reuters\n\nPublished On 29 Jul 202629 Jul 2026",
+                "score": 0.6002124
+              },
+              {
+                "title": "Meta CEO Mark Zuckerberg Says Chinese AI Model Ban Not an 'Effective Solution', Calls for Fewer Barriers: - Benzinga",
+                "url": "https://www.benzinga.com/markets/tech/26/07/60750429/meta-ceo-mark-zuckerberg-says-chinese-ai-model-ban-not-an-effective-solution-calls-for-fewer-barriers-theres-this-question-of-regulatory-capture",
+                "source": "benzinga.com",
+                "summary": "On Tuesday, Nvidia Corp. (NASDAQ:NVDA) CEO Jensen Huang met with Sen. Mark Warner(D-Va.), vice chair of the Select Committee on Intelligence, to discuss AI’s impact on jobs, national security, and data centers, while advocating for open-source AI models, reported The Hill.\n\nAnthropic CEO Dario Amodei Says He 'Never Advocated' Open-Weight AI Ban, Calls for Tougher Curbs on China Instead [...] He argued that restricting the most advanced AI models is the wrong approach to cybersecurity, saying they can help companies detect and fix vulnerabilities. Citing a recent incident in which an OpenAI model escaped human control and hacked a startup, he said restricted access forced the affected company to rely on open-source models to patch the breach. [...] According to FT, Zuckerberg on Tuesday joined the intensifying debate in Washington over how the U.S. should regulate AI and respond to growing competition from China.\n\nDisclaimer:This content was partially produced with the help of AI tools and was reviewed and published by Benzinga editors.\n\nImage via Shutterstock\n\n© 2026 Benzinga.com. Benzinga does not provide investment advice. All rights reserved.\n\nTo add Benzinga News as your preferred source on Google, click here.",
+                "score": 0.5806618
+              }
+            ]
+          }
+        },
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI startup news",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI startup news",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Founders who sold their startup to Cisco raise $34 million to kill IT tickets. Read their new AI startup's pitch deck. - Business Insider",
+                "url": "https://www.businessinsider.com/harmony-pitch-deck-ai-startup-34-million-seed-founders-cisco-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Founders who sold their startup to Cisco raise $34 million to kill IT tickets. Read their new AI startup's pitch deck. Two founders who sold their first startup to Cisco for $500 million have raised $34 million in seed funding for their next act. ***Here's a look at the pitch deck that Harmony used to raise its $34 million seed. Geoff Weiss is a senior reporter on Business Insider’s tech team, where he writes about AI startups and Y Combinator, the intersection of AI and the media industry, and workplace dynamics within top AI labs and chip companies.Previously, Geoff was on the media desk, covering YouTube and Netflix, and themes like the intersection of Hollywood and the creator economy. Look out for an alert in your inbox the next time publishes a story! Every time a new story is published, you’ll get an alert straight to your inbox! Look out for an alert in your inbox the next time a new story is published!",
+                "score": 0.67243975
+              },
+              {
+                "title": "Nasdaq slumps on worsening chipmaker rout as AI bubble, China competition concerns mount - New York Post",
+                "url": "https://nypost.com/2026/07/28/business/nasdaq-slumps-on-worsening-chipmaker-rout-as-ai-bubble-china-competition-concerns-mount/",
+                "source": "nypost.com",
+                "summary": "A tech and chip stock rout deepened Tuesday as mounting fears around a potential AI bubble and concerns that China’s own technology is catching up pushed investors toward other sectors. “Wednesday may be the most important day for markets in recent memory as [Federal Reserve] Chair Warsh will have an opportunity to update investors on the prospects of a rate hike given rising oil prices, and big tech earnings may help shed light on whether or not we are finally seeing a return on investment for the massive amounts of AI spending taking place,” Rick Gardner, chief investment officer at RGA Investments, said in a note Tuesday. Weeks earlier, Chinese startup Z.ai introduced an AI model that is nearly as advanced as Anthropic’s ultra-powerful Fable and Mythos – and it has already landed on a leaderboard of the world’s 10 most popular bots.",
+                "score": 0.46380913
+              },
+              {
+                "title": "Thinking Machines Lab cofounder Lilian Weng steps down, citing startup-related stress and illness - Business Insider",
+                "url": "https://www.businessinsider.com/thinking-machines-lab-cofounder-lilian-weng-steps-down-stress-illness-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Thinking Machines Lab cofounder Lilian Weng steps down, citing startup-related stress and illness. A cofounder of Thinking Machines Lab said she's stepping down because of stress and illness. Lilian Weng said in a post on X that Tuesday would be her last day at Thinking Machines Lab, the AI startup she cofounded with OpenAI's former chief technology officer, Mira Murati. Weng, previously OpenAI's vice president of research and safety, said she had been ill more often in the past seven months than at any other point in her life. \"Despite all the laughter and challenges building a neolab has brought us, I don't feel I'm able to continue at the pace a startup requires,\" Weng wrote in a message she said she had shared with colleagues at the company, known internally as Thinky. Thank you all for the time together♥️ Just as the last sentence in my message: The future worth building is human.",
+                "score": 0.4581311
+              },
+              {
+                "title": "Fish Audio raises $52M seed to build AI voice models for creators and enterprises - TechCrunch",
+                "url": "https://techcrunch.com/2026/07/28/fish-audio-raises-50m-seed-to-build-ai-voice-models-for-creators-and-enterprises/",
+                "source": "techcrunch.com",
+                "summary": "# Fish Audio raises $52M seed to build AI voice models for creators and enterprises. Since launching last year, the startup now has more than 8 million people using the open-source or hosted versions of its models, and generates annual recurring revenue of $21 million. To continue building on that traction, the startup on Tuesday said it has raised $52 million in a seed round that was led by Coreline Ventures and Capital Today. The company has launched five models in the last year: four speech generation models and one speech-to-text model. One way the startup has built its library of voices is by asking users to submit their own voices for training its models, and compensating them if their voices are used. Creators can submit a short voice sample or a contract to prove that an uploaded voice belongs to them, and their voice will be taken off the startup’s platform in less than three minutes, she said.",
+                "score": 0.45072258
+              },
+              {
+                "title": "MCP startup Runlayer accuses Rippling of stealing its product idea - TechCrunch",
+                "url": "https://techcrunch.com/2026/07/28/mcp-startup-runlayer-accuses-rippling-of-stealing-its-product-idea/",
+                "source": "techcrunch.com",
+                "summary": "Runlayer, a startup that offers a secure Model Context Protocol gateway — a standard for letting AI models and agents securely pull in outside data and tools — has filed a lawsuit against HR software startup Rippling, according to the complaint seen by TechCrunch. The lawsuit is a cautionary tale for anyone selling AI infrastructure to enterprise customers, especially to other tech companies, that increasingly have the engineering muscle to just build the thing themselves. In the suit, Runlayer describes an extensive product trial conducted by Rippling as a prospective customer, during which the MCP startup shared everything from its product roadmap to its actual source code. The parties signed a mutual non-disclosure agreement and Rippling signed a product trial agreement with a clause that forbade it from copying Runlayer’s intellectual property or making derivative works, which is standard boilerplate in enterprise software trials. Runlayer says in the complaint that Rippling’s evaluation involved “nearly a year of intensive engineering collaboration.” But in the end, the two could not agree on a price, so Runlayer ended the product trial.",
+                "score": 0.45028743
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_timeline_limit",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_limit_timeline",
+        "difficulty": "easy",
+        "what_it_tests": "Agent phải map tên Elon Musk thành handle elonmusk và giữ limit=3"
+      },
+      "input": "Cho mình 3 tweet gần nhất của Elon Musk, nhưng chỉ lấy những bài nói về SpaceX hoặc Tesla",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "SpaceX",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Tesla",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "limit: expected 3, got 5",
+          "extra tool call social_search",
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=elonmusk"
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "SpaceX",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "429 Client Error: Too Many Requests for url: https://twitter-api45.p.rapidapi.com/search.php?query=SpaceX&search_type=Latest"
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Tesla",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "429 Client Error: Too Many Requests for url: https://twitter-api45.p.rapidapi.com/search.php?query=Tesla&search_type=Latest"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_clarify_missing_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "medium",
+        "what_it_tests": "Agent phải hỏi lại khi thiếu URL để đọc bài"
+      },
+      "input": "Tóm tắt giúp mình bài viết này, nhưng đừng tự đoán link—nếu thiếu địa chỉ thì hãy hỏi lại trước",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp địa chỉ URL của bài viết mà bạn muốn tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp địa chỉ URL của bài viết mà bạn muốn tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp địa chỉ URL của bài viết mà bạn muốn tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_no_tool_meta",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "no_tool_meta",
+        "difficulty": "easy",
+        "what_it_tests": "Agent không nên gọi tool cho câu hỏi meta"
+      },
+      "input": "Bạn là ai, bạn có thể giúp mình tìm tin tức và tweet không, hay chỉ là chatbot đơn giản?",
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi chỉ xử lý các yêu cầu liên quan đến nghiên cứu, bao gồm tìm kiếm tin tức và tweet. Bạn cần tìm thông tin gì?",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G05_confirm_before_send",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_send",
+        "difficulty": "medium",
+        "what_it_tests": "Agent phải xác nhận trước hành động gửi nội dung"
+      },
+      "input": "Đăng bản tin này lên Telegram cho mình, nhưng trước khi làm hãy hỏi xác nhận lại một lần",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_multiturn_news_shift",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_news_shift",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải hiểu lượt cuối là chuyển sang robotics và vẫn dùng lookup news"
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì? Đừng dùng câu trả lời chung chung"
+        },
+        {
+          "role": "user",
+          "content": "Còn về robotics thì sao? Chỉ lấy thông tin mới nhất, không phải bài cũ"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "extra_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "extra tool call lookup"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "robotics",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "robotics",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Rotterdam Hosts a Meeting Between Italian Companies and Benelux Industry Professionals with GSL Export - Robotics & Automation News",
+                "url": "https://roboticsandautomationnews.com/2026/07/28/rotterdam-hosts-a-meeting-between-italian-companies-and-benelux-industry-professionals-with-gsl-export/103647/",
+                "source": "roboticsandautomationnews.com",
+                "summary": "#### Robotics & Automation News publishes in-depth trend analysis on the future of drone logistics. # Robotics & Automation News. #### Manufacturing future: the best countries to start or relocate your tech startup in 2026. Since a robot could not detect the … [[Read More...] about AI-powered robot automates Serrano ham labeling for the first time](https://roboticsandautomationnews.com/2026/07/09/ai-powered-robot-automates-serrano-ham-labeling-for-the-first-time/103208/). Discover below … [[Read More...] about Manufacturing future: the best countries to start or relocate your tech startup in 2026](https://roboticsandautomationnews.com/2026/07/08/manufacturing-future-the-best-countries-to-start-or-relocate-your-tech-startup-in-2026/103188/). Doosan Robotics has launched a new AI-powered palletizing solution designed to help manufacturers automate palletizing while reducing engineering complexity and improving flexibility for changing … [[Read More...] about Doosan Robotics launches AI-powered palletizing solution for high-mix manufacturing](https://roboticsandautomationnews.com/2026/07/09/doosan-robotics-launches-ai-powered-palletizing-solution-for-high-mix-manufacturing/103197/). Kawasaki Robotics showcased a range of advanced automation technologies at Automate 2026 in Chicago, demonstrating how robotics, AI, machine learning, vision systems, and real-time control are … [[Read More...] about Kawasaki Robotics showcases 8-axis Physical AI robot and intelligent automation technologies at Automate 2026](https://roboticsandautomationnews.com/2026/06/26/kawasaki-robotics-showcases-8-axis-physical-ai-robot-and-intelligent-automation-technologies-at-automate-2026/102869/).",
+                "score": 0.39389837
+              },
+              {
+                "title": "The Ultimate Guide to AI and Robotics in Healthcare: From Diagnosis to Autonomous Intervention - AZoRobotics",
+                "url": "https://www.azorobotics.com/Article.aspx?ArticleID=836",
+                "source": "azorobotics.com",
+                "summary": "Image 2: An AZoNetwork Site. Robotic Surgery Enters a New Era. Levels of Autonomy in the Operating Room. **Artificial intelligence (AI) and robotics have moved from experimental tools into core components of modern healthcare delivery. Today, algorithms assist radiologists in reading scans, support physicians in diagnosing disease, and guide surgical robots through procedures once performed entirely by hand. The transformation extends across nearly every stage of patient care, from early detection and treatment planning to physical intervention in the operating room. This article examines that progression in depth and explains how AI and robotics function in clinical diagnosis today. By registering and providing insight into your preferences you're joining a community of over 1m science interested individuals and help us to provide you with insightful content whilst keeping our service free. Many of these models rely on convolutional neural networks trained on large image datasets, allowing them to flag subtle patterns that a radiologist might miss during a routine review of hundreds of scans in a single shift.",
+                "score": 0.3775871
+              },
+              {
+                "title": "How to invest in humanoid robotics, the potential $5 trillion market that's straight out of sci-fi - Business Insider",
+                "url": "https://www.businessinsider.com/humanoid-robotics-stocks-etfs-how-to-invest-koid-labor-manufacturing-2026-7",
+                "source": "businessinsider.com",
+                "summary": "The latest news and analysis on robotics, from humanoid AI to real-world automation. # How to invest in humanoid robotics, the potential $5 trillion market that’s straight out of science fiction. Yet, there's a real possibility that humanoid robots become an \"economically viable\" replacement for some forms of labor, minting huge returns for investors who manage to get in early, said Krane Shares CIO Brendan Ahern. Morgan Stanley predicts that humanoid robotics will be a $5 trillion business by 2050, with more than a billion robots walking the earth. If generative AI is in the third inning and the cybersecurity ripples it's caused are in the second inning, humanoid robots \"haven't even stepped into the batter's box,\" she said. \"If one of the biggest companies in the world is seeing massive efficiencies, with robots in half of their distribution facilities, then the number of robots is going to go much higher over the long haul,\" Link said.",
+                "score": 0.3705903
+              },
+              {
+                "title": "Registration is open for RoboBusiness 2026 - The Robot Report",
+                "url": "https://www.therobotreport.com/registration-is-open-for-robobusiness-2026/",
+                "source": "therobotreport.com",
+                "summary": "# Registration is open for RoboBusiness 2026. Registration is now open for RoboBusiness 2026, the leading event for commercial robotics developers. This year, we’ll be celebrating 20 years of RoboBusiness and looking back at how it has helped the robotics industry advance over the past two decades. RoboBusiness will be at the Santa Clara Convention Center on **Oct. 20 and 21, 2026**. Attendees at the show will gain the latest insights from experts in robotics and AI on cutting-edge research, industry trends, and innovative applications in sectors such as manufacturing, healthcare, agriculture, logistics, and more. **Save the date for RoboBusiness 2026**. He has worked in AI and robotics for more than 50 years. * **Dermott O’Driscoll** is vice president of go to market and customer solutions for the Physical AI (PAI) business unit at at Arm. He has IT, EDA, CPU, and SoC design experience at Arm and has been with the company for more than 20 years in various engineering and management roles.",
+                "score": 0.3380339
+              },
+              {
+                "title": "50 companies delivering robotics in construction - Building Design + Construction",
+                "url": "https://www.bdcnetwork.com/aec-tech/article/55394058/50-companies-delivering-robotics-in-construction",
+                "source": "bdcnetwork.com",
+                "summary": "# 50 companies delivering robotics in construction. BuiltWorlds' annual Robotics Top 50 report shows off advancements in spatial AI and the growing applications of robotics in construction. Earlier this month, BuiltWorlds released its 2026 Robotics Top 50, showing off the top robotics companies in the global built environment. This year’s list reflects the growing use of robotics on and off the jobsite, including significant advancements in spatial AI. This year’s Robotics Top 50, an annual report, highlighted technologies in the following categories:. Among the robotics companies spotlighted on this year’s list was a clear increase in the incorporation of AI. “Advancements in spatial AI are increasing the applications of robotics throughout the global environment,” Lynch says. “The 50 companies that made this year’s list showoff how global robotics have become,” Lynch added. For more details on these companies and others listed in the report, access the 2026 Robotics Top 50 List here.):.",
+                "score": 0.33528608
+              }
+            ]
+          }
+        },
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "robotics",
+            "topic": "news",
+            "timeframe": "week"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "robotics",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Top Robotics Stocks Worth Investing Right Now for Solid ...",
+                "url": "https://finance.yahoo.com/markets/stocks/articles/top-robotics-stocks-worth-investing-154200515.html",
+                "source": "finance.yahoo.com",
+                "summary": "The Robotics Screen makes it easy to identify high-potential stocks at any given time, just like the ones discussed below. Leveraging advanced tools, the thematic screens identify companies shaping the future, making it easier to capitalize on emerging trends.  \n  \nReady to uncover more transformative thematic investment ideas? Explore 30 cutting-edge investment themes with Zacks Thematic Screens and discover your next big opportunity. [...] NVIDIA released open-source physical AI skills at GTC Taipei and Computex in June to cut robot development costs industry-wide. Collaborative Robotics unveiled a redesigned Proxie mobile robot featuring two-armed manipulation, self-swapping batteries and autonomous task identification, broadening collaborative automation across healthcare, logistics and manufacturing. [...] With physical AI maturing, surgical robotics entering its most competitive era in decades, defense autonomy deepening and space robotic servicing nearing reality, the rest of 2026 and the near term represent a broad opportunity for U.S. robotics stocks.",
+                "score": 0.50432175
+              },
+              {
+                "title": "The Robots Cometh",
+                "url": "https://time.com/article/2026/07/23/unitree-china-human-robotics",
+                "source": "time.com",
+                "summary": "Boosted connectivity would solve the robotics bottlenecks of weight and battery life. Navigating our world requires simultaneously processing 4K video, spatial lidar, audio, and delicate tactile or proprioceptive feedback. But carrying heavy computational hardware and the means to power it severely limits both robot agility and operating time. 6G could potentially combine cloud processing with network lag of a near instantaneous 0.1 to 1 millisecond. Suddenly, lightweight physical robots could [...] Unitree’s blossoming came just as the Chinese government began leaning into AI and robotics, which President Xi Jinping has highlighted as key examples of the “new growth drivers.” China’s Ministry of Industry and Information Technology in turn declared humanoids a “disruptive innovation” on the same level as smartphones and EVs—breakthroughs destined to transform human production and lifestyle, making leadership a matter of economic and national security. It’s a policy push backed by hard [...] The possibilities and promises of a humanoid revolution have occupied him since he was 10 years old and first watched early televised robotics experiments performed at MIT by Marc Raibert, founder of Boston Dynamics. He spent his free time building model aircraft, conducting experiments, and, before long, assembling miniature turbojet engines.\n\nAdvertisement\n\nMeet Unitree’s GD01 Robot",
+                "score": 0.40471974
+              },
+              {
+                "title": "Uber co-founder raises $1.7B for new robotics startup ATOMS",
+                "url": "https://www.therobotreport.com/uber-co-founder-raises-1-7b-for-new-robotics-startup-atoms",
+                "source": "therobotreport.com",
+                "summary": "Kraken Technology has developed modular maritime platforms for defense use.\n\n##### Kraken Technology raises Series B funding for autonomous vessels\n\nHoliday Robotics said its robot FRIDAY reduces the burden of repetitive physical work.\n\n##### Holiday Robotics raises $105M for its FRIDAY wheeled humanoid\n\nRopedia's HOMIE is a lightweight device that includes four cameras and a swappable battery module.\n\n##### Ropedia raises $22M to scale data collection for training robots [...] ATOMS, a robotics startup led by former Uber co-founder and former CEO Travis Kalanick, today said it has  raised $1.7 billion in equity investment. Kalanick said the funding will enable ATOMS to complete completion of the “bits-to-atoms” story arc he started at Uber and continued at CloudKitchens. [...] - Collaborative Robotics Trends\n  + Search Robotics Database\n  + Videos\n  + Webinars / Digital Events\n Events\n  + RoboBusiness\n  + Robotics Summit & Expo\n  + DeviceTalks\n  + R&D 100\n  + Robotics Weeks\n Podcast\n  + Episodes\n Advertise\n Subscribe",
+                "score": 0.40260404
+              },
+              {
+                "title": "Developing Healthcare Robotics with GPU-Native Medical ...",
+                "url": "https://developer.nvidia.com/blog/developing-healthcare-robotics-with-gpu-native-medical-physics-simulation",
+                "source": "developer.nvidia.com",
+                "summary": "Healthcare robotics faces critical challenges in data scarcity, generalization, and development velocity due to limited access to annotated demonstrations, the prevalence of rare but clinically important scenarios, and slow, resource-intensive prototyping cycles. [...] AI-generated content may summarize information incompletely. Verify important information. Learn more\n\nUnlike autonomous driving or industrial robotics, healthcare robotics can’t rely on internet-scale data collection or unlimited real-world experimentation. Every demonstration requires specialized equipment, clinical expertise, and access to patients or laboratory environments. This creates three fundamental challenges for developers. [...] The third challenge is development velocity. Medical robotics development relies on benchtop phantoms, cadaver studies, animal models, and limited clinical evaluations. These remain essential, but they are inherently sequential, expensive, and difficult to scale. Iterating on designs and algorithms currently takes months, pushing total development cycles to 4–7 years.",
+                "score": 0.37586737
+              },
+              {
+                "title": "Tech Moves: Agility Robotics gets CFO; Microsoft security departure; Zap's legal officer; new KEXP CTO – GeekWire",
+                "url": "https://www.geekwire.com/2026/tech-moves-agility-robotics-gets-cfo-microsoft-security-departure-zaps-legal-officer-new-kexp-cto",
+                "source": "geekwire.com",
+                "summary": "The Salem, Ore.-based startup, whose two-legged Digit robots have been tested inside Amazon warehouses, is set to become the first publicly traded U.S. company dedicated solely to humanoid robots, the company announced last month.\n\nBeer joins Agility Robotics from the California energy storage company Energy Vault, where he was CFO for two years. Past roles include venture partner at Vest Coast Capital and CFO at FreeWire Technologies. [...] — Agility Robotics named Michael Beer as its chief financial officer. Current CFO and chief operating officer Jennifer Hunter will transition to serving exclusively as COO.\n\n“Michael brings outstanding public company finance and capital markets experience, while Jennifer, with her prior experience as a publicly traded COO, will focus exclusively on scaling our operational excellence and manufacturing capabilities,” said CEO Peggy Johnson, in a statement. [...] Robotics startup FieldAI, backed by Gates and Bezos, hits $2B valuation after latest funding\n\n###### Previous Story\n\n### Most Popular on GeekWire\n\n### Job Listings on GeekWork\n\n### A Word From Our Sponsors\n\n### About\n\n### Follow\n\n### GeekWire Newsletters\n\nCatch every headline in your inbox\n\n### Read GeekWire\n\n### Legal\n\n## Don't miss a headline!\n\nSign up for GeekWire's newsletters today.\n\nThanks for subscribing!  \nCheck your inbox to confirm your subscription.",
+                "score": 0.37408215
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_multiturn_timeline_correction",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải sửa tên người ở lượt sau và dùng handle karpathy"
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman, nhưng nếu không chắc thì hãy hỏi lại"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Andrej Karpathy. Đừng lấy của Sam Altman nữa"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "karpathy"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=karpathy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_multiturn_clarify_then_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_url",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải dùng link được cung cấp ở lượt sau để đọc bài"
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này hộ mình, nhưng phải có đúng link mới đọc"
+        },
+        {
+          "role": "user",
+          "content": "Link là https://anthropic.com/news/claude. Đọc đúng link đó thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://anthropic.com/news/claude"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://anthropic.com/news/claude",
+            "items": [
+              {
+                "title": "Not Found \\ Anthropic",
+                "url": "https://anthropic.com/news/claude",
+                "source": "anthropic.com",
+                "summary": "A 404 poem by Claude Haiku 4.5Claude Sonnet 5Claude Opus 5Claude Fable 5\n\nWhat onc"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multiturn_no_tool",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_no_tool",
+        "difficulty": "medium",
+        "what_it_tests": "Agent không nên gọi tool cho câu hỏi đơn giản và ngắn"
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Bạn có thể giúp mình không? Không cần dùng tool đâu"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ trả lời ngắn thôi, đừng làm gì phức tạp"
+        }
+      ],
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Mình chỉ có thể hỗ trợ các yêu cầu liên quan đến nghiên cứu. Bạn cần thông tin gì?",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G10_multiturn_boundary",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_boundary",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải giữ boundary xác nhận trước hành động gửi"
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đăng một thông báo lên Telegram, nhưng hãy dừng lại và xác nhận trước"
+        },
+        {
+          "role": "user",
+          "content": "Đúng rồi, cho mình xác nhận trước và đừng tự gửi ngay"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Thông báo của bạn đã sẵn sàng để gửi. Bạn có muốn gửi nó không?",
+              "confirmed": false
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Thông báo của bạn đã sẵn sàng để gửi. Bạn có muốn gửi nó không?",
+            "confirmed": false
+          },
+          "result": {
+            "tool": "send_telegram",
+            "status": "needs_confirmation",
+            "message": "Only send after the user explicitly confirms."
+          }
+        }
+      ]
+    }
+  ]
+}

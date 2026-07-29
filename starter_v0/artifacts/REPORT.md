@@ -6,9 +6,15 @@
 
 ## Team
 
-- Team:
+- Team: Spiderman
 - Members:
-- Provider/model:
+Nguyễn Quý Dương - 2A202601642  
+Trần Văn Ngọc - 2A202601512  
+Hoàng Công Thành - 2A202601662  
+Nguyễn Hoàng Bảo Minh - 2A202601626  
+Hồ Văn Tâm - 2A202601542
+
+- Provider/model: OpenAI GPT-4o-mini via OpenAI provider
 
 ---
 
@@ -16,15 +22,13 @@
 
 ## A1. Agent này làm được gì
 
-> 1–2 câu mô tả agent dùng để làm gì.
-
-Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc URL và tổng hợp thành digest."
+> Agent này dùng để chạy các tác vụ research nhỏ: tìm tin tức, đọc tweet/timeline, đọc URL, và tóm tắt kết quả bằng tool routing. Mục tiêu của lab là không chỉ trả lời mà còn phải chọn đúng tool, truyền đúng args, và biết khi nào nên hỏi lại.
 
 **Link dùng thử (truy cập được trong showdown):**
 
-> Dán public URL nếu người khác cần mở từ máy riêng; localhost cũng được nếu demo trực tiếp trên máy trình chiếu. Streamlit được khuyến nghị, nhưng nhóm có thể dùng bất kỳ framework nào.
+> Demo có thể chạy local bằng chat hoặc eval. Nếu nhóm dựng UI, dán URL ở đây.
 >
-> URL:
+> URL: local run via `python chat.py --provider openai --version v0`
 
 ## A2. Tool agent có
 
@@ -32,25 +36,22 @@ Ví dụ: "Research agent: tìm tin theo từ khóa / theo tài khoản, đọc 
 
 | Tên tool | Làm được gì | Tool mới nhóm thêm? |
 |---|---|---|
-| clarify | hỏi lại người dùng khi thiếu thông tin | không |
-|  |  |  |
-|  |  |  |
+| clarify | hỏi lại người dùng khi thiếu thông tin hoặc khi cần xác nhận trước hành động nhạy cảm | không |
+| timeline | lấy các bài đăng gần đây của một tài khoản mạng xã hội | không |
+| lookup | tra cứu thông tin trên web theo chủ đề/tin tức | không |
+| fetch | đọc nội dung từ URL đã được cung cấp | không |
+| format | tóm tắt và trình bày kết quả thành digest | không |
 
 ## A3. Câu hỏi mẫu để thử
 
 > 3–5 câu hỏi/yêu cầu mẫu để team khác tự thử agent ngay.
 
-1.
-2.
-3.
+1. "Tin AI hôm nay có gì nổi bật?"
+2. "Cho mình 3 tweet gần nhất của Elon Musk, nhưng chỉ lấy những bài nói về SpaceX hoặc Tesla"
+3. "Tóm tắt giúp mình bài viết này, nhưng đừng tự đoán link—nếu thiếu địa chỉ thì hãy hỏi lại trước"
+4. "Đăng bản tin này lên Telegram cho mình, nhưng trước khi làm hãy hỏi xác nhận lại một lần"
+5. "Tin AI hôm nay có gì? Đừng dùng câu trả lời chung chung"
 
-## A4. Kịch bản demo đã rehearse
-
-> Chuẩn bị 3–5 scenario. Mỗi scenario cần cho thấy tool đã làm gì và một thay đổi cụ thể giữa các version.
-
-| Scenario | Tool trace cần thấy | Câu chuyện cải thiện version | Fallback run/transcript |
-|---|---|---|---|
-|  |  |  |  |
 
 ---
 
@@ -64,10 +65,10 @@ Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
 | Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
 |---|---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |  |
-| v1 |  |  |  |  |  |  |
-| v2 |  |  |  |  |  |  |
-| v3 |  |  |  |  |  |  |
+| v0 | baseline; dùng prompt/tool starter và 10 case nhóm mới | Baseline để đo routing/tool/args trên group eval | case_accuracy | 0.60 | 0.60 | runs/v0_B_group_openai_20260729T161319244168.json |
+| v1 | cần cập nhật prompt/tool declaration để cải thiện clarify và boundary | Nếu prompt/tool mô tả rõ hơn khi nào phải hỏi lại và khi nào không được tự đoán, agent sẽ tốt hơn | case_accuracy | 0.60 | TBD | TBD |
+| v2 | TBD | TBD | case_accuracy | TBD | TBD | TBD |
+| v3 | TBD | TBD | case_accuracy | TBD | TBD | TBD |
 
 ## B2. Failure analysis
 
@@ -75,9 +76,10 @@ Use actual failures from `results[*].result.failures`.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
-
-## B3. Team eval cases
+| G01_news_lookup | wrong_tool | lookup(query=AI model news), lookup(query=AI startup news) | Agent over-specified the query and split the request into two tool calls instead of one precise lookup | Tighten prompt/tool description to prefer one concise lookup query |
+| G02_timeline_limit | wrong_arg_value | timeline(screenname=elonmusk, limit=5) + extra social_search calls | Agent ignored the explicit limit=3 and used extra social_search calls | Strengthen tool instruction that timeline should respect the requested limit and avoid extra tools |
+| G05_confirm_before_send | wrong_boundary | clarify with wrong boundary behavior | Agent did not consistently treat send-like actions as requiring confirmation | Improve prompt to explicitly require clarification before send actions |
+| G10_multiturn_boundary | wrong_boundary | boundary handling did not match expected yes_no clarification | Multi-turn boundary case needed stronger confirmation behavior | Update instruction to preserve confirmation boundary across turns |
 
 List the 10 cases added to `data/eval_group.json`:
 
@@ -91,9 +93,16 @@ File template để trống có chủ đích; nhóm phải tự thiết kế đ�
 
 | Case ID | What It Tests | Expected Tool/Behavior | Result |
 |---|---|---|---|
-|  |  |  |  |
-
-## B4. Live chat evidence
+| G01_news_lookup | News lookup routing | lookup with query=AI and topic=news/timeframe=day | Fail |
+| G02_timeline_limit | Timeline arg handling | timeline with screenname=elonmusk and limit=3 | Fail |
+| G03_clarify_missing_url | Missing URL clarification | clarify(response_type=text) | Pass |
+| G04_no_tool_meta | Meta question no-tool | no_tool | Pass |
+| G05_confirm_before_send | Send confirmation boundary | clarify(response_type=yes_no) | Pass |
+| G06_multiturn_news_shift | Multi-turn news shift | lookup for robotics with day/news | Fail |
+| G07_multiturn_timeline_correction | Multi-turn correction | timeline for karpathy | Pass |
+| G08_multiturn_clarify_then_url | Multi-turn URL recovery | fetch the supplied URL | Pass |
+| G09_multiturn_no_tool | Multi-turn simple question | no_tool | Pass |
+| G10_multiturn_boundary | Multi-turn send boundary | clarify yes_no | Fail |
 
 Use `transcripts/*.transcript.json`.
 
@@ -115,7 +124,7 @@ UI is core deliverable, not bonus. Do not list it here.
 
 ## B6. Reflection
 
-- Which fixes belonged in `system_prompt.md`?
-- Which fixes belonged in `tools.yaml`?
-- Which failure needed manual review instead of automatic grading?
-- What would you improve next?
+- Which fixes belonged in `system_prompt.md`? The confirmation boundary and the instruction to avoid over-splitting a request into multiple lookup calls belong here.
+- Which fixes belonged in `tools.yaml`? The tool descriptions for timeline, fetch, and clarify should be stronger so the model knows when to ask for missing information and when to preserve the requested limit.
+- Which failure needed manual review instead of automatic grading? Cases involving extra tool calls or ambiguous argument values needed review because routing could appear partially correct even when the underlying tool arguments were wrong.
+- What would you improve next? Tighten the prompt and tool descriptions, then rerun v1 and compare the new metrics against the v0 baseline.
