@@ -1,0 +1,37 @@
+{
+  "transcript_id": "ui_v1_20260729T162130_be93be",
+  "surface": "nextjs_ui",
+  "version": "v1",
+  "artifact_version": "v1+pe8ec9cd58ed0+te10c71903a23",
+  "prompt_hash": "e8ec9cd58ed023bfafccf426c4fda718ee4722876fc4c34e9b647216b34c37ba",
+  "tools_hash": "e10c71903a2327ed457279ac0c64fc54c2c1d0e2534fa52a266f600f8898708d",
+  "provider": "openai",
+  "model": "gpt-4o-mini",
+  "system_prompt": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/versions/v1/system_prompt.md",
+  "tools": "/Users/stephhoang/Documents/VinUNI/Day04-Spiderman/starter_v0/artifacts/versions/v1/tools.yaml",
+  "history_window": 0,
+  "max_tool_rounds": 2,
+  "created_at": "2026-07-29T16:21:30",
+  "updated_at": "2026-07-29T16:21:32",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T16:21:30",
+      "user": "Đăng bản tin này lên Telegram giúp mình",
+      "status": "answered",
+      "assistant_text": "Vui lòng xác nhận bạn muốn đăng bản tin này lên Telegram bằng cách trả lời \"Có\".",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Vui lòng xác nhận bạn muốn đăng bản tin này lên Telegram bằng cách trả lời \"Có\".",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "artifact_version": "v1+pe8ec9cd58ed0+te10c71903a23",
+      "ended_at": "2026-07-29T16:21:32",
+      "duration_ms": 2568
+    }
+  ]
+}

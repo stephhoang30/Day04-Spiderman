@@ -23,6 +23,7 @@ import os
 import queue
 import threading
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterator
@@ -133,6 +134,18 @@ def artifact_sets() -> dict[str, ArtifactSet]:
             if folder.is_dir() and prompt_path.exists() and tools_path.exists():
                 sets[folder.name] = ArtifactSet(folder.name, prompt_path, tools_path, is_working=False)
     return sets
+
+
+def ordered_artifact_sets() -> list[ArtifactSet]:
+    """Snapshot theo thứ tự tự nhiên (v0, v1, v2, v10…), 'current' luôn đứng cuối."""
+
+    def natural_key(label: str) -> tuple[int, str]:
+        digits = "".join(ch for ch in label if ch.isdigit())
+        return (int(digits) if digits else 9999, label)
+
+    sets = artifact_sets()
+    snapshots = sorted((s for s in sets.values() if not s.is_working), key=lambda s: natural_key(s.label))
+    return [*snapshots, *(s for s in sets.values() if s.is_working)]
 
 
 def get_artifact_set(label: str | None) -> ArtifactSet:
@@ -366,7 +379,7 @@ def meta() -> dict[str, Any]:
             "key_present": bool(os.getenv(info["env"])),
             "env": info["env"],
         } for key, info in PROVIDERS.items()],
-        "versions": [item.summary() for item in sets.values()],
+        "versions": [item.summary() for item in ordered_artifact_sets()],
         "tools": tools,
         "defaults": {"history_window": 5, "max_tool_rounds": 4, "version": "current"},
         "prompt_visible": EXPOSE_PROMPT,
@@ -443,19 +456,31 @@ def chat_stream(request: ChatRequest) -> StreamingResponse:
 
 @app.post("/api/compare")
 def compare(request: CompareRequest) -> dict[str, Any]:
-    """Run the same prompt through several artifact versions (rubric: A/B demo)."""
-    runs: list[dict[str, Any]] = []
-    for label in request.versions:
-        result = run_turn(ChatRequest(
-            message=request.message,
-            session_id=None,
-            provider=request.provider,
-            model=request.model,
-            version=label,
-            history_window=0,
-            max_tool_rounds=request.max_tool_rounds,
-        ))
-        runs.append({"version_label": label, **result})
+    """Run the same prompt through several artifact versions (rubric: A/B demo).
+
+    Các version chạy SONG SONG: demo 4 version mất thời gian như chạy 1 version,
+    thay vì cộng dồn. Thứ tự trả về vẫn đúng thứ tự client gửi lên.
+    """
+
+    def run_one(label: str) -> dict[str, Any]:
+        try:
+            result = run_turn(ChatRequest(
+                message=request.message,
+                session_id=None,
+                provider=request.provider,
+                model=request.model,
+                version=label,
+                history_window=0,
+                max_tool_rounds=request.max_tool_rounds,
+            ))
+            return {"version_label": label, **result}
+        except HTTPException as exc:
+            return {"version_label": label, "error": str(exc.detail)}
+        except Exception as exc:
+            return {"version_label": label, "error": f"{type(exc).__name__}: {exc}"}
+
+    with ThreadPoolExecutor(max_workers=len(request.versions) or 1) as pool:
+        runs = list(pool.map(run_one, request.versions))
     return {"message": request.message, "runs": runs}
 
 

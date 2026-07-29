@@ -7,8 +7,56 @@ import { Markdown } from "@/components/Markdown";
 import { ERROR_COLOR, OK_COLOR, STATUS_META, tint, toolVisual } from "@/lib/toolMeta";
 import type { CompareRun, Meta, Scenario } from "@/lib/types";
 
+const GRID_COLS: Record<number, string> = {
+  1: "lg:grid-cols-1",
+  2: "lg:grid-cols-2",
+  3: "lg:grid-cols-3",
+  4: "lg:grid-cols-4",
+};
+
 function toolSignature(run: CompareRun): string {
+  if (!run.turn) return "error";
   return run.turn.tool_events.map((event) => event.tool).join(" → ") || "no_tool";
+}
+
+/** Nói rõ giữa các version được chọn thì ARTIFACT NÀO đổi — prompt, tools, hay cả hai. */
+function ChangeSummary({ runs }: { runs: CompareRun[] }) {
+  const steps = runs.slice(1).map((run, index) => {
+    const prev = runs[index];
+    const promptChanged = prev.prompt_hash !== run.prompt_hash;
+    const toolsChanged = prev.tools_hash !== run.tools_hash;
+    const changed = [promptChanged && "system_prompt.md", toolsChanged && "tools.yaml"].filter(
+      Boolean,
+    ) as string[];
+    const sameRouting = toolSignature(prev) === toolSignature(run);
+    return { from: prev.version_label, to: run.version_label, changed, sameRouting };
+  });
+  if (!steps.length) return null;
+
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 rounded-xl border border-ink-700 bg-ink-900/40 px-3 py-2 text-[11.5px]">
+      <span className="text-[9.5px] font-semibold tracking-widest text-mist-400 uppercase">đã đổi gì</span>
+      {steps.map((step) => (
+        <span key={`${step.from}-${step.to}`} className="flex items-center gap-1.5 font-mono text-[11px]">
+          <span className="text-mist-400">
+            {step.from} → {step.to}
+          </span>
+          {step.changed.length ? (
+            step.changed.map((name) => (
+              <span key={name} className="rounded bg-web-500/12 px-1.5 py-px text-web-400">
+                {name}
+              </span>
+            ))
+          ) : (
+            <span className="rounded bg-ink-800 px-1.5 py-px text-mist-400">artifact giống hệt</span>
+          )}
+          <span style={{ color: step.sameRouting ? "var(--status-idle)" : "var(--status-ok)" }}>
+            {step.sameRouting ? "· routing không đổi" : "· routing ĐỔI"}
+          </span>
+        </span>
+      ))}
+    </div>
+  );
 }
 
 function RunColumn({
@@ -20,6 +68,14 @@ function RunColumn({
   scenario: Scenario | null;
   isDifferent: boolean;
 }) {
+  if (!run.turn) {
+    return (
+      <div className="flex min-w-0 flex-col rounded-xl border border-spider-500/40 bg-spider-500/8 p-3">
+        <span className="font-mono text-[11px] text-spider-500">{run.version_label}</span>
+        <p className="mt-1 font-mono text-[11px] break-all text-mist-200">{run.error ?? "unknown error"}</p>
+      </div>
+    );
+  }
   const status = STATUS_META[run.turn.status] ?? { label: run.turn.status, color: "var(--status-idle)" };
   const actual = run.turn.tool_events.map((event) => event.tool);
   const expected = scenario?.no_tool ? [] : (scenario?.expected_tools ?? []);
@@ -58,7 +114,7 @@ function RunColumn({
             </span>
           )}
         </div>
-        <p className="font-mono text-[10px] break-all text-mist-400">{run.artifact_version}</p>
+        <p className="font-mono text-[10px] break-all text-mist-400">{run.artifact_version ?? "—"}</p>
       </div>
 
       <div className="space-y-2 p-3">
@@ -124,8 +180,10 @@ export function CompareView({
 }) {
   const [message, setMessage] = useState("Tweet mới nhất của Sam Altman là gì?");
   const [scenario, setScenario] = useState<Scenario | null>(null);
+  const MAX_VERSIONS = 4; // backend chặn quá 4 (tránh 1 request nhân 4 lần chi phí model)
+  const labels = meta.versions.map((item) => item.label);
   const [selected, setSelected] = useState<string[]>(
-    meta.versions.slice(0, 2).map((item) => item.label),
+    labels.length > 1 ? [labels[0], labels[labels.length - 1]] : labels,
   );
   const [runs, setRuns] = useState<CompareRun[]>([]);
   const [busy, setBusy] = useState(false);
@@ -135,9 +193,12 @@ export function CompareView({
   const diverged = signatures.size > 1;
 
   const toggle = (label: string) =>
-    setSelected((current) =>
-      current.includes(label) ? current.filter((item) => item !== label) : [...current, label],
-    );
+    setSelected((current) => {
+      if (current.includes(label)) return current.filter((item) => item !== label);
+      if (current.length >= MAX_VERSIONS) return current;
+      // giữ đúng thứ tự v0 -> v1 -> … -> current để cột đọc theo dòng thời gian
+      return labels.filter((item) => current.includes(item) || item === label);
+    });
 
   const run = async () => {
     if (!message.trim() || !selected.length) return;
@@ -193,21 +254,32 @@ export function CompareView({
           />
 
           <div className="flex flex-wrap gap-1.5">
-            {meta.versions.map((version) => (
-              <button
-                key={version.label}
-                type="button"
-                onClick={() => toggle(version.label)}
-                className={`rounded-lg border px-2.5 py-1 text-[11.5px] transition ${
-                  selected.includes(version.label)
-                    ? "border-web-500/50 bg-web-500/12 text-web-400"
-                    : "border-ink-700 text-mist-400 hover:text-mist-200"
-                }`}
-              >
-                {version.label}
-                <span className="ml-1.5 font-mono text-[9.5px] opacity-70">{version.prompt_hash.slice(0, 6)}</span>
-              </button>
-            ))}
+            {meta.versions.map((version) => {
+              const active = selected.includes(version.label);
+              const full = !active && selected.length >= MAX_VERSIONS;
+              return (
+                <button
+                  key={version.label}
+                  type="button"
+                  onClick={() => toggle(version.label)}
+                  disabled={full}
+                  title={full ? `Tối đa ${MAX_VERSIONS} version mỗi lần chạy` : version.description}
+                  className={`rounded-lg border px-2.5 py-1 text-[11.5px] transition ${
+                    active
+                      ? "border-web-500/50 bg-web-500/12 text-web-400"
+                      : "border-ink-700 text-mist-400 hover:text-mist-200"
+                  } ${full ? "cursor-not-allowed opacity-35" : ""}`}
+                >
+                  {version.label}
+                  <span className="ml-1.5 font-mono text-[9.5px] opacity-70">
+                    p{version.prompt_hash.slice(0, 4)}·t{version.tools_hash.slice(0, 4)}
+                  </span>
+                </button>
+              );
+            })}
+            <span className="self-center font-mono text-[10px] text-mist-400">
+              {selected.length}/{MAX_VERSIONS}
+            </span>
           </div>
 
           <div className="flex flex-wrap gap-1.5">
@@ -248,7 +320,9 @@ export function CompareView({
         </div>
       )}
 
-      <div className={`grid gap-3 ${runs.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
+      {runs.length > 1 && <ChangeSummary runs={runs} />}
+
+      <div className={`grid gap-3 md:grid-cols-2 ${GRID_COLS[Math.min(runs.length || selected.length, 4)]}`}>
         {runs.map((item) => (
           <RunColumn
             key={item.version_label}
@@ -259,7 +333,12 @@ export function CompareView({
         ))}
         {busy &&
           selected.map((label) => (
-            <div key={label} className="shimmer h-40 rounded-xl border border-ink-700 bg-ink-900/40" />
+            <div
+              key={label}
+              className="shimmer flex h-40 items-start justify-center rounded-xl border border-ink-700 bg-ink-900/40 pt-3 font-mono text-[11px] text-mist-400"
+            >
+              {label}…
+            </div>
           ))}
       </div>
     </div>
