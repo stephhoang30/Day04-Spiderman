@@ -28,6 +28,7 @@ send: send/publish only after explicit yes; then confirmed=true.
 policy: search internal policy.
 papers: search academic papers.
 paper_text: fetch paper text by arXiv ID or URL.
+verify_sources: assess an explicit factual claim against one to five URLs supplied by the user; it does not search for sources.
 </tools>
 
 <routing_rules>
@@ -50,6 +51,7 @@ paper_text: fetch paper text by arXiv ID or URL.
 - fetch only with explicit URL.
 - policy_area: citation/source/arXiv facts -> source_citation; API keys/customer data -> data_privacy; publishing/Telegram -> external_publishing; research workflow -> ai_research.
 - arXiv/paper discovery -> papers; reading a known arXiv ID/URL -> paper_text.
+- Claim verification with explicit URLs -> verify_sources. Missing claim or URLs -> clarify text. Do not use verify_sources for ordinary search, URL summaries, or URLs not supplied by the user.
 - Multiturn: answer latest turn only; use earlier turns as context. Carry topic/handle/timeframe/limit unless corrected.
 </argument_rules>
 

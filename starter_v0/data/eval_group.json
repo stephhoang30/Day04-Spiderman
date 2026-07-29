@@ -12,27 +12,26 @@
   ],
   "cases": [
     {
-      "id": "G01_news_lookup",
+      "id": "G01_verify_explicit_sources",
       "phase": "B",
       "suite": "group",
-      "query": "Tin AI hôm nay có gì nổi bật?",
+      "query": "Kiểm chứng claim 'OpenAI đã công bố mô hình mới' bằng các link https://openai.com/news/ và https://www.reuters.com/.",
       "failure_type": "wrong_tool",
       "expect": {
         "tool_calls": [
           {
-            "name": "lookup",
+            "name": "verify_sources",
             "args": {
-              "query": "AI",
-              "topic": "news",
-              "timeframe": "day"
+              "claim": "OpenAI đã công bố mô hình mới",
+              "urls": ["https://openai.com/news/", "https://www.reuters.com/"]
             }
           }
         ]
       },
       "metadata": {
-        "skill": "routing_news_lookup",
+        "skill": "routing_verify_explicit_sources",
         "difficulty": "medium",
-        "what_it_tests": "Agent phải chọn lookup cho yêu cầu tin tức web"
+        "what_it_tests": "Agent phải chọn verify_sources khi claim và URL đã được cung cấp"
       }
     },
     {
@@ -213,27 +212,35 @@
       }
     },
     {
-      "id": "G09_multiturn_no_tool",
+      "id": "G09_multiturn_verify_sources",
       "phase": "B",
       "suite": "group",
       "turns": [
         {
           "role": "user",
-          "content": "Bạn có thể giúp mình không?"
+          "content": "Mình muốn kiểm chứng claim 'Anthropic đã công bố Claude mới'."
         },
         {
           "role": "user",
-          "content": "Chỉ trả lời ngắn thôi"
+          "content": "Dùng hai link này: https://www.anthropic.com/news và https://www.bbc.com/news"
         }
       ],
-      "failure_type": "unnecessary_tool",
+      "failure_type": "wrong_tool",
       "expect": {
-        "no_tool": true
+        "tool_calls": [
+          {
+            "name": "verify_sources",
+            "args": {
+              "claim": "Anthropic đã công bố Claude mới",
+              "urls": ["https://www.anthropic.com/news", "https://www.bbc.com/news"]
+            }
+          }
+        ]
       },
       "metadata": {
-        "skill": "multiturn_no_tool",
+        "skill": "multiturn_verify_sources",
         "difficulty": "medium",
-        "what_it_tests": "Agent không nên gọi tool cho câu hỏi đơn giản và ngắn"
+        "what_it_tests": "Agent phải mang claim từ lượt trước và dùng URL ở lượt sau"
       }
     },
     {
