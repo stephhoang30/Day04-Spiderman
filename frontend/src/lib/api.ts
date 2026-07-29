@@ -1,7 +1,8 @@
 import type { CompareRun, Meta, Scenario, StreamEvent, TranscriptListItem } from "./types";
 
-export const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ?? "http://localhost:8000";
+/** Mặc định gọi cùng origin ("" -> /api/...), Next rewrite sang FastAPI (xem next.config.ts).
+ *  Chỉ set NEXT_PUBLIC_API_BASE khi cố tình tách frontend và backend ra 2 domain. */
+export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE ?? "").replace(/\/$/, "");
 
 async function getJson<T>(path: string): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, { cache: "no-store" });

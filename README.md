@@ -322,12 +322,12 @@ Nhóm dùng Next.js thay cho Streamlit. UI không viết lại agent loop: `star
 và cùng ghi transcript vào `starter_v0/transcripts/`.
 
 ```bash
-# terminal 1 — backend
-cd starter_v0 && uvicorn server:app --reload --port 8000
-
-# terminal 2 — frontend
-cd frontend && npm install && npm run dev     # http://localhost:3000
+./run_ui.sh      # dev: backend :8000 + frontend :3000 (hot reload)
+./deploy.sh      # demo: build + Cloudflare Tunnel, in ra link public
 ```
+
+Next rewrite `/api/*` sang FastAPI nên UI và API chung một origin — deploy chỉ cần tunnel
+một cổng, không phải build lại khi URL đổi.
 
 UI đáp ứng "bằng chứng tối thiểu" ở trên: request/response cuối, trace từng tool
 (tên · args · round · status · result/error · latency), `transcript_id` +
