@@ -63,12 +63,16 @@ Hồ Văn Tâm - 2A202601542
 
 Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
+> Metric chỉ hợp lệ khi `provider_error_cases=0` và `measured_cases=total_cases`.
+> Run group v3 dùng OpenAI đã chạy lúc 17:54 nhưng 10/10 case lỗi HTTP 401
+> (invalid API key), nên không có metric để so sánh.
+
 | Version | Prompt/tool change | Hypothesis | Metric name | Before | After | Run File |
 |---|---|---|---|---:|---:|---|
 | v0 | baseline; dùng prompt/tool starter và 10 case nhóm mới | Baseline để đo routing/tool/args trên group eval | case_accuracy | 0.60 | 0.60 | runs/v0_B_group_openai_20260729T161319244168.json |
-| v1 | cần cập nhật prompt/tool declaration để cải thiện clarify và boundary | Nếu prompt/tool mô tả rõ hơn khi nào phải hỏi lại và khi nào không được tự đoán, agent sẽ tốt hơn | case_accuracy | 0.60 | TBD | TBD |
-| v2 | TBD | TBD | case_accuracy | TBD | TBD | TBD |
-| v3 | TBD | TBD | case_accuracy | TBD | TBD | TBD |
+| v1 | Prompt/tool bổ sung rule `clarify` cho handle và URL bị thiếu | Không tự đoán input bắt buộc | case_accuracy | 0.60 | N/A — 11 provider errors, 9/20 measured | runs/v1_B_base_openai_20260729T173745711076.json |
+| v2 | Thêm guardrail xác nhận trước `send` | Không gọi side-effect tool khi chưa xác nhận | case_accuracy | 0.60 | N/A — 15 provider errors, 5/20 measured | runs/v2_B_base_openai_20260729T173809305429.json |
+| v3 | Chạy OpenAI group eval theo lệnh yêu cầu | Kiểm tra cấu hình v3 trên 10 case nhóm | case_accuracy | 0.60 | N/A — 10 provider errors, 0/10 measured; HTTP 401 invalid API key | Run tạm v3_B_group_openai_20260729T175408914584.json, đã xóa để tuân thủ giới hạn 2 file |
 
 ## B2. Failure analysis
 
@@ -78,7 +82,7 @@ Use actual failures from `results[*].result.failures`.
 |---|---|---|---|---|
 | G01_news_lookup | wrong_tool | lookup(query=AI model news), lookup(query=AI startup news) | Agent over-specified the query and split the request into two tool calls instead of one precise lookup | Tighten prompt/tool description to prefer one concise lookup query |
 | G02_timeline_limit | wrong_arg_value | timeline(screenname=elonmusk, limit=5) + extra social_search calls | Agent ignored the explicit limit=3 and used extra social_search calls | Strengthen tool instruction that timeline should respect the requested limit and avoid extra tools |
-| G05_confirm_before_send | wrong_boundary | clarify with wrong boundary behavior | Agent did not consistently treat send-like actions as requiring confirmation | Improve prompt to explicitly require clarification before send actions |
+| G06_multiturn_news_shift | wrong_tool | lookup(query=robotics, topic=news, timeframe=day) + lookup(query=robotics, topic=news, timeframe=week) | Agent added an extra stale-timeframe lookup | Use the latest turn's timeframe and avoid duplicate calls |
 | G10_multiturn_boundary | wrong_boundary | boundary handling did not match expected yes_no clarification | Multi-turn boundary case needed stronger confirmation behavior | Update instruction to preserve confirmation boundary across turns |
 
 List the 10 cases added to `data/eval_group.json`:
